@@ -1,0 +1,267 @@
+/* ====================== */
+/*         ASSETS         */
+/* ====================== */
+* {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    font-size: 100%;
+    background: transparent;
+    box-sizing: border-box;
+}
+a:active,
+a:hover {
+    color: #192079 !important;
+    text-decoration: none;
+}
+.clear {
+    clear: both;
+    line-height: 0;
+    font-size: 0;
+}
+* html .clearfix {
+    height: 1%;
+}
+.clearfix {
+   display: block;
+}
+body {
+    font-family: 'Montserrat', sans-serif;
+    position: relative !important;
+}
+
+.header-top{
+    border-bottom: 1px solid #eee;
+}
+header #logo {
+    background: url(/images/sleepare-tab-logo.png) no-repeat;
+    height: 66px;
+    width: 272px;
+    display: block;
+    float: right;
+    margin: 20px 30px;
+    text-indent: -9999;
+}
+html, body {margin: 0; height: 100%; overflow: hidden}
+/* width */
+.store-prod-companies::-webkit-scrollbar {
+    width: 12px;
+}
+.store-prod-companies::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey; 
+    border-radius: 15px;
+    background-color: #e1e1e1;
+    margin: 80px 0px 20px;
+}
+.store-prod-companies::-webkit-scrollbar-thumb {
+    background: #bababa; 
+    border-radius: 15px;
+}
+.store-prod-companies::-webkit-scrollbar-thumb:hover {
+    background: #999; 
+}
+.navbar-dark .navbar-nav .nav-link{
+    color: #00237e;
+}
+.store-prod-companies {
+    border-top: 2px solid #d4dee5;
+    margin: 0 auto 50px auto;
+    padding-top: 80px;
+    width: 100%; 
+    height: 500px; 
+    overflow-y: scroll;
+}
+.store-single-product {
+    background-color: #fff;
+    width: 180px;
+    height: 165px;
+    border: 1px solid #ccc;
+    border-radius: 15px;
+    box-shadow: 0 3px 15px #ccc;
+    margin-bottom: 50px;
+}
+.pane .product-item:first-child {
+    border-top: 0px;
+}
+.product-item {
+    border-top: 1px solid #ddd;
+    padding: 10px 0px 8px;
+    display: flex;
+    align-items: center;
+}
+.product-item img{
+    max-width: 61px;
+    margin-right: 20px;
+}
+.product-item p{
+    padding-top: 15px;
+}
+.product-item a{
+    display: block;
+    color:#777;
+    font-size: 22px;
+    font-weight: 300;
+    line-height: 28px;
+}
+/* Hasnat Product Popup Tab page */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 100;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.4);
+}
+.product-model .modal-content {
+    position: relative;
+    background-color: #fefefe;
+    margin: auto;
+    padding: 0;
+    border: 1px solid #888;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    animation-name: animatetop ;
+    animation-duration: 0.4s;
+}
+    /* Add Animation */
+@keyframes animatetop {
+    from {
+        top: -300px;
+            opacity: 0
+            }
+        to {
+            top: 0;
+             opacity: 1
+        }
+    }
+.product-model .modal-header {
+    padding: 0px 0px !important;
+    background-color: #fff;
+    color: #dbdbdb;
+    border-bottom: 0px solid !important; 
+}
+.product-model .modal-content {
+    width: 40%;
+}
+.product-model .close  {
+    color: #b7b7b7 !important;
+    font-size: 46px !important; 
+    font-weight: 300;
+    opacity: 1 !important;
+    padding: 15px 25px 0px !important;
+    cursor: pointer;
+}
+.product-model .showing-popup #popup {
+    -webkit-box-shadow: 0 12px 8px -8px #000;
+    box-shadow: 0 12px 8px -8px #000;
+}
+.product-model #popup {
+    padding: 30px;
+    background: #fff;
+    z-index: 100;
+    color: #192637;
+    border-radius: 150px;
+}
+.product-model .btn.btn-primary {
+    background: #00237e;
+    color: white;
+    padding: 1em 1em;
+}
+.product-model .btn.btn-primary:hover, .product-model .btn-link {
+    background: #fff;
+    color: #00237e;
+}
+.product-model .modal-content {
+    margin-top: 7%;
+}
+
+/* Hasnat Form Code */
+.form-section{
+    border-top: 2px solid #d4dee5;
+    margin: 50px auto;
+    padding-top: 50px;
+    width: 100%;     
+}
+.contact-form label{
+    font-size: 18px;
+    color: #425666;
+    font-weight: 500;
+}
+.contact-form input, .contact-form textarea {
+    border: 1px solid #C1CFDC;
+    box-shadow: 0px 1px 3px #C1CFDC;
+    width: 100%;
+    border-radius: 5px;
+    padding: 10px;
+    height: 52px;
+    margin-bottom: 30px;
+}
+.contact-form textarea {
+    min-height: 286px;
+}
+.submit-btn {
+    background-color: #192079;
+    color: #fff;
+    font-size: 20px;
+    font-weight: 500;
+    padding: 12px 50px;
+    display: inline-block;
+    border-radius: 45px;
+    transition: all .3s;
+    cursor: pointer;
+}
+.purcahse-btn {
+    background-color: orange !important;
+    margin-left: 30px;
+}
+.purcahse-btn:hover {
+    color: #fff;
+}
+.product-itemSub{
+	padding-left: 82px;
+	}
+.product-itemSub p{
+	padding-top: 0px;
+	margin-bottom:0px;
+	}
+.addAnother{
+	background-color: #666;
+	padding: 12px 25px;
+	}
+.nextStep{
+	padding: 12px 55px;
+	margin-left: 31px;
+	}
+.btnsSec a:hover{
+	color: #FFF !important;
+	}
+.timeline-item{
+	margin-top: 121px;
+	}
+.storeFrm{
+	clear: both;
+	}
+.btnGray{
+	background-color: #666 !important;
+	}
+.error{
+	color: #FF0000;
+	}
+.txtCenter{
+	text-align: center;
+	}
+.btnLogin{
+	padding: 12px 0px !important;
+	margin-right: 10px;
+	text-align: center;
+	display: block;
+	width: 150px;
+	float: left;
+	}
+.btnRed{
+	background-color: #FF0000 !important;
+	}
