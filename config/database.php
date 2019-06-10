@@ -49,7 +49,7 @@ return [
             'unix_socket' => env('DB_SOCKET', ''),
             'charset' => 'utf8mb4',
             'collation' => 'utf8mb4_unicode_ci',
-            'unix_socket' => '/Applications/XAMPP/xamppfiles/var/mysql/mysql.sock',
+            // 'unix_socket' => '/Applications/XAMPP/xamppfiles/var/mysql/mysql.sock',
             'prefix' => '',
             'strict' => true,
             'engine' => null,
