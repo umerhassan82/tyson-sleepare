@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Category extends Model
 {
-    use ModelTree, AdminBuilder;
+    use AdminBuilder;
     protected $table = 'shop_categories';
 
 }

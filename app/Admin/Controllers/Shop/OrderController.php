@@ -44,20 +44,99 @@ class OrderController extends Controller
     protected function grid()
     {
         return Admin::grid(Order::class, function (Grid $grid) {
+
             $grid->model()->orderBy('created_at', 'desc');
             $grid->id();
             $grid->first_name()->editable();
             $grid->email()->editable();
             $grid->phone()->editable();
+
+            $grid->column('Products')->display(function () {
+                $items = OrderItem::where('order_id', $this->id)->get();
+                $html = array();
+                foreach($items as $key => $item){
+                    $product = Product::find($item->product_id);
+                    $html[] =  ($key+1).": ".$product->title.' x '.($item->qty>1? $item->qty : 1);
+                }
+                if(count($html) > 0)
+                    return implode("<br />", $html);
+                else
+                    return '';
+            });
+
+            $grid->column('Size')->display(function () {
+                $items = OrderItem::where('order_id', $this->id)->get();
+                $html = array();
+                foreach($items as $key => $item){
+                    if(!empty($item->size))
+                        $html[] =  ($key+1).": ".$item->size;
+                }
+                if(count($html) > 0)
+                    return implode("<br />", $html);
+                else
+                    return '';
+            });
+
+            $grid->column('Firmness')->display(function () {
+                $items = OrderItem::where('order_id', $this->id)->get();
+                $html = array();
+                foreach($items as $key => $item){
+                    if(!empty($item->firmness))
+                        $html[] =  ($key+1).": ".$item->firmness;
+                }
+                if(count($html) > 0)
+                    return implode("<br />", $html);
+                else
+                    return '';
+
+            });
+
+            // $grid->column('Status')->display(function () {
+            //     $text = $this->tracking_receipt_status;
+
+            //     $color = '';
+            //     if (strpos($text, 'submitted') !== false) {
+            //         $color = 'd96e53'; // orange
+            //     }else if(strpos($text, 'processed') !== false){
+            //         $color = '00aeed'; // blue
+            //     }else if(strpos($text, 'sent') !== false){
+            //         $color = '457a33'; //green
+            //     }
+
+            //     return '<span style="background-color:#'.$color.';padding: 8px 15px;text-align: center;color: #fff;">'.ucfirst($this->tracking_receipt_status).'</span>';
+            // })->setAttributes(['style' => 'padding:0px;vertical-align: middle;text-align: center;']);
+
+            $grid->column('tracking_receipt_status','Status')->editable('select', [
+                'submitted' => 'Submitted',
+                'processed' => 'Processed',
+                'sent'      => 'Sent'
+            ]);
+
+            
+            $grid->column("")->display(function(){
+
+                $text = $this->tracking_receipt_status;
+                $color = '';
+                if (strpos($text, 'submitted') !== false) {
+                    $color = 'fb8801'; // orange
+                }else if(strpos($text, 'processed') !== false){
+                    $color = '00aeed'; // blue
+                }else if(strpos($text, 'sent') !== false){
+                    $color = '457a33'; //green
+                }
+                return '<span style="background-color:#'.$color.';padding: 8px 15px;text-align: center;color: #fff;"></span>';
+            });
+            
             $grid->comment()->editable();
-            // $grid->size()->display(function ($order) {
-            //     return html_entity_decode($order);
-            // });
             $grid->total()->editable();
+            
             $grid->disableExport();
             $grid->disableFilter();
-            $grid->created_at();
-            $grid->updated_at();
+
+            $grid->created_at()->display(function () {
+                return date('Y-m-d H:i A', strtotime($this->created_at));
+            });
+
 
             $grid->actions(function ($actions) {
                 $actions->disableView();
@@ -118,10 +197,14 @@ class OrderController extends Controller
             if(!empty($id)){
 
                 $items = OrderItem::where('order_id', $id)->get();
+                $order = Order::find($id);
                 $html = '';
+                $email = '';
+                $prodcts = array();
 
                 foreach($items as $item){
                     $product = Product::find($item->product_id);
+                    $prodcts[] = $product->title.' '.(!empty($item->firmness)? ", ".$item->firmness: "").' '.(!empty($item->size)? ", ".$item->size: "");
                     $html .= 
                         '<tr>
                             <td>'.$product->title.'</td>
@@ -129,6 +212,35 @@ class OrderController extends Controller
                             <td>'.$item->size.'</td>
                             <td>$'.$item->price.'</td>
                         </tr>';
+                }
+
+                $email = '
+                    <table style="width:100%;">
+                        <tr>
+                            <td style="border:1px solid #ccc; padding:10px;">1/1</td>
+                            <td style="border:1px solid #ccc; padding:10px;">'.$order->first_name.'</td>
+                            <td style="border:1px solid #ccc; padding:10px;">'.$order->last_name.'</td>
+                            <td style="border:1px solid #ccc; padding:10px;">'.implode("<br />", $prodcts).'</td>
+                            <td style="border:1px solid #ccc; padding:10px;">'.$order->email.'</td>
+                            <td style="border:1px solid #ccc; padding:10px;">'.$order->phone.'</td>
+                            <td style="border:1px solid #ccc; padding:10px;">'.$order->address.', '.$order->apartment_num.' '.$order->state.' '.$order->zipcode.'</td>
+                        </tr>
+                    </table>
+
+                ';
+
+
+                $shippingD = '';
+
+                if(!empty($order->shipping_options)){
+                    $shippingD = '<h2>Shipping Options</h2>';
+                    $json = json_decode($order->shipping_options, true);
+
+                    $shippingD .= '<h4>'.$json["label"].'</h4>';
+
+                    foreach($json["options"] as $options){
+                        $shippingD .= '<p><b>'.$options["name"].'</b>: '.$options["value"].'</p>';
+                    }
                 }
 
                 $form->html('
@@ -142,7 +254,11 @@ class OrderController extends Controller
                         </tr>
                         '.$html.'
                     </table>
+                    '.$shippingD.'
                 ');
+                
+                $form->html('<h2>Email</h2>'.$email);
+
             }
 
             $form->display('id', 'ID');
@@ -155,7 +271,7 @@ class OrderController extends Controller
             $form->text('address');
 
             $form->text('apartment_num');
-            $form->text('city');
+            $form->text('state');
             $form->text('zipcode');
             
             // $form->text('product_name');
@@ -165,14 +281,19 @@ class OrderController extends Controller
 
             $form->text('count');
             $form->text('status');
-            $form->text('tracking_receipt_status');
+            $form->select('tracking_receipt_status')
+                ->options([
+                    'submitted' => 'Submitted',
+                    'processed' => 'Processed',
+                    'sent'      => 'Sent'
+                ]);
             $form->text('assisted');
             $form->text('findus', 'How did you find us?');
 
-            $form->textarea('comment')->rows(2);;
+            $form->textarea('comment')->rows(2);
             // $form->wangeditor('order', 'Order');
             $form->display('created_at', 'Created At');
-            $form->display('updated_at', 'Updated At');
+            // $form->display('updated_at', 'Updated At');
         });
     }
 }

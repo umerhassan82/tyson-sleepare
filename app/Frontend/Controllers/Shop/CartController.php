@@ -29,6 +29,7 @@ class CartController extends Controller
             $cart_data[$item->id]['full_price'] = $item->full_price;
             $cart_data[$item->id]['firmness']   = $item->firmness;
             $cart_data[$item->id]['size']       = $item->product_size;
+            $cart_data[$item->id]['product_id'] = $item->product_id;
         }
         $total = LaraCart::total($formatted = false, $withDiscount = true);
 
@@ -66,14 +67,16 @@ class CartController extends Controller
 
         $product_price = $price;
 
+        
+        $product = Product::where('id', $product_id)->firstOrFail();
+        $new_id = rand(100, 999).$product_id;
 
-        $item = LaraCart::find(['id' => $product_id]);
-        if ( $item ) {
-            LaraCart::updateItem($item->getHash(), 'qty', $item->qty+$product_qty);
-        } else {
-            $product = Product::where('id', $product_id)->firstOrFail();
+        // $item = LaraCart::find(['id' => $new_id, 'price' => $product_price]);
+        // if ( $item ) {
+        //     LaraCart::updateItem($item->getHash(), 'qty', $item->qty+$product_qty);
+        // } else {
             LaraCart::add(
-                $product_id,
+                $new_id,
                 $product->title,
                 $product_qty,
                 $product_price,
@@ -85,10 +88,11 @@ class CartController extends Controller
                     'discount_type'     =>  $request->discountType, // 1- percent, 2- Flat
                     'full_price'        =>  $request->product_price,
                     'product_size'      =>  $request->product_size,
-                    'firmness'          =>  isset($request->fimness_level) ? $request->fimness_level : ''
+                    'firmness'          =>  (isset($request->fimness_level) ? $request->fimness_level : ''),
+                    'product_id'        =>  $product_id
                 ]
             );
-        }
+        // }
 
         return redirect('cart');
     }

@@ -10,7 +10,7 @@
             <div class="icon">
                 <i class="ion ion-bag"></i>
             </div>
-            <a href="/admin/orders" class="small-box-footer">To orders <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="/admin/shop/orders" class="small-box-footer">To orders <i class="fa fa-arrow-circle-right"></i></a>
         </div>
     </div>
     <!-- ./col -->
@@ -37,21 +37,7 @@
             <div class="icon">
                 <i class="ion ion-stats-bars"></i>
             </div>
-            <a href="/admin/products" class="small-box-footer">To products <i class="fa fa-arrow-circle-right"></i></a>
-        </div>
-    </div>
-    <!-- ./col -->
-    <div class="col-lg-12">
-        <!-- small box -->
-        <div class="small-box bg-red">
-            <div class="inner">
-                <h3><?php echo e($categories, false); ?></h3>
-                <p>Categories</p>
-            </div>
-            <div class="icon">
-                <i class="ion ion-pie-graph"></i>
-            </div>
-            <a href="/admin/categories" class="small-box-footer">To caterories <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="/admin/shop/products" class="small-box-footer">To products <i class="fa fa-arrow-circle-right"></i></a>
         </div>
     </div>
     <!-- ./col -->

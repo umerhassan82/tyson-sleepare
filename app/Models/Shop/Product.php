@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
-    use ModelTree, AdminBuilder;
+    use  AdminBuilder;
     protected $table = 'shop_products';
 
     public function categories()

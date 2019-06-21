@@ -1,4 +1,3 @@
-
 <div class="card">
     <div class="card-body">
         <div class="row">
@@ -25,7 +24,7 @@
                 </a>
             </div>
             <div class="col-md-3">
-                <b><?php echo e(link_to_route('products.show', $item['name'], [$item['id'], $item['slug']]), false); ?></b>
+                <b><?php echo e(link_to_route('products.show', $item['name'], [$item['product_id'], $item['slug']]), false); ?></b>
             </div>
             <div class="col-md-2">
                 <?php if(!empty($item['firmness'])): ?>

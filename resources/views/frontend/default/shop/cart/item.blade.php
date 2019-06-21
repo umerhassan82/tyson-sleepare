@@ -1,4 +1,3 @@
-
 <div class="card">
     <div class="card-body">
         <div class="row">
@@ -21,7 +20,7 @@
                 </a>
             </div>
             <div class="col-md-3">
-                <b>{{ link_to_route('products.show', $item['name'], [$item['id'], $item['slug']]) }}</b>
+                <b>{{ link_to_route('products.show', $item['name'], [$item['product_id'], $item['slug']]) }}</b>
             </div>
             <div class="col-md-2">
                 @if(!empty($item['firmness']))

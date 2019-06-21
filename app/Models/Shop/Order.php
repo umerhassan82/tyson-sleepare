@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
 {
-    use ModelTree, AdminBuilder;
+    use AdminBuilder;
 
     protected $table = 'shop_orders';
 
