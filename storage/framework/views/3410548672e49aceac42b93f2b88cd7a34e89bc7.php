@@ -40,12 +40,17 @@
             </div>
             <div class="col-md-4">
                 <select name="product_price" class="form-control text-center optionField">
-
+                    <?php $found = 0; ?>
                     <?php $__currentLoopData = $options; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $option): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                         <?php if(!empty($product[$option])): ?>
                            <?php
                                 if($price == 0)
                                     $price  = $product[$option];
+
+                                if($found == 0 && !empty($optionsName[$key])){
+                                    $size = $optionsName[$key];
+                                    $found = 1;
+                                }
                             ?>
                             <option data-prodname="<?php echo e($optionsName[$key], false); ?>" value="<?php echo e($product[$option], false); ?>"><?php echo e($optionsName[$key], false); ?> - $<?php echo e($product[$option], false); ?></option>
                         <?php endif; ?>
@@ -103,7 +108,7 @@
         </div>
         <?php echo e(Form::hidden('product_id', $product->id), false); ?>
 
-        <input type="hidden" name="product_size" id="product_size" class="form-control" />
+         <input type="hidden" name="product_size" id="product_size" value="<?php echo e($size, false); ?>" class="form-control" />
         <?php echo csrf_field(); ?>
         <?php echo e(Form::close(), false); ?>
 

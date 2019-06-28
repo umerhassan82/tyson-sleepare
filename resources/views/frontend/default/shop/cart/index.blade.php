@@ -60,7 +60,7 @@
 
             <div class="row mb-3">
                 <div class="col">
-                    <div class="col-lg-12"><b>First Name*</b></div>
+                    <div class="col-lg-12"><b>First Name<span style="color:red;">*</span></b></div>
                     <div class="col-md-12">
                         <input type="text" name="f_name" value="{{ isset($fsession['f_name'])?$fsession['f_name']:'' }}" class="form-control" required>
                     </div>
@@ -90,7 +90,7 @@
 
             <div class="row mb-3">
                 <div class="col">
-                    <div class="col-lg-12"><b>Telephone#</b></div>
+                    <div class="col-lg-12"><b>Telephone#<span style="color:red;">*</span></b></div>
                     <div class="col-md-12">
                         <input type="text" name="mobile_num" value="{{ isset($fsession['mobile_num'])?$fsession['mobile_num']:'' }}" class="form-control" required>
                     </div>
@@ -206,10 +206,10 @@
                             <br />
                             <b>Is there a specific time you prefer?</b>
                             <div class="d-flex align-items-center justify-content-start preferTimeCheck pt-2">
-                                <label><input type="radio" name="option-7" value="yes" class="m-1"><span>Yes</span></label>
-                                <label><input type="radio" name="option-7" value="no" class="m-1 ml-3"><span>No</span></label>
+                                <label><input type="radio" name="option-7-1" value="yes" class="m-1"><span>Yes</span></label>
+                                <label><input type="radio" name="option-7-1" value="no" class="m-1 ml-3"><span>No</span></label>
                             </div>
-                            <select name="option-7-1" class="form-control preferTime">
+                            <select name="option-7-2" class="form-control preferTime">
                                 <option value="morning">Morning</option>
                                 <option value="afternoon">Afternoon</option>
                             </select>

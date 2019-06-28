@@ -47,12 +47,24 @@ class ProductController extends Controller
 //            $grid->disableBatchDeletion();
             $grid->disableExport();
 //            $grid->disableCreation();
-            $grid->disableFilter();
+            // $grid->disableFilter();
             $grid->created_at();
             $grid->updated_at();
             $grid->actions(function ($actions) {
                 $actions->prepend('<a href="/'.$actions->row->id.'-'.$actions->row->slug.'" target="_blank"><i class="fa fa-eye"></i></a>');
                 $actions->disableView();
+            });
+
+            $grid->filter(function($filter){
+
+                // Remove the default id filter
+                $filter->disableIdFilter();
+            
+                // Add a column filter
+                $filter->like('title', 'title');
+
+                $filter->scope('trashed', 'Trashed')->onlyTrashed();
+            
             });
         });
     }

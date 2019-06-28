@@ -39,12 +39,17 @@
             </div>
             <div class="col-md-4">
                 <select name="product_price" class="form-control text-center optionField">
-
+                    <?php $found = 0; ?>
                     @foreach($options as $key => $option)
                         @if(!empty($product[$option]))
                            <?php
                                 if($price == 0)
                                     $price  = $product[$option];
+
+                                if($found == 0 && !empty($optionsName[$key])){
+                                    $size = $optionsName[$key];
+                                    $found = 1;
+                                }
                             ?>
                             <option data-prodname="{{ $optionsName[$key] }}" value="{{ $product[$option] }}">{{$optionsName[$key]}} - ${{ $product[$option] }}</option>
                         @endif
@@ -99,7 +104,7 @@
             </div>
         </div>
         {{ Form::hidden('product_id', $product->id) }}
-        <input type="hidden" name="product_size" id="product_size" class="form-control" />
+         <input type="hidden" name="product_size" id="product_size" value="{{ $size }}" class="form-control" />
         @csrf
         {{ Form::close() }}
 

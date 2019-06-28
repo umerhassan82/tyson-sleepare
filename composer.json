@@ -13,6 +13,7 @@
         "intervention/image": "2.4.2",
         "laravel-admin-ext/backup": "v1.0.2",
         "laravel-admin-ext/config": "v1.0.1",
+        "google/apiclient": "^2.0",
         "laravel-admin-ext/media-manager": "v1.0.1",
         "laravel/framework": "5.7.4",
         "laravel/tinker": "^1.0",
@@ -63,6 +64,13 @@
             "@php artisan package:discover"
         ]
     },
+    "repositories": [
+        {
+             "type": "composer", 
+             "url": "https://packagist.org"
+        },
+        { "packagist": false }
+    ],
     "config": {
         "preferred-install": "dist",
         "sort-packages": true,

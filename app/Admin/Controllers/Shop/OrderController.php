@@ -131,12 +131,28 @@ class OrderController extends Controller
             $grid->total()->editable();
             
             $grid->disableExport();
-            $grid->disableFilter();
+            //$grid->disableFilter();
 
+            $grid->origin("From")->display(function () {
+                return ucfirst($this->origin);
+            });
+            
             $grid->created_at()->display(function () {
                 return date('Y-m-d H:i A', strtotime($this->created_at));
             });
 
+            $grid->filter(function($filter){
+
+                // Remove the default id filter
+                $filter->disableIdFilter();
+            
+                // Add a column filter
+                $filter->like('first_name', 'first_name');
+
+                $filter->scope('trashed', 'Trashed')->onlyTrashed();
+            
+            });
+            
 
             $grid->actions(function ($actions) {
                 $actions->disableView();
@@ -232,14 +248,53 @@ class OrderController extends Controller
 
                 $shippingD = '';
 
-                if(!empty($order->shipping_options)){
+                // if(!empty($order->shipping_options)){
+                //     $shippingD = '<h2>Shipping Options</h2>';
+                //     $json = json_decode($order->shipping_options, true);
+
+                //     $shippingD .= '<h4>'.$json["label"].'</h4>';
+
+                //     foreach($json["options"] as $options){
+                //         $shippingD .= '<p><b>'.$options["name"].'</b>: '.$options["value"].'</p>';
+                //     }
+                // }
+
+                // echo($order->shipping_type);
+
+                if(!empty($order->shipping_type)){
                     $shippingD = '<h2>Shipping Options</h2>';
-                    $json = json_decode($order->shipping_options, true);
-
-                    $shippingD .= '<h4>'.$json["label"].'</h4>';
-
-                    foreach($json["options"] as $options){
-                        $shippingD .= '<p><b>'.$options["name"].'</b>: '.$options["value"].'</p>';
+                    switch($order->shipping_type){
+                        case 1:
+                            $shippingD .= '<h4>Regular shipping immediatly</h4>';
+                            $shippingD .= '<p><b>Assembly</b>: '.($order->option_1_1 == 1? "Yes" : "No").'</p>';
+                            $shippingD .= '<p><b>Mattress Removal</b>: '.($order->option_1_2 == 1? "Yes" : "No").'</p>';
+                        break;
+                        case 2:
+                            $shippingD .= '<h4>White Glove shipping immediately</h4>';
+                            $shippingD .= '<p><b>Assembly</b>: '.($order->option_2_1 == 1? "Yes" : "No").'</p>';
+                        break;
+                        case 3:
+                            $shippingD .= '<h4>Picked up</h4>';
+                            $shippingD .= '<p><b>Picked up</b>: '.$order->option_3_1.'</p>';
+                        break;
+                        case 4:
+                            $shippingD .= '<h4>Will Pick up</h4>';
+                            $shippingD .= '<p><b>Product in stock</b>: '.($order->option_4_1 == 1? "Yes" : "No").'</p>';
+                        break;
+                        case 5:
+                            $shippingD .= '<h4>Partly Pick up</h4>';
+                            $shippingD .= '<p><b>Please specify what was picked up and suppose to be ordered</b>: '.$order->option_5_1.'</p>';
+                        break;
+                        case 6:
+                            $shippingD .= '<h4>Delayed - Regular</h4>';
+                            $shippingD .= '<p><b>Please enter the first day when you will be ready to receive the product</b>: '.$order->option_6_1.'</p>';
+                        break;
+                        case 7:
+                            $shippingD .= '<h4>Delayed - White Glove</h4>';
+                            $shippingD .= '<p><b>Please choose a date to deliver</b>: '.$order->option_7_1.'</p>';
+                            $shippingD .= '<p><b>Is there a specific time you prefer?</b>: '.($order->option_7_2 == 1? "Yes" : "No").'</p>';
+                            $shippingD .= '<p><b>Morning/Afternoon</b>: '.$order->option_7_3.'</p>';
+                        break;
                     }
                 }
 
@@ -258,14 +313,55 @@ class OrderController extends Controller
                 ');
                 
                 $form->html('<h2>Email</h2>'.$email);
-
             }
+
+            $form->divider();
+
+            $form->select('shipping_type')
+                ->options([
+                    '0'  => 'Choose Option',
+                    '1'  => 'Regular shipping immediatly',
+                    '2'  => 'White Glove shipping immediately',
+                    '3'  => 'Picked up',
+                    '4'  => 'Will Pick up',
+                    '5'  => 'Partly Pick up',
+                    '6'  => 'Delayed - Regular',
+                    '7'  => 'Delayed - White Glove',
+                ]);
+
+
+            $form->switch('option_1_1', 'Assembly');
+            $form->switch('option_1_2', "Mattress Removal");
+        
+            $form->switch('option_2_1','Assembly');
+
+            $form->text('option_3_1','Picked up')->default('Print Receipt with delivered certificate');
+            
+
+            $form->switch('option_4_1', "Product in stock");
+
+            $form->text('option_5_1','Please specify what was picked up and suppose to be ordered')->setGroupClass("test");
+
+            $form->date('option_6_1',"Please enter the first day when you will be ready to receive the product");
+
+            $form->date('option_7_1', "Please choose a date to deliver");
+            $form->switch('option_7_2', "Is there a specific time you prefer?");
+            $form->select('option_7_3', "Morning/Afternoon")
+                ->options([
+                    'morning' => 'Morning',
+                    'afternoon' => 'Afternoon'
+                ]);
+
+
+            $form->divider();
+
 
             $form->display('id', 'ID');
             $form->text('first_name');
             $form->text('last_name');
             $form->text('clover_trans_num');
             $form->text('email');
+
             $form->text('phone');
             $form->text('total');
             $form->text('address');
@@ -274,11 +370,6 @@ class OrderController extends Controller
             $form->text('state');
             $form->text('zipcode');
             
-            // $form->text('product_name');
-            // $form->text('additional_products');
-            // $form->text('size');
-            // $form->text('firmness');
-
             $form->text('count');
             $form->text('status');
             $form->select('tracking_receipt_status')
@@ -294,6 +385,16 @@ class OrderController extends Controller
             // $form->wangeditor('order', 'Order');
             $form->display('created_at', 'Created At');
             // $form->display('updated_at', 'Updated At');
+
+            // $form->submitted(function (Form $form) {
+            //     $form->ignore(['option_1', 'option-2', 'option-3', 'option-4', 'option-5', 'option-6', 'option-7']);
+            // });
+            // $form->saving(function (Form $form) {
+            //     // $form->ignore(['option-1', 'option-2', 'option-3', 'option-4', 'option-5', 'option-6', 'option-7']);
+            //     $value = $form->option_1;
+            //     // dd($value);
+            // });
+
         });
     }
 }

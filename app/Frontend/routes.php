@@ -23,6 +23,10 @@ Route::group(['middleware' => 'shop'], function () {
     Route::post('/purchase', 'Frontend\HomeController@purchase');
     Route::post('/sendmail', 'Frontend\HomeController@sendmail');
 
+    Route::get('/read/gmail', ['as' => '/read/gmail', 'uses' => 'GoogleController@sendReceipt']);
+
+    Route::get('/track/order', ['as' => '/track/order', 'uses' => 'GoogleController@trackOrder']);
+
     // Route::get('/test', function() {
     //     $dt = date('Y-m-d G:i:s', strtotime('2019-06-09 21:43:38' . '-4 hours'));
     //     return $dt; //Return anything
