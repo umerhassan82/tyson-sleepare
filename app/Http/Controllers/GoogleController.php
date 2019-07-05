@@ -72,8 +72,8 @@ class GoogleController extends Controller
         $client = $this->getClient();
         $service = new \Google_Service_Gmail($client);
 
-        $orders = Order::where("tracking_receipt_status", "processed")->where("receipt_status_gmail", "!=" , 2)->get();
-        $date = date( 'Y/m/d', strtotime( '-11 day' ));
+        $orders = Order::where("receipt_status_gmail", "!=" , 1)->get();
+        $date = date( 'Y/m/d', strtotime( '-1 day' ));
         
         $pageToken  = NULL;
         $messages   = array();
@@ -88,7 +88,7 @@ class GoogleController extends Controller
 
 
             $queries = array(
-                "brooklyn" => "from:(sales@brooklynbeddingwholesale.com) ".$customerName." after:".$date,
+                "brooklyn" => "from:(tracking@shipstation.com) ".$customerName." after:".$date,
                 "bear"     => "from:(shanir@sleepare.com) Fwd: Bear Mattress Order ".$customerName." after:".$date
             );
 
@@ -125,17 +125,39 @@ class GoogleController extends Controller
                                         $body = str_replace('dir="rtl"', 'dir="ltr"', $body);
                                     } // end if
 
-                                    $order_id = $body;
+                                    $emailBody = $body;
 
-                                    $start = '">#';
-                                    $end = '</span>';
-                                    $order_number = $this->getBetween($body, $start, $end);
-                                    // echo($order_number);
+                                    $empID = 'Sleepare';
+                                    $emailFrom = 'info@sleepare.com';
+                                    $password = 'z*S&E38CVtzA';
+                                    $sendTo = $order->email;
 
+                                    $txt = $emailBody;
 
-                                    $emailBody = view("frontend.default.email.brooklyn", compact('order', 'order_number'));
-            
-                                    echo($emailBody);
+                                    $mail = new PHPMailer(true);                          // Passing `true` enables exceptions
+                                    $mail->isSMTP();                                      // Set mailer to use SMTP
+                                    $mail->Host = 'smtp.gmail.com';                       // Specify main and backup server
+                                    $mail->SMTPAuth = true;                               // Enable SMTP authentication
+                                    $mail->Username = $emailFrom;                		  // SMTP username
+                                    $mail->Password = $password;              		 	  // SMTP password
+                                    $mail->SMTPSecure = 'ssl';                            // Enable encryption, 'ssl' also accepted
+                                    $mail->Port = 465;                                    // Set the SMTP port number - 587 for authenticated TLS
+                                    $mail->setFrom($emailFrom, $empID);   	 	  		  // Set who the message is to be sent from
+                                    $mail->addAddress($sendTo, $order->first_name);	  	  // Add a recipient
+                                    // $mail->addCC($to);
+                                    $mail->isHTML(true);                                  // Set email format to HTML
+                                    $mail->Subject = $customerName.' your order has shipped!';
+                                    $mail->Body    = $txt;
+
+                                    if(!$mail->send()) {
+                                        return '<h1>Message could not be sent.<br />Mailer Error: ' . $mail->ErrorInfo.'</h1>';
+                                    }
+
+                                    $updateOrder = Order::find($order->id);
+                                    $updateOrder->receipt_status_gmail = 1;
+                                    $updateOrder->tracking_receipt_status = 'processed';
+                                    $updateOrder->save();
+
 
                                 break; //end brooklyn
                                 // case "bear":

@@ -1,7 +1,10 @@
 {
     "name": "laravel/laravel",
     "description": "The Laravel Framework.",
-    "keywords": ["framework", "laravel"],
+    "keywords": [
+        "framework",
+        "laravel"
+    ],
     "license": "MIT",
     "type": "project",
     "require": {
@@ -15,7 +18,7 @@
         "laravel-admin-ext/config": "v1.0.1",
         "google/apiclient": "^2.0",
         "laravel-admin-ext/media-manager": "v1.0.1",
-        "laravel/framework": "5.7.4",
+        "laravel/framework": "^5.8.0",
         "laravel/tinker": "^1.0",
         "laravelcollective/html": "v5.7.1",
         "lavary/laravel-menu": "1.6.0",
@@ -48,8 +51,7 @@
     },
     "extra": {
         "laravel": {
-            "dont-discover": [
-            ]
+            "dont-discover": []
         }
     },
     "scripts": {
@@ -66,10 +68,12 @@
     },
     "repositories": [
         {
-             "type": "composer", 
-             "url": "https://packagist.org"
+            "type": "composer",
+            "url": "https://packagist.org"
         },
-        { "packagist": false }
+        {
+            "packagist": false
+        }
     ],
     "config": {
         "preferred-install": "dist",

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Shop\Product;
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
+use App\Models\Shop\ShopBrands;
 
 class HomeController extends Controller
 {
@@ -23,7 +24,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('frontend.'.config('template').'.home', ['products' => Product::where('status', 1)->limit(3)->get(), 'breadcrumbs' => 'home']);
+        $brands = ShopBrands::all();
+        return view('frontend.'.config('template').'.home', ['products' => Product::where('status', 1)->limit(3)->get(), 'breadcrumbs' => 'home', 'brands' => $brands]);
     }
 
     public function checkmail(Request $request){

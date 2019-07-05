@@ -25,6 +25,8 @@ Route::group(['middleware' => 'shop'], function () {
 
     Route::get('/read/gmail', ['as' => '/read/gmail', 'uses' => 'GoogleController@sendReceipt']);
 
+    Route::Post("/api/clover/item/add", "CloverController@add");
+
     Route::get('/track/order', ['as' => '/track/order', 'uses' => 'GoogleController@trackOrder']);
 
     // Route::get('/test', function() {

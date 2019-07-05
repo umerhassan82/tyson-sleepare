@@ -126,6 +126,49 @@ class OrderController extends Controller
                 }
                 return '<span style="background-color:#'.$color.';padding: 8px 15px;text-align: center;color: #fff;"></span>';
             });
+
+
+            $grid->column("Shipping Options")->display(function(){
+                $shippingD = '';
+                if(!empty($this->shipping_type)){
+                    switch($this->shipping_type){
+                        case 1:
+                            $shippingD .= '<h4>Regular shipping immediatly</h4>';
+                            $shippingD .= '<p><b>Assembly</b>: '.($this->option_1_1 == 1? "Yes" : "No").'</p>';
+                            $shippingD .= '<p><b>Mattress Removal</b>: '.($this->option_1_2 == 1? "Yes" : "No").'</p>';
+                        break;
+                        case 2:
+                            $shippingD .= '<h4>White Glove shipping immediately</h4>';
+                            $shippingD .= '<p><b>Assembly</b>: '.($this->option_2_1 == 1? "Yes" : "No").'</p>';
+                        break;
+                        case 3:
+                            $shippingD .= '<h4>Picked up</h4>';
+                            $shippingD .= '<p><b>Picked up</b>: '.$this->option_3_1.'</p>';
+                        break;
+                        case 4:
+                            $shippingD .= '<h4>Will Pick up</h4>';
+                            $shippingD .= '<p><b>Product in stock</b>: '.($this->option_4_1 == 1? "Yes" : "No").'</p>';
+                        break;
+                        case 5:
+                            $shippingD .= '<h4>Partly Pick up</h4>';
+                            $shippingD .= '<p><b>Please specify what was picked up and suppose to be ordered</b>: '.$this->option_5_1.'</p>';
+                        break;
+                        case 6:
+                            $shippingD .= '<h4>Delayed - Regular</h4>';
+                            $shippingD .= '<p><b>Please enter the first day when you will be ready to receive the product</b>: '.$this->option_6_1.'</p>';
+                        break;
+                        case 7:
+                            $shippingD .= '<h4>Delayed - White Glove</h4>';
+                            $shippingD .= '<p><b>Please choose a date to deliver</b>: '.$this->option_7_1.'</p>';
+                            $shippingD .= '<p><b>Is there a specific time you prefer?</b>: '.($this->option_7_2 == 1? "Yes" : "No").'</p>';
+                            $shippingD .= '<p><b>Morning/Afternoon</b>: '.$this->option_7_3.'</p>';
+                        break;
+                    }
+                }
+
+                return $shippingD;
+            });
+
             
             $grid->comment()->editable();
             $grid->total()->editable();

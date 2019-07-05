@@ -8,6 +8,7 @@ use Encore\Admin\Facades\Admin;
 use Encore\Admin\Layout\Content;
 use Encore\Admin\Controllers\ModelForm;
 use Encore\Admin\Tree;
+
 class CategoryController extends Controller
 {
     use ModelForm;
@@ -24,7 +25,7 @@ class CategoryController extends Controller
                 ['text' => 'Shop'],
                 ['text' => 'Categories', 'url' => '/shop/categories']
             );
-            $content->body($this->tree());
+            $content->body($this->grid());
         });
     }
     /**
@@ -67,6 +68,21 @@ class CategoryController extends Controller
      *
      * @return Tree
      */
+
+    protected function grid()
+    {
+        return Admin::grid(Category::class, function (Grid $grid) {
+            $grid->model()->orderBy('created_at', 'desc');
+            $grid->id();
+            $grid->title()->editable();
+            $grid->slug()->editable();
+
+            $grid->disableExport();
+
+        });
+    }
+
+
     protected function tree()
     {
         return Category::tree(function (Tree $tree) {
@@ -89,13 +105,13 @@ class CategoryController extends Controller
     {
         return Category::form(function (Form $form) {
             $form->display('id', 'ID');
-            $form->select('parent_id')->options(Category::selectOptions());
+            // $form->select('parent_id')->options(Category::selectOptions());
             $form->text('title')->rules('required');
             $form->text('slug')->rules('required');
-            $form->textarea('fulldesc', 'Description')->rules('required');
-            $form->image('logo');
-            $form->textarea('meta_desc', 'Meta Description')->rows(2);
-            $form->textarea('meta_key', 'Meta Keywords')->rows(2);
+            // $form->textarea('fulldesc', 'Description')->rules('required');
+            // $form->image('logo');
+            // $form->textarea('meta_desc', 'Meta Description')->rows(2);
+            // $form->textarea('meta_key', 'Meta Keywords')->rows(2);
             $form->display('created_at', 'Created At');
             $form->display('updated_at', 'Updated At');
         });

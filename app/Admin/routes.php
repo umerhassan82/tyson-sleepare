@@ -21,4 +21,8 @@ Route::group([
    
    $router->resource('order/items', OrderItemController::class);
 
+   $router->resource('shop/brands', BrandController::class);
+   
+   $router->resource('shop/home/products', HomeProductController::class);
+
 });
