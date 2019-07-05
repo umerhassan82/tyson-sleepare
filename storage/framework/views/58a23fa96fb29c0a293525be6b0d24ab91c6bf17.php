@@ -16,10 +16,10 @@
 
         </div>
         <?php if( $grid->showTools() ): ?>
-        <span>
+        <div class="pull-left">
             <?php echo $grid->renderHeaderTools(); ?>
 
-        </span>
+        </div>
         <?php endif; ?>
     </div>
     <?php endif; ?>
@@ -31,12 +31,12 @@
 
 
     <!-- /.box-header -->
-    <div class="box-body table-responsive no-padding">
-        <table class="table table-hover">
+    <div class="box-body no-padding">
+        <table class="table table-hover" id="<?php echo e($grid->tableID, false); ?>">
             <thead>
                 <tr>
                     <?php $__currentLoopData = $grid->visibleColumns(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $column): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                    <th><?php echo e($column->getLabel(), false); ?><?php echo $column->sorter(); ?></th>
+                    <th class="column-<?php echo $column->getName(); ?>"><?php echo e($column->getLabel(), false); ?><?php echo $column->renderHeader(); ?></th>
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 </tr>
             </thead>
@@ -45,7 +45,7 @@
                 <?php $__currentLoopData = $grid->rows(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $row): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                 <tr <?php echo $row->getRowAttributes(); ?>>
                     <?php $__currentLoopData = $grid->visibleColumnNames(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $name): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                    <td <?php echo $row->getColumnAttributes($name); ?>>
+                    <td <?php echo $row->getColumnAttributes($name); ?> class="column-<?php echo $name; ?>">
                         <?php echo $row->column($name); ?>
 
                     </td>
@@ -53,6 +53,10 @@
                 </tr>
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             </tbody>
+
+            <?php echo $grid->renderTotalRow(); ?>
+
+
         </table>
 
     </div>
