@@ -104,16 +104,24 @@ class CategoryController extends Controller
     protected function form()
     {
         return Category::form(function (Form $form) {
+
             $form->display('id', 'ID');
             // $form->select('parent_id')->options(Category::selectOptions());
             $form->text('title')->rules('required');
-            $form->text('slug')->rules('required');
+            $form->text('slug');
+
+            $form->saving(function (Form $form) {
+                $form->slug = str_slug($form->title, '-');
+            });
+            
             // $form->textarea('fulldesc', 'Description')->rules('required');
             // $form->image('logo');
             // $form->textarea('meta_desc', 'Meta Description')->rows(2);
             // $form->textarea('meta_key', 'Meta Keywords')->rows(2);
+
             $form->display('created_at', 'Created At');
             $form->display('updated_at', 'Updated At');
+
         });
     }
 }
