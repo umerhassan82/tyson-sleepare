@@ -164,7 +164,7 @@ class HomeController extends Controller
                 else if($myProduct === "avocado")
                     $myProductUrl = 'https://shareasale.com/r.cfm?b=939087&u=1718190&m=68778&urllink=&afftrack=';
 
-                $servername = "localhost";
+                $servername = "127.0.0.1";
                 $username 	= "sleepmag_store";
                 $password 	= "(hS63x-p87";
                 $dbname 	= "sleepmag_store";
