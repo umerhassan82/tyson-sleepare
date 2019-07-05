@@ -47,15 +47,14 @@ class ProductController extends Controller
 //            $grid->disableBatchDeletion();
             $grid->disableExport();
 //            $grid->disableCreation();
-            // $grid->disableFilter();
+            //$grid->disableFilter();
             $grid->created_at();
             $grid->updated_at();
             $grid->actions(function ($actions) {
                 $actions->prepend('<a href="/'.$actions->row->id.'-'.$actions->row->slug.'" target="_blank"><i class="fa fa-eye"></i></a>');
                 $actions->disableView();
             });
-
-            $grid->filter(function($filter){
+           $grid->filter(function($filter){
 
                 // Remove the default id filter
                 $filter->disableIdFilter();
@@ -115,7 +114,12 @@ class ProductController extends Controller
         return Product::form(function (Form $form) {
             $form->display('id', 'ID');
             $form->text('title')->rules('required');
-            $form->text('slug')->rules('required');
+            $form->text('slug');
+
+            $form->saving(function (Form $form) {
+                $form->slug = str_slug($form->title, '-');
+            });
+
             $form->select('cat_id', 'Category')->options(Category::all()->pluck('title','id'));
 
             $form->text('twin');
@@ -133,7 +137,7 @@ class ProductController extends Controller
             $form->text('cost');
             $form->textarea('meta_desc', 'Meta Description')->rows(2);
             $form->textarea('meta_key', 'Meta Keywords')->rows(2);
-            $form->switch('status', 'Active');
+            //$form->switch('status', 'Active');
             $form->display('created_at', 'Created At');
             $form->display('updated_at', 'Updated At');
         });

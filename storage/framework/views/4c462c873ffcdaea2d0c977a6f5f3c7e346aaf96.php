@@ -13,7 +13,7 @@
             <?php $__currentLoopData = $breadcrumb; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                 <?php if($loop->last): ?>
                     <li class="active">
-                        <?php if(array_has($item, 'icon')): ?>
+                        <?php if(\Illuminate\Support\Arr::has($item, 'icon')): ?>
                             <i class="fa fa-<?php echo e($item['icon'], false); ?>"></i>
                         <?php endif; ?>
                         <?php echo e($item['text'], false); ?>
@@ -21,8 +21,8 @@
                     </li>
                 <?php else: ?>
                 <li>
-                    <a href="<?php echo e(admin_url(array_get($item, 'url')), false); ?>">
-                        <?php if(array_has($item, 'icon')): ?>
+                    <a href="<?php echo e(admin_url(\Illuminate\Support\Arr::get($item, 'url')), false); ?>">
+                        <?php if(\Illuminate\Support\Arr::has($item, 'icon')): ?>
                             <i class="fa fa-<?php echo e($item['icon'], false); ?>"></i>
                         <?php endif; ?>
                         <?php echo e($item['text'], false); ?>

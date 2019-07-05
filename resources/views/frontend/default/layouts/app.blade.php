@@ -109,7 +109,6 @@
             $(".sub-option").hide();
             $("#sub-option-"+getValue).show();
         });
-        
     });
 
     var placeSearch, autocomplete;

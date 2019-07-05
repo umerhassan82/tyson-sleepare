@@ -6,6 +6,11 @@
   <title><?php echo e(config('admin.title'), false); ?> | <?php echo e(trans('admin.login'), false); ?></title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  
+  <?php if(!is_null($favicon = Admin::favicon())): ?>
+  <link rel="shortcut icon" href="<?php echo e($favicon, false); ?>">
+  <?php endif; ?>
+
   <!-- Bootstrap 3.3.5 -->
   <link rel="stylesheet" href="<?php echo e(admin_asset("vendor/laravel-admin/AdminLTE/bootstrap/css/bootstrap.min.css"), false); ?>">
   <!-- Font Awesome -->
