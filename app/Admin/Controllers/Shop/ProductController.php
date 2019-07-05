@@ -114,7 +114,12 @@ class ProductController extends Controller
         return Product::form(function (Form $form) {
             $form->display('id', 'ID');
             $form->text('title')->rules('required');
-            $form->text('slug')->rules('required');
+            $form->text('slug');
+
+            $form->saving(function (Form $form) {
+                $form->slug = str_slug($form->title, '-');
+            });
+
             $form->select('cat_id', 'Category')->options(Category::all()->pluck('title','id'));
 
             $form->text('twin');
