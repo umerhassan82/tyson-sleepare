@@ -1,4 +1,4 @@
-<div class="btn-group" style="margin-right: 10px" data-toggle="buttons">
+<div class="btn-group" style="margin-right: 5px" data-toggle="buttons">
     <label class="btn btn-sm btn-dropbox <?php echo e($btn_class, false); ?> <?php echo e($expand ? 'active' : '', false); ?>" title="<?php echo e(trans('admin.filter'), false); ?>">
         <input type="checkbox"><i class="fa fa-filter"></i><span class="hidden-xs">&nbsp;&nbsp;<?php echo e(trans('admin.filter'), false); ?></span>
     </label>

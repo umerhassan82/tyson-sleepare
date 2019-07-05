@@ -10,7 +10,7 @@
                 <?php if(Lang::has($titleTranslation = 'admin.menu_titles.' . trim(str_replace(' ', '_', strtolower($item['title']))))): ?>
                     <span><?php echo e(__($titleTranslation), false); ?></span>
                 <?php else: ?>
-                    <span><?php echo e($item['title'], false); ?></span>
+                    <span><?php echo e(admin_trans($item['title']), false); ?></span>
                 <?php endif; ?>
             </a>
         </li>
@@ -21,7 +21,7 @@
                 <?php if(Lang::has($titleTranslation = 'admin.menu_titles.' . trim(str_replace(' ', '_', strtolower($item['title']))))): ?>
                     <span><?php echo e(__($titleTranslation), false); ?></span>
                 <?php else: ?>
-                    <span><?php echo e($item['title'], false); ?></span>
+                    <span><?php echo e(admin_trans($item['title']), false); ?></span>
                 <?php endif; ?>
                 <i class="fa fa-angle-left pull-right"></i>
             </a>

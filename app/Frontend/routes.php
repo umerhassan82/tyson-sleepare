@@ -11,30 +11,13 @@ Route::group(['middleware' => 'shop'], function () {
     Route::get('/', ['as' => 'home', 'uses' => 'Frontend\HomeController@index']);
     Route::get('/test/curl', ['as' => '/test/curl', 'uses' => 'Frontend\HomeController@testCurl']);
 
-    Route::get('/clear-cache', function() {
-     	$exitCode = Artisan::call('config:clear');
+       Route::get('/clear-cache', function() {
+     		$exitCode = Artisan::call('config:clear');
 		$exitCode = Artisan::call('cache:clear');
 		$exitCode = Artisan::call('route:clear');
 		$exitCode = Artisan::call('config:cache');
 		return 'DONE'; //Return anything
-    });
-
-    Route::post('/checkmail', 'Frontend\HomeController@checkmail');
-    Route::post('/purchase', 'Frontend\HomeController@purchase');
-    Route::post('/sendmail', 'Frontend\HomeController@sendmail');
-
-    Route::get('/read/gmail', ['as' => '/read/gmail', 'uses' => 'GoogleController@sendReceipt']);
-
-    Route::Post("/api/clover/item/add", "CloverController@add");
-
-    Route::get('/track/order', ['as' => '/track/order', 'uses' => 'GoogleController@trackOrder']);
-
-    // Route::get('/test', function() {
-    //     $dt = date('Y-m-d G:i:s', strtotime('2019-06-09 21:43:38' . '-4 hours'));
-    //     return $dt; //Return anything
-    // });
-
-    // Route::get('/changedate', ['as' => '/changedate', 'uses' => 'CheckoutController@changeDate']);
+	});
 
     Route::post('checkout', ['as' => 'checkout', 'uses' => 'CheckoutController@proceedPayment']);
    
@@ -61,3 +44,7 @@ Route::group(['middleware' => 'shop'], function () {
     Route::get('{path}', ['as' => 'categories.show', 'uses' => 'Frontend\Shop\CategoryController@show'])->where('path', '[a-zA-Z0-9/_-]+');
 
 });
+
+    Route::post('/checkmail', 'Frontend\HomeController@checkmail');
+    Route::post('/purchase', 'Frontend\HomeController@purchase');
+    Route::post('/sendmail', 'Frontend\HomeController@sendmail');

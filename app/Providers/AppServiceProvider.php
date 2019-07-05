@@ -18,6 +18,7 @@ class AppServiceProvider extends ServiceProvider
 //        $callback = function () {
 //            return false;
 //        };
+
         Schema::defaultStringLength(191);
 
         // $this->app->bind('path.public', function() {

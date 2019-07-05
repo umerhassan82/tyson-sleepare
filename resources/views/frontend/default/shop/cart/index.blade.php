@@ -206,10 +206,10 @@
                             <br />
                             <b>Is there a specific time you prefer?</b>
                             <div class="d-flex align-items-center justify-content-start preferTimeCheck pt-2">
-                                <label><input type="radio" name="option-7-1" value="yes" class="m-1"><span>Yes</span></label>
-                                <label><input type="radio" name="option-7-1" value="no" class="m-1 ml-3"><span>No</span></label>
+                                <label><input type="radio" name="option-7" value="yes" class="m-1"><span>Yes</span></label>
+                                <label><input type="radio" name="option-7" value="no" class="m-1 ml-3"><span>No</span></label>
                             </div>
-                            <select name="option-7-2" class="form-control preferTime">
+                            <select name="option-7-1" class="form-control preferTime">
                                 <option value="morning">Morning</option>
                                 <option value="afternoon">Afternoon</option>
                             </select>
