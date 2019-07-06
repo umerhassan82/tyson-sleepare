@@ -50,7 +50,7 @@ headers: {
 							</div>
 						</nav>
 					</div>
-					<a href="http://newyork.sleepare.com/" id="logo">SleepAre</a>
+					<!-- <a href="http://newyork.sleepare.com/" id="logo">SleepAre</a> -->
 				</div>
 			</div>
 		</header>
