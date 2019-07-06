@@ -164,13 +164,15 @@ class HomeController extends Controller
                 else if($myProduct === "avocado")
                     $myProductUrl = 'https://shareasale.com/r.cfm?b=939087&u=1718190&m=68778&urllink=&afftrack=';
 
-                $servername = "localhost";
+                $servername = "185.56.87.173";
                 $username 	= "sleepmag_store";
-                $password 	= "(hS63x-p87";
+                $passworddb = "(hS63x-p87";
                 $dbname 	= "sleepmag_store";
+                $db_port    = '3306';
                 
-                // Create connection
-                $conn = new \mysqli($servername, $username, $password, $dbname);
+                //Create connection
+                // $conn = new \mysqli($servername, $username, $passworddb, $dbname);
+                $conn = mysqli_connect($servername, $username, $passworddb, $dbname, $db_port) or die ('I cannot connect to the database because');
                 // Check connection
                 if ($conn->connect_error) {
                     die("Connection failed: " . $conn->connect_error);
@@ -373,13 +375,15 @@ class HomeController extends Controller
                         $password = 'leH48TkyupQw';
                     }
                 }
-                $servername = "localhost";
+                $servername = "185.56.87.173";
                 $username 	= "sleepmag_store";
                 $passworddb = "(hS63x-p87";
                 $dbname 	= "sleepmag_store";
+                $db_port    = '3306';
                 
                 //Create connection
-                $conn = new \mysqli($servername, $username, $passworddb, $dbname);
+                // $conn = new \mysqli($servername, $username, $passworddb, $dbname);
+                $conn = mysqli_connect($servername, $username, $passworddb, $dbname, $db_port) or die ('I cannot connect to the database because');
                 //Check connection
                 if ($conn->connect_error) {
                     die("Connection failed: " . $conn->connect_error);
