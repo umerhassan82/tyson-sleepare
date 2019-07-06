@@ -73,8 +73,8 @@ class HomeController extends Controller
                 $to		= strtolower($request->custemail);
                 $txt	= '';
                 if(!isset($request->empID)){
-                    $empID = 'Neekou';
-                    $emailFrom = 'neekou@sleepare.com';
+                    $empID = 'Solee';
+                    $emailFrom = 'solee@sleepare.com';
                 }else{
                     if($request->empID === "Danny"){
                         $empID = 'Danny';
@@ -83,8 +83,8 @@ class HomeController extends Controller
                         $empID = 'Roy';
                         $emailFrom = 'roy@sleepare.com';
                     }else{
-                        $empID = 'Neekou';
-                        $emailFrom = 'neekou@sleepare.com';
+                        $empID = 'Solee';
+                        $emailFrom = 'solee@sleepare.com';
                     }
                 }
                 $productsData = $productsDataT = (isset($request->prodData[0]['prodsize'])?$request->prodData[0]['prodsize']:"").' '.(isset($request->prodData[0]['prodfirm'])? $request->prodData[0]['prodfirm'] : "").' '.(isset($request->prodData[0]['prodname']) ? $request->prodData[0]['prodname'] : "");
@@ -353,10 +353,10 @@ class HomeController extends Controller
                 $to		= strtolower($request->custemail);
                 $txt	= '';
                 if(!isset($request->empID)){
-                    $empID = 'Neekou';
-                    $empName = 'Neekou';
-                    $emailFrom = 'neekou@sleepare.com';
-                    $password = 'leH48TkyupQw';
+                    $empID = 'Roy';
+                    $empName = 'Roy Yosef';
+                    $emailFrom = 'roy@sleepare.com';
+                    $password = 'ifFjB4Sfq9Xi';
                 }else{
                     if($request->empID === "Danny"){
                         $empID = 'Danny';
@@ -369,10 +369,10 @@ class HomeController extends Controller
                         $emailFrom = 'roy@sleepare.com';
                         $password = 'ifFjB4Sfq9Xi';
                     }else{
-                        $empID = 'Neekou';
-                        $empName = 'Neekou';
-                        $emailFrom = 'neekou@sleepare.com';
-                        $password = 'leH48TkyupQw';
+                        $empID = 'Solee';
+                        $empName = 'Solee';
+                        $emailFrom = 'solee@sleepare.com';
+                        $password = 'sleepare123';
                     }
                 }
                 $servername = "185.56.87.173";
