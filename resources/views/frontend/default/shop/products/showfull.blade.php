@@ -39,7 +39,10 @@
             </div>
             <div class="col-md-4">
                 <select name="product_price" class="form-control text-center optionField">
-                    <?php $found = 0; ?>
+                    <?php 
+                        $found = 0; 
+                        $size = null;    
+                    ?>
                     @foreach($options as $key => $option)
                         @if(!empty($product[$option]))
                            <?php
