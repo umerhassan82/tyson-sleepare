@@ -203,6 +203,17 @@ class OrderController extends Controller
         });
     }
 
+    protected function detail($id)
+    {
+        $show = new Show(Order::findOrFail($id));
+
+        $show->orderitem('评论', function ($item) {
+            $item->resource('/order/items');
+            $item->id();
+        });
+    
+    }
+
     /**
      * Edit interface.
      *
@@ -218,7 +229,19 @@ class OrderController extends Controller
                 ['text' => 'Orders', 'url' => '/shop/orders'],
                 ['text' => 'Edit']
             );
-            $content->body($this->form($id)->edit($id));
+            $content->row(Admin::grid(OrderItem::class, function (Grid $grid) use ($id) {
+                $grid->setName('Items')
+                    ->setTitle('Order Items')
+                    ->setRelation(Order::find($id)->orderItems())
+                    ->resource('/admin/order/items');
+
+                $grid->column('product_id')->editable('select', Product::all()->pluck('title', 'id'));
+                $grid->column('firmness')->editable();
+                $grid->column('size')->editable();
+                $grid->column('price')->editable();
+                $grid->order_id();
+            }))
+            ->row($this->form($id)->edit($id));
         });
     }
 
@@ -255,23 +278,23 @@ class OrderController extends Controller
 
             if(!empty($id)){
 
-                $items = OrderItem::where('order_id', $id)->get();
+                // $items = OrderItem::where('order_id', $id)->get();
                 $order = Order::find($id);
-                $html = '';
+                // $html = '';
                 $email = '';
                 $prodcts = array();
 
-                foreach($items as $item){
-                    $product = Product::find($item->product_id);
-                    $prodcts[] = $product->title.' '.(!empty($item->firmness)? ", ".$item->firmness: "").' '.(!empty($item->size)? ", ".$item->size: "");
-                    $html .= 
-                        '<tr>
-                            <td>'.$product->title.'</td>
-                            <td>'.$item->firmness.'</td>
-                            <td>'.$item->size.'</td>
-                            <td>$'.$item->price.'</td>
-                        </tr>';
-                }
+                // foreach($items as $item){
+                //     $product = Product::find($item->product_id);
+                //     $prodcts[] = $product->title.' '.(!empty($item->firmness)? ", ".$item->firmness: "").' '.(!empty($item->size)? ", ".$item->size: "");
+                //     $html .= 
+                //         '<tr>
+                //             <td>'.$product->title.'</td>
+                //             <td>'.$item->firmness.'</td>
+                //             <td>'.$item->size.'</td>
+                //             <td>$'.$item->price.'</td>
+                //         </tr>';
+                // }
 
                 $email = '
                     <table style="width:100%;">
@@ -341,19 +364,7 @@ class OrderController extends Controller
                     }
                 }
 
-                $form->html('
-                    <h2>Order Items</h2>
-                    <table style="width:100%;">
-                        <tr>
-                            <th>Product Name</th>
-                            <th>Firmness</th>
-                            <th>Size</th>
-                            <th>Price</th>
-                        </tr>
-                        '.$html.'
-                    </table>
-                    '.$shippingD.'
-                ');
+                $form->html($shippingD);
                 
                 $form->html('<h2>Email</h2>'.$email);
             }

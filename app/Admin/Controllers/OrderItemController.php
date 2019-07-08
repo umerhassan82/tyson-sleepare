@@ -9,6 +9,7 @@ use Encore\Admin\Form;
 use Encore\Admin\Grid;
 use Encore\Admin\Layout\Content;
 use Encore\Admin\Show;
+use App\Models\Shop\Product;
 
 class OrderItemController extends Controller
 {
@@ -124,9 +125,15 @@ class OrderItemController extends Controller
     {
         $form = new Form(new OrderItem);
 
-        $form->text('product_id', 'Product id');
-        $form->text('order_id', 'Order id');
-        $form->text('comments', 'Comments');
+        // $form->text('product_id', 'Product id');
+
+        $form->select('product_id')->options(Product::all()->pluck('title', 'id'));
+
+        $form->text('order_id', 'Order id')->readOnly();
+        $form->text('firmness');
+        $form->text('size');
+        $form->text('price');
+
 
         return $form;
     }

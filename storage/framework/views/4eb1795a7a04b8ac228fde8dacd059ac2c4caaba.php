@@ -40,7 +40,10 @@
             </div>
             <div class="col-md-4">
                 <select name="product_price" class="form-control text-center optionField">
-                    <?php $found = 0; ?>
+                    <?php 
+                        $found = 0; 
+                        $size = null;    
+                    ?>
                     <?php $__currentLoopData = $options; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $option): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                         <?php if(!empty($product[$option])): ?>
                            <?php
