@@ -29,3 +29,5 @@ Admin::navbar(function (\Encore\Admin\Widgets\Navbar $navbar) {
 //    $navbar->left(view('admin.search-bar'));
     $navbar->right(view('admin.nav-links'));
 });
+
+Admin::js('/js/app.js');

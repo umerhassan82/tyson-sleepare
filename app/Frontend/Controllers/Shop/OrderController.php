@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
+use App\Models\Shop\Order;
 
 class OrderController extends Controller
 {
@@ -52,4 +53,12 @@ class OrderController extends Controller
         }
         return view('frontend.'.config('default').'.shop.order_success');
     }
+
+
+    public function getOrders(){
+        $orders = Order::all();
+
+        return response()->json($orders);
+    }
+
 }

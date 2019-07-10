@@ -190,7 +190,9 @@ class OrderController extends Controller
                 $filter->disableIdFilter();
             
                 // Add a column filter
-                $filter->like('first_name', 'first_name');
+                $filter->like('first_name', 'First Name');
+
+                // $filter->like('Products', 'Products');
 
                 $filter->scope('trashed', 'Trashed')->onlyTrashed();
             
@@ -207,7 +209,7 @@ class OrderController extends Controller
     {
         $show = new Show(Order::findOrFail($id));
 
-        $show->orderitem('评论', function ($item) {
+        $show->orderitem('Order Items', function ($item) {
             $item->resource('/order/items');
             $item->id();
         });

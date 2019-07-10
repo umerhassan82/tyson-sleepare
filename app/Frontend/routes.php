@@ -17,7 +17,9 @@ Route::group(['middleware' => 'shop'], function () {
 		$exitCode = Artisan::call('route:clear');
 		$exitCode = Artisan::call('config:cache');
 		return 'DONE'; //Return anything
-	});
+    });
+    
+    Route::get('/api/orders', 'Frontend\Shop\OrderController@getOrders');
 
     Route::post('checkout', ['as' => 'checkout', 'uses' => 'CheckoutController@proceedPayment']);
    

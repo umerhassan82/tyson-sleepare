@@ -41,7 +41,7 @@
     </div>
 </footer>
 
-<script src="<?php echo e(asset('js/app.js'), false); ?>"></script>
+<script src="<?php echo e(asset('js/jquery.min.js'), false); ?>"></script>
 <script src="/vendor/laravel-admin/nprogress/nprogress.js"></script>
 <script src="<?php echo e(asset('js/pjax.js'), false); ?>"></script>
 <script src="<?php echo e(asset('js/core.js?6'), false); ?>"></script>

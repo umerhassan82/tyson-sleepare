@@ -18,6 +18,8 @@ Route::group([
         'shop/products' => Shop\ProductController::class,
         'shop/orders' => Shop\OrderController::class,
     ]);
+    
+    $router->get('calendar', 'CalendarController@box');
    
    $router->resource('order/items', OrderItemController::class);
 

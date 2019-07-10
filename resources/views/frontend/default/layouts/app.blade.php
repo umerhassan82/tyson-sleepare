@@ -41,7 +41,7 @@
     </div>
 </footer>
 
-<script src="{{ asset('js/app.js') }}"></script>
+<script src="{{ asset('js/jquery.min.js') }}"></script>
 <script src="/vendor/laravel-admin/nprogress/nprogress.js"></script>
 <script src="{{ asset('js/pjax.js') }}"></script>
 <script src="{{ asset('js/core.js?6') }}"></script>
