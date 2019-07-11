@@ -352,38 +352,19 @@ class HomeController extends Controller
                 $count	= 0;
                 $to		= strtolower($request->custemail);
                 $txt	= '';
-                if(!isset($request->empID)){
-                    $empID = 'Roy';
-                    $empName = 'Roy Yosef';
-                    $emailFrom = 'roy@sleepare.com';
-                    $password = 'ifFjB4Sfq9Xi';
-                }else{
-                    if($request->empID === "Danny"){
-                        $empID = 'Danny';
-                        $empName = 'Danny';
-                        $emailFrom = 'danny@sleepare.com';
-                        $password = 'lNwH7B0Jhsvg';
-                    }else if($request->empID === "Roy"){
-                        $empID = 'Roy';
-                        $empName = 'Roy Yosef';
-                        $emailFrom = 'roy@sleepare.com';
-                        $password = 'ifFjB4Sfq9Xi';
-                    }else{
-                        $empID = 'Solee';
-                        $empName = 'Solee';
-                        $emailFrom = 'solee@sleepare.com';
-                        $password = 'sleepare123';
-                    }
-                }
-                $servername = "185.56.87.173";
+
+                $empID = 'Derrick';
+                $empName = 'Derrick';
+                $emailFrom = 'derrick.lemmon.sleePare@gmail.com';
+                $password = 'h27dhKL29!wh@';
+                
+                $servername = "localhost";
                 $username 	= "sleepmag_store";
                 $passworddb = "(hS63x-p87";
                 $dbname 	= "sleepmag_store";
-                $db_port    = '3306';
                 
                 //Create connection
-                // $conn = new \mysqli($servername, $username, $passworddb, $dbname);
-                $conn = mysqli_connect($servername, $username, $passworddb, $dbname, $db_port) or die ('I cannot connect to the database because');
+                $conn = new \mysqli($servername, $username, $passworddb, $dbname);
                 //Check connection
                 if ($conn->connect_error) {
                     die("Connection failed: " . $conn->connect_error);
@@ -468,7 +449,7 @@ class HomeController extends Controller
                 $productsCopDa = implode(', ', $productsCop);
                 $productsData = implode(', ', $productsData);
                 //exit;
-                $sql = 'INSERT INTO tbluser_info (cust_name, cust_email, cust_number, cust_comments, keyword, email_text, cust_date, employee, produrls, prodcops) VALUES ("'.$request->custname.'", "'.$to.'", "'.$request->custphone.'", "'.$request->custcom.'", "'.$request->keyword.'", "'.$productsDataT.'", "'.date('Y-m-d H:i:s').'", "'.$empID.'", "'.$productsUrlDa.'", "'.$productsCopDa.'")';
+                $sql = 'INSERT INTO tbluser_tyson (cust_name, cust_email, cust_number, cust_comments, keyword, email_text, cust_date, employee, produrls, prodcops) VALUES ("'.$request->custname.'", "'.$to.'", "'.$request->custphone.'", "'.$request->custcom.'", "'.$request->keyword.'", "'.$productsDataT.'", "'.date('Y-m-d H:i:s').'", "'.$empID.'", "'.$productsUrlDa.'", "'.$productsCopDa.'")';
                 //echo $sql;
                 $conn->query($sql);
                 $conn->close();

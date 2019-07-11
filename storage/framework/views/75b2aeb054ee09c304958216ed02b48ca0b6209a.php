@@ -7,24 +7,24 @@
         <link href="images/favicon.png" rel="shortcut icon">
         <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700,800,900" rel="stylesheet">       
         <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet">
-        <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet" type="text/css">
-        <link href="{{ asset('css/style.css') }}" rel="stylesheet" type="text/css">
-        <link href="{{ asset('css/contextLoader.min.css') }}" rel="stylesheet" type="text/css">
-        <meta name="csrf-token" content="{{ csrf_token() }}">
+        <link href="<?php echo e(asset('css/bootstrap.css'), false); ?>" rel="stylesheet" type="text/css">
+        <link href="<?php echo e(asset('css/style.css'), false); ?>" rel="stylesheet" type="text/css">
+        <link href="<?php echo e(asset('css/contextLoader.min.css'), false); ?>" rel="stylesheet" type="text/css">
+        <meta name="csrf-token" content="<?php echo e(csrf_token(), false); ?>">
         <link href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
-        <link href="{{ asset('css/font-awesome.css') }}" rel="stylesheet" type="text/css">
+        <link href="<?php echo e(asset('css/font-awesome.css'), false); ?>" rel="stylesheet" type="text/css">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
         <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-        <script src="{{ asset('js/jquery.min.js') }}"></script>
-		<script src="{{ asset('js/tether.min.js') }}"  crossorigin="anonymous"></script>
-        <script src="{{ asset('js/bootstrap.min.js') }}"  crossorigin="anonymous"></script>
-		<script type="text/javascript" src="{{ asset('js/contextLoader.min.js') }}"></script>
-		<script src="{{ asset('js/gijgo.min.js') }}" type="text/javascript"></script>
-    	<link href="{{ asset('css/gijgo.min.css') }}" rel="stylesheet" type="text/css" />
+        <script src="<?php echo e(asset('js/jquery.min.js'), false); ?>"></script>
+		<script src="<?php echo e(asset('js/tether.min.js'), false); ?>"  crossorigin="anonymous"></script>
+        <script src="<?php echo e(asset('js/bootstrap.min.js'), false); ?>"  crossorigin="anonymous"></script>
+		<script type="text/javascript" src="<?php echo e(asset('js/contextLoader.min.js'), false); ?>"></script>
+		<script src="<?php echo e(asset('js/gijgo.min.js'), false); ?>" type="text/javascript"></script>
+    	<link href="<?php echo e(asset('css/gijgo.min.css'), false); ?>" rel="stylesheet" type="text/css" />
         <script>
-        window.Laravel = {!! json_encode([
+        window.Laravel = <?php echo json_encode([
             'csrfToken' => csrf_token(),
-        ]) !!};
+        ]); ?>;
 $.ajaxSetup({
 headers: {
 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -52,17 +52,17 @@ headers: {
 			<div class="store-prod-companies container">
 				<div class="row text-center">
 					
-					@foreach($brands as $brand)
+					<?php $__currentLoopData = $brands; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $brand): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 						<div class="col">
 							<div class="store-single-product d-table">                                    
 								<div class="store-single-prod-wrapper d-table-cell align-middle text-center">
-									<a href="javascript:;" class="product-btn {{ $brand->css_class }}">
-										<img class="img-fluid" src="{{ $brand->image }}" alt="{{ $brand->name }}" title="{{ $brand->name }}" />
+									<a href="javascript:;" class="product-btn <?php echo e($brand->css_class, false); ?>">
+										<img class="img-fluid" src="<?php echo e($brand->image, false); ?>" alt="<?php echo e($brand->name, false); ?>" title="<?php echo e($brand->name, false); ?>" />
 									</a>
 								</div>
 							</div>
 						</div>
-					@endforeach
+					<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
 				</div>
 			</div>
@@ -127,30 +127,30 @@ headers: {
 								<div id="popup">
 									<div class="pane" id="popup-content">
 
-										@foreach($brands as $brand)
-											<div class="{{ $brand->css_class }}s innerProds" style="display:none;">
-												@foreach($brand->products as $product)
+										<?php $__currentLoopData = $brands; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $brand): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+											<div class="<?php echo e($brand->css_class, false); ?>s innerProds" style="display:none;">
+												<?php $__currentLoopData = $brand->products; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $product): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 													<div class="product-item">
-														@if(!empty($product->image))
-															<img src="{{ $product->image }}" class="img-fluid pull-left" />
-														@endif
-														<p>{{ $product->name }}</p>
+														<?php if(!empty($product->image)): ?>
+															<img src="<?php echo e($product->image, false); ?>" class="img-fluid pull-left" />
+														<?php endif; ?>
+														<p><?php echo e($product->name, false); ?></p>
 													</div>
 													<div class="product-itemSub">
 														
-														@foreach($product->sizes as $size)
+														<?php $__currentLoopData = $product->sizes; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $size): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 															<div class="product-item">
-																@if(isset($size["name"]))
-																	<a href="javascript:;" class="prodUrl {{ $product->css_class }}" data-code="{{ $size['code'] }}" data-name="{{ $product->name }}" data-disc="{{ $size['amount'] }}" data-url="{{ $product->slug }}" data-size="{{ $size['name'] }}" rel="{{ $product->affiliate_link }}">
-																		<p>{{ $size["name"] }}</p>
+																<?php if(isset($size["name"])): ?>
+																	<a href="javascript:;" class="prodUrl <?php echo e($product->css_class, false); ?>" data-code="<?php echo e($size['code'], false); ?>" data-name="<?php echo e($product->name, false); ?>" data-disc="<?php echo e($size['amount'], false); ?>" data-url="<?php echo e($product->slug, false); ?>" data-size="<?php echo e($size['name'], false); ?>" rel="<?php echo e($product->affiliate_link, false); ?>">
+																		<p><?php echo e($size["name"], false); ?></p>
 																	</a>
-																@endif
+																<?php endif; ?>
 															</div>
-														@endforeach
+														<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 													</div>
-												@endforeach
+												<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 											</div>
-										@endforeach
+										<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 										<div class="btnsSec" style="display:none;">
 											<div class="product-item"><p>Selected Products</p></div>
 											<div class="product-itemSub"></div>
