@@ -11767,3 +11767,22 @@ a {
   display: none;
 }
 
+a.btn.blue-btn {
+  color: #fff;
+  cursor: pointer;
+}
+
+a.btn.blue-btn:hover {
+  color: #fff;
+}
+
+.confirmModal li {
+  list-style: none;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.confirmModal li span {
+  font-weight: bold;
+}
+

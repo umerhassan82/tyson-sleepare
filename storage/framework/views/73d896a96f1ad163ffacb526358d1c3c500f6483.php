@@ -8,6 +8,7 @@
     <meta name="keywords" content="<?php echo $__env->yieldContent('meta_key', 'shop, sleepare'); ?>">
     <meta name="csrf-token" content="<?php echo e(csrf_token(), false); ?>">
     <title><?php echo $__env->yieldContent('title', config('app.name')); ?></title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="icon" type="image/png" href="https://mk0sleeparej0clr43i7.kinstacdn.com/wp-content/themes/sleepare/images/favicon.png" />
     <link href="<?php echo e(asset('css/app.css'), false); ?>" rel="stylesheet">
     <link rel="stylesheet" href="/vendor/laravel-admin/nprogress/nprogress.css">
@@ -42,6 +43,7 @@
 </footer>
 
 <script src="<?php echo e(asset('js/jquery.min.js'), false); ?>"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 <script src="/vendor/laravel-admin/nprogress/nprogress.js"></script>
 <script src="<?php echo e(asset('js/pjax.js'), false); ?>"></script>
 <script src="<?php echo e(asset('js/core.js?6'), false); ?>"></script>
@@ -49,6 +51,7 @@
 <script>
     $(document).ready(function(){
         $(document).on("change", ".optionField", function(){
+            $(".error").remove();
             $(".show_price").text($(this).val());
             $("#product_size").val($(this).find('option:selected').attr("data-prodname"));
         });
@@ -65,6 +68,57 @@
                 success: function(result) {
 
                 }
+            });
+        });
+
+        $(document).on("click", "#confirmProduct", function(){
+            $("#product_form").submit();
+        });
+
+        $(document).on("click", "#addToCart", function(){
+            var price = $(".optionField").val();
+            var size = $(".optionField option:selected").attr("data-prodname");
+            var title = $("#prod_title").val();
+            var qty = $("#prod_qty").val();
+            var firmness = $("#fimness_level").val();
+
+            var discountedPrice = $("#discoutValue").val();
+
+            if(discountedPrice != ""){
+                price = +price - +discountedPrice;
+            }
+
+            $(".error").remove();
+            if(price == 0){
+                $(".optionField").after(`<label class="error">Please choose size</label>`);
+                return false;
+            }
+            
+            var html = "";
+
+            html = `<ul>
+                <li><span>Product Name</span>: ${title}</li>
+                <li><span>Quantity</span>: ${qty}</li>
+            `;
+            
+            if(size != undefined){
+                html += `<li><span>Size</span>: ${size}</li>`;
+            }
+
+            if(price != 0){
+                html += `<li><span>Price</span>: $${price}</li>`;
+            }
+
+            if(firmness != 0 && firmness != undefined){
+                html += `<li><span>Firmness</span>: ${firmness}</li>`;
+            }
+
+            html += `</ul>`;
+
+            $("#confrimProduct .modal-body").empty().append(html);
+
+            $('#confrimProduct').modal({
+                show: true
             });
         });
 

@@ -253,19 +253,19 @@
                 <!-- <div class="col">
                     <div class="col-lg-12"><b>Tracking Receipt Status</b></div>
                     <div class="col-md-12">
-                        <input type="text" name="tracking" value="<?php echo e(isset($fsession['tracking'])?$fsession['tracking']:'', false); ?>" class="form-control">
+                        <input type="text" name="tracking" value="" class="form-control">
                     </div>
                 </div> -->
                 <div class="col">
                     <div class="col-lg-12"><b>Assisted</b></div>
                     <div class="col-md-12">
-                        <input type="text" name="assisted" value="<?php echo e(isset($fsession['assisted'])?$fsession['assisted']:'', false); ?>" class="form-control">
+                        <input type="text" name="assisted" value="<?php echo e(isset($fsession['assisted'])?$fsession['assisted']:'', false); ?>" class="form-control" required>
                     </div>
                 </div>
                 <div class="col">
                     <div class="col-lg-12"><b>How did you find us? (If it was through Google please tell us the keyword)</b></div>
                     <div class="col-md-12">
-                        <input type="text" name="findus" value="<?php echo e(isset($fsession['findus'])?$fsession['findus']:'', false); ?>" class="form-control">
+                        <input type="text" name="findus" value="<?php echo e(isset($fsession['findus'])?$fsession['findus']:'', false); ?>" class="form-control" required>
                     </div>
                 </div>
 

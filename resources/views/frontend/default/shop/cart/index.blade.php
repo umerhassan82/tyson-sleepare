@@ -254,19 +254,19 @@
                 <!-- <div class="col">
                     <div class="col-lg-12"><b>Tracking Receipt Status</b></div>
                     <div class="col-md-12">
-                        <input type="text" name="tracking" value="{{ isset($fsession['tracking'])?$fsession['tracking']:'' }}" class="form-control">
+                        <input type="text" name="tracking" value="{{-- isset($fsession['tracking'])?$fsession['tracking']:'' --}}" class="form-control">
                     </div>
                 </div> -->
                 <div class="col">
                     <div class="col-lg-12"><b>Assisted</b></div>
                     <div class="col-md-12">
-                        <input type="text" name="assisted" value="{{ isset($fsession['assisted'])?$fsession['assisted']:'' }}" class="form-control">
+                        <input type="text" name="assisted" value="{{ isset($fsession['assisted'])?$fsession['assisted']:'' }}" class="form-control" required>
                     </div>
                 </div>
                 <div class="col">
                     <div class="col-lg-12"><b>How did you find us? (If it was through Google please tell us the keyword)</b></div>
                     <div class="col-md-12">
-                        <input type="text" name="findus" value="{{ isset($fsession['findus'])?$fsession['findus']:'' }}" class="form-control">
+                        <input type="text" name="findus" value="{{ isset($fsession['findus'])?$fsession['findus']:'' }}" class="form-control" required>
                     </div>
                 </div>
 
