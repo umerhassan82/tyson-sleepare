@@ -362,9 +362,11 @@ class HomeController extends Controller
                 $username 	= "sleepmag_store";
                 $passworddb = "(hS63x-p87";
                 $dbname 	= "sleepmag_store";
+                $db_port    = '3306';
                 
                 //Create connection
-                $conn = new \mysqli($servername, $username, $passworddb, $dbname);
+                // $conn = new \mysqli($servername, $username, $passworddb, $dbname);
+                $conn = mysqli_connect($servername, $username, $passworddb, $dbname, $db_port) or die ('I cannot connect to the database because');
                 //Check connection
                 if ($conn->connect_error) {
                     die("Connection failed: " . $conn->connect_error);
