@@ -355,7 +355,7 @@ class HomeController extends Controller
 
                 $empID = 'Derrick';
                 $empName = 'Derrick';
-                $emailFrom = 'derrick.lemmon.sleePare@gmail.com';
+                $emailFrom = 'derrick.lemmon.sleepare@gmail.com';
                 $password = 'h27dhKL29!wh@';
                 
                 $servername = "185.56.87.173";
