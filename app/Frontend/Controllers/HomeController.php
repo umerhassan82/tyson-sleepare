@@ -358,7 +358,7 @@ class HomeController extends Controller
                 $emailFrom = 'derrick.lemmon.sleePare@gmail.com';
                 $password = 'h27dhKL29!wh@';
                 
-                $servername = "localhost";
+                $servername = "185.56.87.173";
                 $username 	= "sleepmag_store";
                 $passworddb = "(hS63x-p87";
                 $dbname 	= "sleepmag_store";
