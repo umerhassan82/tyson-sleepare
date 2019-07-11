@@ -1,7 +1,7 @@
 <html>
     <head>
 		<?php session_start(); ?>
-        <title>New York Showroom | SleePare</title>
+        <title>Tyson Showroom | SleePare</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
         <link href="images/favicon.png" rel="shortcut icon">
