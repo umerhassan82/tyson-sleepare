@@ -383,51 +383,27 @@ class HomeController extends Controller
                     if(!empty($prodsData['prodfirm'])){
                         $prodFrim = ' '.$prodsData['prodfirm'];
                     }
-                    if($prodsData['prodname'] === "Layla Mattress"){
-                        $productsCop[] = 'NoCode';
-                        $innerData .= 'Thank you for visiting the SleePare Showroom! Click <a href="'.$myURL.'" target="_blank">here</a> to purchase your '.$myProduuctName.' with $'.$prodsData['discamount'].' discount and free pillow and get additional $30 cash back through Venmo.<br /><br />';
-                    }else if($prodsData['prodname'] === "Zenhaven Mattress" || $prodsData['prodname'] === "Loom & Leaf Mattress"){
-                        $productsCop[] = 'NoCode';
-                        $innerData .= 'Thank you for visiting the SleePare Showroom! Click <a href="'.$myURL.'" target="_blank">here</a> to purchase your '.$myProduuctName.' and get $75 OFF.<br /><br />';
-                    }else if($prodsData['prodname'] === "Brooklyn Bedding Aurora Mattress" || $prodsData['prodname'] === "Brooklyn Bedding Signature Hybrid Mattress" || $prodsData['prodname'] === "Brooklyn Bedding Bloom Hybrid Mattress" || $prodsData['prodname'] === "Brooklyn Bedding Bowery Mattress" || $prodsData['prodname'] === "Brooklyn Bedding Plank Mattress" || $prodsData['prodname'] === "Brooklyn Bedding Spartan Mattress"){
-                        $productsCop[] = 'sleepare25';
-                        $innerData .= 'Thank you for visiting the SleePare Showroom! Click <a href="'.$myURL.'" target="_blank">here</a> to purchase your '.$myProduuctName.'. Use our link and sleepare25 coupon code, and get 25% discount.<br /><br />';
-                    }else if($prodsData['prodname'] === "Saatva Mattress"){
-                        $productsCop[] = 'NoCode';
-                        $innerData .= 'Thank you for visiting the SleePare Showroom! Click <a href="'.$myURL.'" target="_blank">here</a> to purchase your '.$myProduuctName.'. You will  also receive a $75 Visa gift card as a gift from SleePare to you as our valued customer. .<br /><br />';
-                    }else if($prodsData['prodname'] === "Nectar Mattress"){
-                        $productsCop[] = 'SLEEPARE';
-                        $innerData .= 'Thank you for visiting the SleePare Showroom! Click <a href="'.$myURL.'" target="_blank">here</a> to apply coupon code '.$myDiscCode.' and get 2 Premium Pillows worth $150 on  your '.$myProduuctName.'.<br /><br />';
-                    }else if($prodsData['prodname'] === "DreamCloud Mattress"){
-                        $productsCop[] = 'SLEEPARE';
-                        $innerData .= 'Thank you for visiting the SleePare Showroom! Click <a href="'.$myURL.'" target="_blank">here</a> to apply coupon code '.$myDiscCode.' and get $'.$prodsData['discamount'].' discount on  your '.$myProduuctName.' and get $75 cash back.<br /><br />';
-                    }else if($prodsData['prodname'] === "Casper Mattress"){
+                    if(!empty($prodsData['emailextra'])){
                         $productsCop[] = $myDiscCode;
-                        $innerData .= 'Thank you for visiting the SleePare Showroom! Click <a href="'.$myURL.'" target="_blank">here</a> to apply coupon code '.$myDiscCode.' and get '.$prodsData['discamount'].' OFF + 2 FREE CLOUD PILLOWS on  your '.$myProduuctName.'.<br /><br />';
-                    }else if($prodsData['prodname'] === "Leesa Mattress"){
-                        $productsCop[] = $myDiscCode;
-                        $innerData .= 'Thank you for visiting the SleePare Showroom! Click <a href="'.$myURL.'" target="_blank">here</a> to apply coupon code '.$myDiscCode.' and get '.$prodsData['discamount'].' OFF + 2 FREE pillows on  your '.$myProduuctName.'.<br /><br />';
-                    }else if($prodsData['prodname'] === "Helix Moonlight Mattress" || $prodsData['prodname'] === "Helix Dusk Mattress" || $prodsData['prodname'] === "Helix Luxe Mattress"){
-                        $productsCop[] = 'SLEEPARE';
-                        $innerData .= 'Thank you for visiting the SleePare Showroom! Click <a href="'.$myURL.'" target="_blank">here</a> to apply coupon code '.$myDiscCode.' and get up to $'.$prodsData['discamount'].' off our mattresses + 2 free Dream Pillows with every order on  your '.$myProduuctName.'.<br /><br />';
+                        $innerData .= 'Thank you for visiting the SleePare Showroom! Click <a href="'.$myURL.'" target="_blank">here</a> to purchase your '.$myProduuctName.'. '.$prodsData['emailextra'].'.<br /><br />';
                     }else{
                         if($myDiscCode === "VENMO"){
                             $productsCop[] = 'NoCode';
                             $innerData .= 'Thank you for visiting the SleePare Showroom! Click <a href="'.$myURL.'" target="_blank">here</a> to purchase your '.$myProduuctName.' and get $'.$prodsData['discamount'].' cash back through Venmo.<br /><br />';
                         }else{
                             $productsCop[] = $myDiscCode;
-                            $innerData .= 'Thank you for visiting the SleePare Showroom! Click <a href="'.$myURL.'" target="_blank">here</a> to apply the coupon code '.$myDiscCode.' and get $'.$prodsData['discamount'].' discount on your '.$myProduuctName.'.<br /><br />';
+                            // $innerData .= 'Thank you for visiting the SleePare Showroom! Click <a href="'.$myURL.'" target="_blank">here</a> to apply the coupon code '.$myDiscCode.' and get $'.$prodsData['discamount'].' discount on your '.$myProduuctName.'.<br /><br />';
+                            $innerData .= 'Thank you for visiting the SleePare Showroom! Click <a href="'.$myURL.'" target="_blank">here</a> to purchase your '.$myProduuctName.', and don\'t forget to type "'.$myDiscCode.'" in the discount code box on the checkout page to get $'.$prodsData['discamount'].' off your order!.<br /><br />';
                         }
                     }
-                    $innerData .= 'HOW TO GET YOUR DISCOUNT FOR '.$myProduuctName.':<br /><br />1. <a href="'.$myURL.'">Start here</a><br />2. Choose your mattress<br />'.($myDiscCode === "VENMO" ? '3. Proceed to payment window.<br /><br />' : '3. Type your discount code '.$myDiscCode.' in text box, when prompted<br />4. Proceed to payment window.<br /><br />' ).'';
+                    // $innerData .= 'HOW TO GET YOUR DISCOUNT FOR '.$myProduuctName.':<br /><br />1. <a href="'.$myURL.'">Start here</a><br />2. Choose your mattress<br />'.($myDiscCode === "VENMO" ? '3. Proceed to payment window.<br /><br />' : '3. Type your discount code '.$myDiscCode.' in text box, when prompted<br />4. Proceed to payment window.<br /><br />' ).'';
                 }
                 $sendTo = $to;//info@winkbeds.com
                 $txt	= 'Dear '.$request->custname.',<br /><br />
-        Thank you for visiting the SleePare Showroom.<br /><br />
         <img src="https://www.sleepare.com/wp-content/themes/sleepare/emailopen.php?url='.$to.'&time='.date('Y-m-d H:i:s').'" width="1" height="1" />
         '.$innerData.'<br /><br />
-        Regards,<br />
-        SleePare';
+        Regards,<br /><br />
+        The SleePare team';
                 //echo 'test: '.$txt; exit;
                 $mail = new PHPMailer(true);                          // Passing `true` enables exceptions
                 $mail->isSMTP();                                      // Set mailer to use SMTP
