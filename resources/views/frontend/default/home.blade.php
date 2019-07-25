@@ -141,7 +141,7 @@ headers: {
 														@foreach($product->sizes as $size)
 															<div class="product-item">
 																@if(isset($size["name"]))
-																	<a href="javascript:;" class="prodUrl {{ $product->css_class }}" data-code="{{ $size['code'] }}" data-name="{{ $product->name }}" data-disc="{{ $size['amount'] }}" data-url="{{ $product->slug }}" data-size="{{ $size['name'] }}" rel="{{ $product->affiliate_link }}">
+																	<a href="javascript:;" class="prodUrl {{ $product->css_class }}" data-code="{{ isset($size['code']) ? $size['code'] : "" }}" data-name="{{ $product->name }}" data-disc="{{ isset($size['amount']) ? $size['amount'] : "" }}" data-extra="{{ $product->emai_extra }}" data-url="{{ $product->slug }}" data-size="{{ isset($size['name']) ? $size['name'] : "" }}" rel="{{ $product->affiliate_link }}">
 																		<p>{{ $size["name"] }}</p>
 																	</a>
 																@endif
