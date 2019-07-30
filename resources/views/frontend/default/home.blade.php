@@ -43,7 +43,14 @@ headers: {
 		<header>
 			<div class="container header">
 				<div class="row">
-					<a href="http://tyson.sleepare.com/" id="logo">SleepAre</a>
+					<div class="col-lg-8 mt-4">
+						<nav class="navbar navbar-expand-md navbar-dark">
+							<div class="collapse navbar-collapse" id="navbarsExampleDefault">
+								{!! $top_menu->asUl(array('class' => 'navbar-nav mr-auto')) !!}
+							</div>
+						</nav>
+					</div>
+					<a href="http://newyork.sleepare.com/" id="logo">SleepAre</a>
 				</div>
 			</div>
 		</header>

@@ -1,7 +1,7 @@
 <html>
     <head>
 		<?php session_start(); ?>
-        <title>New York Showroom | SleePare</title>
+        <title>Tyson Showroom | SleePare</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
         <link href="images/favicon.png" rel="shortcut icon">
@@ -43,7 +43,15 @@ headers: {
 		<header>
 			<div class="container header">
 				<div class="row">
-					<a href="http://tyson.sleepare.com/" id="logo">SleepAre</a>
+					<div class="col-lg-8 mt-4">
+						<nav class="navbar navbar-expand-md navbar-dark">
+							<div class="collapse navbar-collapse" id="navbarsExampleDefault">
+								<?php echo $top_menu->asUl(array('class' => 'navbar-nav mr-auto')); ?>
+
+							</div>
+						</nav>
+					</div>
+					<a href="http://newyork.sleepare.com/" id="logo">SleepAre</a>
 				</div>
 			</div>
 		</header>
@@ -141,7 +149,7 @@ headers: {
 														<?php $__currentLoopData = $product->sizes; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $size): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 															<div class="product-item">
 																<?php if(isset($size["name"])): ?>
-																	<a href="javascript:;" class="prodUrl <?php echo e($product->css_class, false); ?>" data-code="<?php echo e($size['code'], false); ?>" data-name="<?php echo e($product->name, false); ?>" data-disc="<?php echo e($size['amount'], false); ?>" data-url="<?php echo e($product->slug, false); ?>" data-size="<?php echo e($size['name'], false); ?>" rel="<?php echo e($product->affiliate_link, false); ?>">
+																	<a href="javascript:;" class="prodUrl <?php echo e($product->css_class, false); ?>" data-code="<?php echo e(isset($size['code']) ? $size['code'] : "", false); ?>" data-name="<?php echo e($product->name, false); ?>" data-disc="<?php echo e(isset($size['amount']) ? $size['amount'] : "", false); ?>" data-extra="<?php echo e($product->emai_extra, false); ?>" data-url="<?php echo e($product->slug, false); ?>" data-size="<?php echo e(isset($size['name']) ? $size['name'] : "", false); ?>" rel="<?php echo e($product->affiliate_link, false); ?>">
 																		<p><?php echo e($size["name"], false); ?></p>
 																	</a>
 																<?php endif; ?>
