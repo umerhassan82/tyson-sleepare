@@ -10,7 +10,7 @@
 <div class="row">
     <div class="col-6 product-detail">
         @if ( !empty($product->photo) )
-            <img class="img-responsive" src="{{ URL::asset('/uploads/'.$product->photo) }}" alt="{{$product->title}}" />
+            <img class="img-responsive" src="{{ env('IMAGE_PATH').'/uploads/'.$product->photo }}" alt="{{$product->title}}" />
         @else
             {{ Html::image('https://dummyimage.com/640x480/000/fff.jpg&text=No+image', $product->title, ['class'=>'img-responsive']) }}
         @endif

@@ -11,7 +11,7 @@
                 <a href="/{{ $item['id'] }}-{{ $item['slug'] }}" title="{{ $item['name'] }}">
                     @if ( $item['image'] !== null )
                         <?php
-                            $imageURL = URL::asset('uploads/'.$item['image']);
+                            $imageURL = env('IMAGE_PATH').'/uploads/'.$item['image'];
                         ?>
                         <img class="img-responsive" src="{{ $imageURL }}" alt="{{ $item['name'] }}" />
                     @else

@@ -9,7 +9,7 @@
 <div class="row">
     <div class="col-6 product-detail">
         <?php if( !empty($product->photo) ): ?>
-            <img class="img-responsive" src="<?php echo e(URL::asset('/uploads/'.$product->photo), false); ?>" alt="<?php echo e($product->title, false); ?>" />
+            <img class="img-responsive" src="<?php echo e(env('IMAGE_PATH').'/uploads/'.$product->photo, false); ?>" alt="<?php echo e($product->title, false); ?>" />
         <?php else: ?>
             <?php echo e(Html::image('https://dummyimage.com/640x480/000/fff.jpg&text=No+image', $product->title, ['class'=>'img-responsive']), false); ?>
 

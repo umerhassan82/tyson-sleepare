@@ -3,7 +3,7 @@
         <a class="image-wrapper" href="/<?php echo e($product->id, false); ?>-<?php echo e($product->slug, false); ?>" title="<?php echo e($product->title, false); ?>">
 
             <?php if( !empty($product->photo) ): ?>
-                <img src="<?php echo e(URL::asset('/uploads/'.$product->photo), false); ?>" alt="<?php echo e($product->title, false); ?>" />
+                <img src="<?php echo e(env('IMAGE_PATH').'/uploads/'.$product->photo, false); ?>" alt="<?php echo e($product->title, false); ?>" />
             <?php else: ?>
                 <?php echo e(Html::image('https://dummyimage.com/762x428/000/fff.jpg&text=No+image', $product->title, ['class'=>'img-responsive', 'style'=>'width:100%;']), false); ?>
 
