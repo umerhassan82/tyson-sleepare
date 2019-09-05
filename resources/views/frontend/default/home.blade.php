@@ -113,7 +113,7 @@ headers: {
 									<div class="col-md-12 col-sm-12">
 										<label>Comments</label><br />
 										<textarea name="comments" id="commentsCust" rows="30" cols="50"></textarea>
-										<a href="javascript:;" data-rel="Derrick" class="submit-btn btnGray btnLogin btnEmp">Derrick</a>
+										<a href="javascript:;" data-rel="Genero" class="submit-btn btnGray btnLogin btnEmp">Genero</a>
 									</div>  
 								</div>
 							</div>

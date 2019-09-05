@@ -353,10 +353,10 @@ class HomeController extends Controller
                 $to		= strtolower($request->custemail);
                 $txt	= '';
 
-                $empID = 'Derrick';
-                $empName = 'Derrick';
-                $emailFrom = 'derrick.lemmon.sleepare@gmail.com';
-                $password = 'h27dhKL29!wh@';
+                $empID = 'Genero';
+                $empName = 'Genero';
+                $emailFrom = 'genaro@sleepare.com';
+                $password = 'sleepare123';
                 
                 $servername = "185.56.87.173";
                 $username 	= "sleepmag_store";
