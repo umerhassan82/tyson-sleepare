@@ -356,7 +356,7 @@ class HomeController extends Controller
                 $empID = 'Genero';
                 $empName = 'Genero';
                 $emailFrom = 'genaro@sleepare.com';
-                $password = 'sleepare123';
+                $password = 'sleepare1234%';
                 
                 $servername = "185.56.87.173";
                 $username 	= "sleepmag_store";
