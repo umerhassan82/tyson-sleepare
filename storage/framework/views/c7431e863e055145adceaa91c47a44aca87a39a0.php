@@ -276,7 +276,12 @@
                     <div class="col">
                         <div class="col-lg-12"><b>Assisted</b></div>
                         <div class="col-md-12">
-                            <input type="text" name="assisted" value="<?php echo e(isset($fsession['assisted'])?$fsession['assisted']:'', false); ?>" class="form-control" required>
+                            <select class="form-control" name="assisted" id="assisted" required>
+                                <option value="">Choose</option>
+                                <?php $__currentLoopData = $persons; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $person): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                    <option value="<?php echo e($key, false); ?>"><?php echo e($person, false); ?></option>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                            </select>
                         </div>
                     </div>
                     <div class="col">

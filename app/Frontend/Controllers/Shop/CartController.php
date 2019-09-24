@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Shop\Product;
 use Illuminate\Http\Request;
 use LukePOLO\LaraCart\Facades\LaraCart;
+use App\SalesPerson;
 
 class CartController extends Controller
 {
@@ -33,7 +34,9 @@ class CartController extends Controller
         }
         $total = LaraCart::total($formatted = false, $withDiscount = true);
 
-        return view('frontend.'.config('template').'.shop.cart.index', ['cart' => $cart_data, 'total' => $total ]);
+        $persons = SalesPerson::all()->pluck('name', 'slug');
+
+        return view('frontend.'.config('template').'.shop.cart.index', ['cart' => $cart_data, 'persons' => $persons, 'total' => $total, 'close' => true]);
     }
 
     /**

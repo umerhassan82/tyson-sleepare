@@ -277,7 +277,12 @@
                     <div class="col">
                         <div class="col-lg-12"><b>Assisted</b></div>
                         <div class="col-md-12">
-                            <input type="text" name="assisted" value="{{ isset($fsession['assisted'])?$fsession['assisted']:'' }}" class="form-control" required>
+                            <select class="form-control" name="assisted" id="assisted" required>
+                                <option value="">Choose</option>
+                                @foreach ($persons as $key => $person)
+                                    <option value="{{ $key }}">{{ $person }}</option>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
                     <div class="col">
