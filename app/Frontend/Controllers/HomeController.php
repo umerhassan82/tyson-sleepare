@@ -368,7 +368,7 @@ class HomeController extends Controller
                         $empID = 'Dustin';
                         $empName = 'Dustin Morgan';
                         $emailFrom = 'dustin@sleepare.com';
-                        $password = 'sleepare1$3';
+                        $password = 'Sleepare6996!';
                     }
                 }
                 
