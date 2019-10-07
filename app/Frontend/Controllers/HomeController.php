@@ -353,10 +353,24 @@ class HomeController extends Controller
                 $to		= strtolower($request->custemail);
                 $txt	= '';
 
-                $empID = 'Genero';
-                $empName = 'Genero';
-                $emailFrom = 'genaro@sleepare.com';
-                $password = 'genaro123';
+                if(!isset($request->empID)){
+                    $empID = 'Genero';
+                    $empName = 'Genero';
+                    $emailFrom = 'genaro@sleepare.com';
+                    $password = 'genaro123';
+                }else{
+                    if($request->empID === "genero"){
+                        $empID = 'Genero';
+                        $empName = 'Genero';
+                        $emailFrom = 'genaro@sleepare.com';
+                        $password = 'genaro123';
+                    }else if($request->empID === "dustin"){
+                        $empID = 'Dustin';
+                        $empName = 'Dustin Morgan';
+                        $emailFrom = 'dustin@sleepare.com';
+                        $password = 'sleepare1$3';
+                    }
+                }
                 
                 $servername = "185.56.87.173";
                 $username 	= "sleepmag_store";
