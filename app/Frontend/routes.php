@@ -21,6 +21,9 @@ Route::group(['middleware' => 'shop'], function () {
     
     Route::get('/api/orders', 'Frontend\Shop\OrderController@getOrders');
 
+    Route::get('/cancel/order/{id}', 'CheckoutController@cencelOrder');
+    Route::post('/cancel/request/order/{id}', 'CheckoutController@cancelOrderRequest');
+
     Route::post('checkout', ['as' => 'checkout', 'uses' => 'CheckoutController@proceedPayment']);
    
     Route::get('/formdata/{data?}', ['as' => '/formdata', 'uses' => 'CheckoutController@savesession']);
