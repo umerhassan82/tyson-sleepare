@@ -49,10 +49,7 @@
                             <b style="font-family:sans-serif">Order Tracking:</b> sent between 2 - 5 business days from when you placed the order.
                         </li>
                         <li style="margin-bottom:8px;line-height:1.5;font-family:sans-serif">
-                            <b style="font-family:sans-serif">Delivery:</b> allow up to 7 business days.
-                            <ul style="margin-left:0px;font-family:sans-serif">
-                                <li style="font-family:sans-serif">Canada Orders: please allow up to 10 business days for delivery.</li>
-                            </ul>
+                            <b style="font-family:sans-serif">Delivery:</b> allow up to 7 - 10 business days.
                         </li>
                     </ul>
                     <p style="font-size:16px;color:rgba(0,0,0,0.54);font-family:sans-serif">Other things to note:</p>
