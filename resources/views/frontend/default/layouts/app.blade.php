@@ -11,6 +11,8 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="icon" type="image/png" href="https://mk0sleeparej0clr43i7.kinstacdn.com/wp-content/themes/sleepare/images/favicon.png" />
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <meta name="robots" content="noindex">
+	<meta name="googlebot" content="noindex">
     <link rel="stylesheet" href="/vendor/laravel-admin/nprogress/nprogress.css">
     <script src="https://js.stripe.com/v3/"></script>
     <script>
