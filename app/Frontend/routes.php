@@ -11,6 +11,8 @@ Route::group(['middleware' => 'shop'], function () {
     Route::get('/', ['as' => 'home', 'uses' => 'Frontend\HomeController@index']);
     Route::get('/test/curl', ['as' => '/test/curl', 'uses' => 'Frontend\HomeController@testCurl']);
 
+    Route::get('/get/keywords/{value?}', 'Frontend\HomeController@getKeywords');
+
        Route::get('/clear-cache', function() {
      		$exitCode = Artisan::call('config:clear');
 		$exitCode = Artisan::call('cache:clear');

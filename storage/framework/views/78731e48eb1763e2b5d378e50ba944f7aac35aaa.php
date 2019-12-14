@@ -1,13 +1,12 @@
-@extends('frontend.'.config('template').'.layouts.app')
+<?php $__env->startSection('title', 'Cart'); ?>
+<?php $__env->startSection('meta_desc', ''); ?>
+<?php $__env->startSection('meta_key', ''); ?>
 
-@section('title', 'Cart')
-@section('meta_desc', '')
-@section('meta_key', '')
-
-@section('content')
+<?php $__env->startSection('content'); ?>
 <div class="row">
     <div class="col-md-12">
-        {!! Breadcrumbs::render('cart') !!}
+        <?php echo Breadcrumbs::render('cart'); ?>
+
     </div>
     <div class="col-md-12">
         <?php
@@ -32,16 +31,16 @@
             }
         ?>
 
-        @if( count($cart) > 0 )
+        <?php if( count($cart) > 0 ): ?>
             <div class="row">
                 <div class="col-md-12">
                     <h3 style="margin-top: 0">Cart</h3>
-                    @foreach ($cart as $item)
+                    <?php $__currentLoopData = $cart; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                         <?php
                             $selected_item = $item;
                         ?>
-                        @include ('frontend.'.config('template').'.shop.cart.item', ['item' => $item])
-                    @endforeach
+                        <?php echo $__env->make('frontend.'.config('template').'.shop.cart.item', ['item' => $item], \Illuminate\Support\Arr::except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 </div>
             </div>
 
@@ -54,14 +53,14 @@
                             <div class="col"></div>
                             <div class="col totalPrices">
                                 <div class="col-md-12 mt-4 pr-0">
-                                    <h4 class="mt-2"><b>Tax:</b> $<span id="totalCost">{{ number_format($cart_tax, 2) }}</span></h4>
-                                    <input type="hidden" id="cart_tax" name="cart_tax" value="{{ sprintf('%0.2f', $cart_tax) }}" class="form-control">
+                                    <h4 class="mt-2"><b>Tax:</b> $<span id="totalCost"><?php echo e(number_format($cart_tax, 2), false); ?></span></h4>
+                                    <input type="hidden" id="cart_tax" name="cart_tax" value="<?php echo e(sprintf('%0.2f', $cart_tax), false); ?>" class="form-control">
                                 </div>
                                 <div class="col-md-12">
-                                    <h4 class="mt-2"><b>Total:</b> $<span id="totalCost">{{ number_format($total*config('rate'), 2) }}</span></h4>
+                                    <h4 class="mt-2"><b>Total:</b> $<span id="totalCost"><?php echo e(number_format($total*config('rate'), 2), false); ?></span></h4>
                                 </div>
                                 <div class="col-md-12">
-                                    <h4 class="mt-2"><b>Grand Total:</b> $<span id="totalCost">{{ number_format($grand_total, 2) }}</span></h4>
+                                    <h4 class="mt-2"><b>Grand Total:</b> $<span id="totalCost"><?php echo e(number_format($grand_total, 2), false); ?></span></h4>
                                 </div>
                             </div>
                         </div>
@@ -78,13 +77,13 @@
                     <div class="col">
                         <div class="col-lg-12"><b>First Name<span style="color:red;">*</span></b></div>
                         <div class="col-md-12">
-                            <input type="text" name="f_name" value="{{ isset($fsession['f_name'])?$fsession['f_name']:'' }}" class="form-control" required>
+                            <input type="text" name="f_name" value="<?php echo e(isset($fsession['f_name'])?$fsession['f_name']:'', false); ?>" class="form-control" required>
                         </div>
                     </div>
                     <div class="col">
                         <div class="col-lg-12"><b>Last Name</b></div>
                         <div class="col-md-12">
-                            <input type="text" name="l_name"  value="{{ isset($fsession['l_name'])?$fsession['l_name']:'' }}" class="form-control">
+                            <input type="text" name="l_name"  value="<?php echo e(isset($fsession['l_name'])?$fsession['l_name']:'', false); ?>" class="form-control">
                         </div>
                     </div>
                 </div>
@@ -93,13 +92,13 @@
                     <div class="col">
                         <div class="col-lg-12"><b>Clover Trans#</b></div>
                         <div class="col-md-12">
-                            <input type="text" name="clover_trans" value="{{ isset($fsession['clover_trans'])?$fsession['clover_trans']:'' }}" class="form-control">
+                            <input type="text" name="clover_trans" value="<?php echo e(isset($fsession['clover_trans'])?$fsession['clover_trans']:'', false); ?>" class="form-control">
                         </div>
                     </div>
                     <div class="col">
                         <div class="col-lg-12"><b>Email</b></div>
                         <div class="col-md-12">
-                            <input type="text" name="user_email" id="cust_email" value="{{ isset($fsession['user_email'])?$fsession['user_email']:'' }}" class="form-control" required>
+                            <input type="text" name="user_email" id="cust_email" value="<?php echo e(isset($fsession['user_email'])?$fsession['user_email']:'', false); ?>" class="form-control" required>
                         </div>
                     </div>
                 </div>
@@ -108,13 +107,13 @@
                     <div class="col">
                         <div class="col-lg-12"><b>Telephone#<span style="color:red;">*</span></b></div>
                         <div class="col-md-12">
-                            <input type="text" name="mobile_num" value="{{ isset($fsession['mobile_num'])?$fsession['mobile_num']:'' }}" class="form-control" required>
+                            <input type="text" name="mobile_num" value="<?php echo e(isset($fsession['mobile_num'])?$fsession['mobile_num']:'', false); ?>" class="form-control" required>
                         </div>
                     </div>
                     <div class="col">
                         <div class="col-lg-12"><b>Address</b></div>
                         <div class="col-md-12">
-                            <input type="text" id="autocomplete" placeholder="Enter your address" name="address" value="{{ isset($fsession['address'])?$fsession['address']:'' }}" class="form-control">
+                            <input type="text" id="autocomplete" placeholder="Enter your address" name="address" value="<?php echo e(isset($fsession['address'])?$fsession['address']:'', false); ?>" class="form-control">
                         </div>
                     </div>
                 </div>
@@ -123,19 +122,19 @@
                     <div class="col">
                         <div class="col-lg-12"><b>Apartment number</b></div>
                         <div class="col-md-12">
-                            <input type="text" name="aprtment_num" id="street_number" value="{{ isset($fsession['aprtment_num'])?$fsession['aprtment_num']:'' }}" class="form-control">
+                            <input type="text" name="aprtment_num" id="street_number" value="<?php echo e(isset($fsession['aprtment_num'])?$fsession['aprtment_num']:'', false); ?>" class="form-control">
                         </div>
                     </div>
                     <!-- <div class="col">
                         <div class="col-lg-12"><b>City</b></div>
                         <div class="col-md-12">
-                            <input type="text" id="locality" name="city" value="{{-- isset($fsession['city'])?$fsession['city']:'' --}}"  class="form-control">
+                            <input type="text" id="locality" name="city" value=""  class="form-control">
                         </div>
                     </div> -->
                     <div class="col">
                         <div class="col-lg-12"><b>State</b></div>
                         <div class="col-md-12">
-                            <input type="text" id="administrative_area_level_1" name="state" value="{{ isset($fsession['state'])?$fsession['state']:'' }}"  class="form-control">
+                            <input type="text" id="administrative_area_level_1" name="state" value="<?php echo e(isset($fsession['state'])?$fsession['state']:'', false); ?>"  class="form-control">
                         </div>
                     </div>
                 </div>
@@ -144,7 +143,7 @@
                     <div class="col">
                         <div class="col-lg-12"><b>Zip</b></div>
                         <div class="col-md-12">
-                            <input type="text" id="postal_code" name="zipcode" value="{{ isset($fsession['zipcode'])?$fsession['zipcode']:'' }}"  class="form-control">
+                            <input type="text" id="postal_code" name="zipcode" value="<?php echo e(isset($fsession['zipcode'])?$fsession['zipcode']:'', false); ?>"  class="form-control">
                         </div>
                     </div>
                     <div class="col d-flex">
@@ -239,14 +238,14 @@
                     <div class="col">
                         <div class="col-lg-12"><b>Count</b></div>
                         <div class="col-md-12">
-                            <input type="text" name="count" value="{{ $selected_item['qty'] }}" class="form-control">
+                            <input type="text" name="count" value="<?php echo e($selected_item['qty'], false); ?>" class="form-control">
                         </div>
                     </div>
                     <div class="col">
                         <div class="col-lg-12"><b>Paid Amount</b></div>
                         <div class="col-md-12">
-                            <input type="text" id="paid_amount" name="paid_amount" value="{{ sprintf('%0.2f', $grand_total) }}" class="form-control">
-                            <input type="hidden" id="orignal_price" name="orignal_price" value="{{ $total*config('rate') }}" />
+                            <input type="text" id="paid_amount" name="paid_amount" value="<?php echo e(sprintf('%0.2f', $grand_total), false); ?>" class="form-control">
+                            <input type="hidden" id="orignal_price" name="orignal_price" value="<?php echo e($total*config('rate'), false); ?>" />
                         </div>
                     </div>
                 </div>
@@ -255,13 +254,13 @@
                     <div class="col">
                         <div class="col-lg-12"><b>Status</b></div>
                         <div class="col-md-12">
-                            <input type="text" name="status" value="{{ isset($fsession['status'])?$fsession['status']:'' }}" class="form-control">
+                            <input type="text" name="status" value="<?php echo e(isset($fsession['status'])?$fsession['status']:'', false); ?>" class="form-control">
                         </div>
                     </div>
                     <div class="col">
                         <div class="col-lg-12"><b>Note</b></div>
                         <div class="col-md-12">
-                            <input type="text" name="note" value="{{ isset($fsession['note'])?$fsession['note']:'' }}" class="form-control">
+                            <input type="text" name="note" value="<?php echo e(isset($fsession['note'])?$fsession['note']:'', false); ?>" class="form-control">
                         </div>
                     </div>
     
@@ -271,7 +270,7 @@
                     <!-- <div class="col">
                         <div class="col-lg-12"><b>Tracking Receipt Status</b></div>
                         <div class="col-md-12">
-                            <input type="text" name="tracking" value="{{-- isset($fsession['tracking'])?$fsession['tracking']:'' --}}" class="form-control">
+                            <input type="text" name="tracking" value="" class="form-control">
                         </div>
                     </div> -->
                     <div class="col">
@@ -279,16 +278,16 @@
                         <div class="col-md-12">
                             <select class="form-control" name="assisted" id="assisted" required>
                                 <option value="">Choose</option>
-                                @foreach ($persons as $key => $person)
-                                    <option value="{{ $key }}">{{ $person }}</option>
-                                @endforeach
+                                <?php $__currentLoopData = $persons; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $person): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                    <option value="<?php echo e($key, false); ?>"><?php echo e($person, false); ?></option>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </select>
                         </div>
                     </div>
                     <div class="col">
                         <div class="col-lg-12"><b>How did you find us? (If it was through Google please tell us the keyword)</b></div>
                         <div class="col-md-12">
-                            <input type="text" name="findus" id="findus" value="{{ isset($fsession['findus'])?$fsession['findus']:'' }}" class="form-control" required>
+                            <input type="text" name="findus" id="findus" value="<?php echo e(isset($fsession['findus'])?$fsession['findus']:'', false); ?>" class="form-control" required>
                             <div id="keyword-dropdown" class="col-md-12 bootstrap-autocomplete dropdown-menu" style="top: 40px; left: 14px; width: 95%; height: 210px; overflow-y: scroll; "></div>
                         </div>
                     </div>
@@ -301,17 +300,17 @@
                 </div>
             </form>
 
-        @else
+        <?php else: ?>
             <div class="alert alert-warning text-center">
                 Your Cart is empty!
             </div>
-        @endif
+        <?php endif; ?>
     </div>
 </div>
 
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('bottom-js')
+<?php $__env->startSection('bottom-js'); ?>
         <script>
             $(document).ready(function(){
                 $('#findus').on('input', function() {
@@ -350,4 +349,5 @@
 
             });
         </script>
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('frontend.'.config('template').'.layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), array('__data', '__path')))->render(); ?>

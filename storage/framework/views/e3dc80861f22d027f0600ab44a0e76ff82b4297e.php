@@ -1,24 +1,24 @@
 <!DOCTYPE html>
-<html lang="{{ config('app.locale') }}">
+<html lang="<?php echo e(config('app.locale'), false); ?>">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="@yield('meta_desc', 'Mattress Store')">
-    <meta name="keywords" content="@yield('meta_key', 'shop, sleepare')">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>@yield('title', config('app.name'))</title>
+    <meta name="description" content="<?php echo $__env->yieldContent('meta_desc', 'Mattress Store'); ?>">
+    <meta name="keywords" content="<?php echo $__env->yieldContent('meta_key', 'shop, sleepare'); ?>">
+    <meta name="csrf-token" content="<?php echo e(csrf_token(), false); ?>">
+    <title><?php echo $__env->yieldContent('title', config('app.name')); ?></title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="icon" type="image/png" href="https://mk0sleeparej0clr43i7.kinstacdn.com/wp-content/themes/sleepare/images/favicon.png" />
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="<?php echo e(asset('css/app.css'), false); ?>" rel="stylesheet">
     <meta name="robots" content="noindex">
 	<meta name="googlebot" content="noindex">
     <link rel="stylesheet" href="/vendor/laravel-admin/nprogress/nprogress.css">
     <script src="https://js.stripe.com/v3/"></script>
     <script>
-        window.Laravel = {!! json_encode([
+        window.Laravel = <?php echo json_encode([
             'csrfToken' => csrf_token(),
-        ]) !!};
+        ]); ?>;
     </script>
 
     <script type='text/javascript'>
@@ -32,11 +32,11 @@
 </head>
 <body>
 
-@include('frontend.default.partials.nav')
+<?php echo $__env->make('frontend.default.partials.nav', \Illuminate\Support\Arr::except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 
 <section class="container mainCnts">
     <div id="pjax-container">
-        @yield('content')
+        <?php echo $__env->yieldContent('content'); ?>
     </div>
 </section>
 
@@ -45,21 +45,21 @@
         <div class="row row-30">
             <div class="col-md-6 col-xl-6">
                 <div class="pr-xl-4">
-                    <p>{{ config('text_on_footer') }}</p>
-                    <p class="rights">&copy;  {{ date('Y') }} {{ config('app.name') }}. All Rights Reserved.</p>
+                    <p><?php echo e(config('text_on_footer'), false); ?></p>
+                    <p class="rights">&copy;  <?php echo e(date('Y'), false); ?> <?php echo e(config('app.name'), false); ?>. All Rights Reserved.</p>
                 </div>
             </div>
         </div>
     </div>
 </footer>
 
-<script src="{{ asset('js/jquery.min.js') }}"></script>
+<script src="<?php echo e(asset('js/jquery.min.js'), false); ?>"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 <script src="/vendor/laravel-admin/nprogress/nprogress.js"></script>
-<script src="{{ asset('js/pjax.js') }}"></script>
-<script src="{{ asset('js/core.js?6') }}"></script>
+<script src="<?php echo e(asset('js/pjax.js'), false); ?>"></script>
+<script src="<?php echo e(asset('js/core.js?6'), false); ?>"></script>
 
-@yield('bottom-js')
+<?php echo $__env->yieldContent('bottom-js'); ?>
 
 <script>
     $(document).ready(function(){

@@ -578,4 +578,18 @@ class HomeController extends Controller
         }// end if
     }// end send mail
 
+    public function getKeywords($value = ' '){
+        $keywords = file_get_contents('keywords.json');
+        $keywords = json_decode($keywords);
+
+        $options = '';
+        foreach($keywords as $keyword){
+            if(strpos(strtolower($keyword->text), strtolower($value)) !== false){
+                $options .= '<a href="#!" data-value="'.$keyword->value.'" class="dropdown-item">'.$keyword->value.'</a>';
+            } // end if
+        }// end foreach
+        
+        return $options;
+    }
+
 } // end class
