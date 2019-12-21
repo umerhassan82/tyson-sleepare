@@ -28,6 +28,8 @@ return [
 
     'env' => env('APP_ENV', 'production'),
 
+    'roy_email' => env('ROY_EMAIL'),
+
     /*
     |--------------------------------------------------------------------------
     | Application Debug Mode
