@@ -164,7 +164,7 @@ class HomeController extends Controller
                 else if($myProduct === "avocado")
                     $myProductUrl = 'https://shareasale.com/r.cfm?b=939087&u=1718190&m=68778&urllink=&afftrack=';
 
-                $servername = "185.56.87.185";
+                $servername = "35.214.152.133";
                 $username 	= "sleepmag_store";
                 $passworddb = "(hS63x-p87";
                 $dbname 	= "sleepmag_store";
@@ -372,7 +372,7 @@ class HomeController extends Controller
                     }
                 }
                 
-                $servername = "185.56.87.185";
+                $servername = "35.214.152.133";
                 $username 	= "sleepmag_store";
                 $passworddb = "(hS63x-p87";
                 $dbname 	= "sleepmag_store";
