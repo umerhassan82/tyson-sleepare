@@ -3,7 +3,7 @@
         <a class="image-wrapper" href="/{{ $product->id }}-{{ $product->slug }}" title="{{ $product->title }}">
 
             @if ( !empty($product->photo) )
-                <img src="{{ config('app.image_path')}} /uploads/ {{ $product->photo }}" alt="{{$product->title}}" />
+                <img src="{{ config('app.image_path').'/uploads/'.$product->photo }}" alt="{{$product->title}}" />
             @else
                 {{ Html::image('https://dummyimage.com/762x428/000/fff.jpg&text=No+image', $product->title, ['class'=>'img-responsive', 'style'=>'width:100%;']) }}
             @endif
