@@ -46,7 +46,7 @@
                             <b style="font-family:sans-serif">Mattress Orders:</b> allow 1 - 2 business days to build and compress your mattress before its boxed and placed on the truck for delivery.
                         </li>
                         <li style="margin-bottom:8px;line-height:1.5;font-family:sans-serif">
-                            <b style="font-family:sans-serif">Order Tracking:</b> sent between 2 - 5 business days from when you placed the order.
+                            <b style="font-family:sans-serif">Order Tracking:</b> sent between 7 - 10 business days from when you placed the order.
                         </li>
                         <li style="margin-bottom:8px;line-height:1.5;font-family:sans-serif">
                             <b style="font-family:sans-serif">Delivery:</b> allow up to 7 - 10 business days.
