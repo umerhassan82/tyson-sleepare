@@ -38,18 +38,18 @@
         <tbody>
             <tr style="font-family:sans-serif">                            
                 <td style="border-top:0px solid rgb(255,255,255);color:rgb(63,63,60);font-size:24px;line-height:34px;font-family:sans-serif;border-collapse:collapse;padding:0px 30px" bgcolor="#ffffff" align="left">
-                    <p style="margin-bottom:0px;font-family:sans-serif">Thanks for your <span class="il">Sleepare</span> purchase!</p>
-                    <p style="font-size:18px;line-height:1.5;font-family:sans-serif">Hi, {!! $customerName !!}! We've received your order and we will get started on it right away.<br style="font-family:sans-serif"></p>
+                    <p style="font-size:18px;line-height:1.5;font-family:sans-serif">Hi, {!! $customerName !!}!</p>
+                    <p style="margin-bottom:0px;font-family:sans-serif">We've received your order and we will get started on it right away.</p>
                     <p style="font-family:sans-serif">What's next?</p>
                     <ul style="font-size:16px;font-family:sans-serif">
                         <li style="margin-bottom:8px;line-height:1.5;font-family:sans-serif">
-                            <b style="font-family:sans-serif">Mattress Orders:</b> allow 1 - 2 business days to build and compress your mattress before its boxed and placed on the truck for delivery.
+                            <b style="font-family:sans-serif">Mattress Orders:</b> Allow 1-2 business days for our team to build and compress your mattress before it’s boxed and placed on the truck for delivery.
                         </li>
                         <li style="margin-bottom:8px;line-height:1.5;font-family:sans-serif">
-                            <b style="font-family:sans-serif">Order Tracking:</b> sent between 7 - 10 business days from when you placed the order.
+                            <b style="font-family:sans-serif">Tracking Number:</b> You will receive notification that your order has shipped 2-5 business days from when you placed the order.
                         </li>
                         <li style="margin-bottom:8px;line-height:1.5;font-family:sans-serif">
-                            <b style="font-family:sans-serif">Delivery:</b> allow up to 7 - 10 business days.
+                            <b style="font-family:sans-serif">Delivery:</b> After receiving your shipping notification, <b style="font-family:sans-serif"><em>allow 7-10 business days for delivery</em>.</b>
                         </li>
                     </ul>
                     <p style="font-size:16px;color:rgba(0,0,0,0.54);font-family:sans-serif">Other things to note:</p>
@@ -58,7 +58,7 @@
                             Products are shipped separately from various warehouse locations.
                         </li>
                         <li style="margin-bottom:8px;line-height:1.5;font-family:sans-serif">
-                            White-Glove Delivery: you will receive a call from the delivery agent within 1-2 weeks to schedule your delivery date and time.
+                            <b style="font-family:sans-serif">White-Glove Delivery:</b> You will receive a call from the delivery agent within 1-2 weeks to schedule your delivery date and time.
                         </li>
                     </ul>
                 </td>
