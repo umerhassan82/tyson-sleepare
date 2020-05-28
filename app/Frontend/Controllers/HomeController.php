@@ -337,9 +337,9 @@ class HomeController extends Controller
             if(!empty($request->purdate)){
                 $purchaseDate = date('Y-m-d', strtotime($request->purdate));
             }
-            // echo '$purchaseDate: '.$purchaseDate.'<br />';
-            // echo '<pre>';print_r($_POST);echo '</pre>';
-            // exit;
+            echo '$purchaseDate: '.$purchaseDate.'<br />';
+            echo '<pre>';print_r($_POST);echo '</pre>';
+            exit;
             $prodsContent = array();
             $prodsCompUrl = '';
             $myUserKey	  = '';
