@@ -57,7 +57,7 @@ class HomeController extends Controller
         //         return $myMailStatus;
         //     }
         // }// end not empty
-        return true;
+        return 'true';
     }
 
     public function purchase(Request $request){
