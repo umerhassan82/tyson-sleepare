@@ -29,35 +29,35 @@ class HomeController extends Controller
     }
 
     public function checkmail(Request $request){
-        if(!empty($request->custemail)){
-            $to		= $request->custemail;
-            $url = 'https://api.hippoapi.com/v3/more/json';
-            $apikey = '19B30B81'; // API Key
-            $email = $to; // Email to test
-            //$email = 'lahorewebdesign@gmail.com'; // Email to test
-            // jSON String for request
-            $url .= "/$apikey/$email";
-            // Initializing curl
-            $ch = curl_init($url);
-            if($ch == false) {
-                die ("Curl failed!");
-            } else {
-            // Configuring curl options
-                $options = array(
-                    CURLOPT_RETURNTRANSFER => true,
-                    CURLOPT_HTTPHEADER => array('Content-type: application/json')
-                );
-                // Setting curl options
-                curl_setopt_array( $ch, $options );
-                // Getting results
-                $result = curl_exec($ch); // Getting jSON result string
-                // display JSON data
-                $myResponse = json_decode($result);
-                $myMailStatus = $myResponse->emailVerification->mailboxVerification->result;
-                return $myMailStatus;
-            }
-        }// end not empty
-                return true;
+        // if(!empty($request->custemail)){
+        //     $to		= $request->custemail;
+        //     $url = 'https://api.hippoapi.com/v3/more/json';
+        //     $apikey = '19B30B81'; // API Key
+        //     $email = $to; // Email to test
+        //     //$email = 'lahorewebdesign@gmail.com'; // Email to test
+        //     // jSON String for request
+        //     $url .= "/$apikey/$email";
+        //     // Initializing curl
+        //     $ch = curl_init($url);
+        //     if($ch == false) {
+        //         die ("Curl failed!");
+        //     } else {
+        //     // Configuring curl options
+        //         $options = array(
+        //             CURLOPT_RETURNTRANSFER => true,
+        //             CURLOPT_HTTPHEADER => array('Content-type: application/json')
+        //         );
+        //         // Setting curl options
+        //         curl_setopt_array( $ch, $options );
+        //         // Getting results
+        //         $result = curl_exec($ch); // Getting jSON result string
+        //         // display JSON data
+        //         $myResponse = json_decode($result);
+        //         $myMailStatus = $myResponse->emailVerification->mailboxVerification->result;
+        //         return $myMailStatus;
+        //     }
+        // }// end not empty
+        return true;
     }
 
     public function purchase(Request $request){
