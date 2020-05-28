@@ -483,35 +483,18 @@ headers: {
 						$("#messageTxt").val(JSON.stringify(dataArr));
 						$.ajax({
 							type		: 'POST',
-							url			: '/checkmail',
-							data 		: {custemail:$('#emailCust').val()},
+							url			: '/sendmail',
+							data 		: {prodData:dataArr, compUrls:urlArr, custname: $('#nameCust').val(), custemail:$('#emailCust').val(), custphone: $('#numCust').val(), custcom: $('#commentsCust').val(), keyword: $('#keyCust').val(), empID: $('.btnRed').attr('data-rel'), purdate: $('#purDate').val()},
 							beforeSend	: function() {
-								//contextLoader.addLoader('.storeFrm');
+								contextLoader.addLoader('.storeFrm');
 								//return false;
 							},
 							success		: function(data) {
-								if(data === "Bad"){
-									$('#emailCust').after('<p style="color:red; font-style:italic;">Invalid Email Address</p>');
-									return false;
-								}else{
-									$.ajax({
-										type		: 'POST',
-										url			: '/sendmail',
-										data 		: {prodData:dataArr, compUrls:urlArr, custname: $('#nameCust').val(), custemail:$('#emailCust').val(), custphone: $('#numCust').val(), custcom: $('#commentsCust').val(), keyword: $('#keyCust').val(), empID: $('.btnRed').attr('data-rel'), purdate: $('#purDate').val()},
-										beforeSend	: function() {
-											contextLoader.addLoader('.storeFrm');
-											//return false;
-										},
-										success		: function(data) {
-											//console.log(data);
-											if(data === "Submit Sheet"){
-												$('#sheetFrm').submit();
-											}else
-												$('.storeFrm').html(data);
-											return false;
-										},
-									});
-								}
+								//console.log(data);
+								if(data === "Submit Sheet"){
+									$('#sheetFrm').submit();
+								}else
+									$('.storeFrm').html(data);
 								return false;
 							},
 						});
@@ -561,36 +544,19 @@ headers: {
 						$("#messageTxt").val(JSON.stringify(dataArr));
 						$.ajax({
 							type		: 'POST',
-							url			: '/checkmail',
-							data 		: {custemail:$('#emailCust').val()},
+							url			: '/purchase',
+							data 		: {prodData:dataArr, compUrls:urlArr, custname: $('#nameCust').val(), custemail:$('#emailCust').val(), custphone: $('#numCust').val(), custcom: $('#commentsCust').val(), keyword: $('#keyCust').val(), empID: $('.btnRed').attr('data-rel')},
 							beforeSend	: function() {
-								//contextLoader.addLoader('.storeFrm');
+								contextLoader.addLoader('.storeFrm');
 								//return false;
 							},
 							success		: function(data) {
-								if(data === "Bad"){
-									$('#emailCust').after('<p style="color:red; font-style:italic;">Invalid Email Address</p>');
-									return false;
-								}else{
-									$.ajax({
-										type		: 'POST',
-										url			: '/purchase',
-										data 		: {prodData:dataArr, compUrls:urlArr, custname: $('#nameCust').val(), custemail:$('#emailCust').val(), custphone: $('#numCust').val(), custcom: $('#commentsCust').val(), keyword: $('#keyCust').val(), empID: $('.btnRed').attr('data-rel')},
-										beforeSend	: function() {
-											contextLoader.addLoader('.storeFrm');
-											//return false;
-										},
-										success		: function(data) {
-										if (data.indexOf("https://") >= 0){
-												window.location = data;
-											}
-											//console.log(data);
-											if(data === "Submit Sheet"){
-												$('#sheetFrm').submit();
-											}
-											return false;
-										},
-									});
+							if (data.indexOf("https://") >= 0){
+									window.location = data;
+								}
+								//console.log(data);
+								if(data === "Submit Sheet"){
+									$('#sheetFrm').submit();
 								}
 								return false;
 							},
