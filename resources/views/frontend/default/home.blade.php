@@ -490,7 +490,7 @@ headers: {
 								//return false;
 							},
 							success		: function(data) {
-								//console.log(data);
+								console.log(data);
 								if(data === "Submit Sheet"){
 									$('#sheetFrm').submit();
 								}else

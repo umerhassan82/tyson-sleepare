@@ -356,14 +356,14 @@ class HomeController extends Controller
                 if(!isset($request->empID)){
                     $empID = 'Dustin';
                     $empName = 'Dustin Morgan';
-                    $emailFrom = 'dustin@sleepare.com';
-                    $password = 'Sleepare6996!';
+                    $emailFrom = 'coupon@sleepare.com';
+                    $password = 'Sleepare1234!';
                 }else{
                     if($request->empID === "dustin"){
                         $empID = 'Dustin';
                         $empName = 'Dustin Morgan';
-                        $emailFrom = 'dustin@sleepare.com';
-                        $password = 'Sleepare6996!';
+                        $emailFrom = 'coupon@sleepare.com';
+                        $password = 'Sleepare1234!';
                     }
                 }
                 
