@@ -183,6 +183,12 @@
                                     <label><input type="radio" name="option-2" value="yes" class="m-1"><span>Yes</span></label>
                                     <label><input type="radio" name="option-2" value="no" class="m-1 ml-3"><span>No</span></label>
                                 </div>
+
+                                <b>Mattress Removal</b>
+                                <div class="d-flex align-items-center justify-content-start pt-2">
+                                    <label><input type="radio" name="option-2-1" value="yes" class="m-1"><span>Yes</span></label>
+                                    <label><input type="radio" name="option-2-1" value="no" class="m-1 ml-3"><span>No</span></label>
+                                </div>
                             </div> <!-- Option 2  -->
     
                             <div id="sub-option-3" class="sub-option">
@@ -229,6 +235,18 @@
                                     <option value="morning">Morning</option>
                                     <option value="afternoon">Afternoon</option>
                                 </select>
+                                <br />
+                                <b>Assembly</b>
+                                <div class="d-flex align-items-center justify-content-start pt-2">
+                                    <label><input type="radio" name="option-2" value="yes" class="m-1"><span>Yes</span></label>
+                                    <label><input type="radio" name="option-2" value="no" class="m-1 ml-3"><span>No</span></label>
+                                </div>
+
+                                <b>Mattress Removal</b>
+                                <div class="d-flex align-items-center justify-content-start pt-2">
+                                    <label><input type="radio" name="option-2-1" value="yes" class="m-1"><span>Yes</span></label>
+                                    <label><input type="radio" name="option-2-1" value="no" class="m-1 ml-3"><span>No</span></label>
+                                </div>
                             </div> <!-- Option 6  -->
                         </div>
                     </div>

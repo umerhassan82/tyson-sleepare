@@ -139,7 +139,8 @@ class OrderController extends Controller
                         break;
                         case 2:
                             $shippingD .= '<h4>White Glove shipping immediately</h4>';
-                            $shippingD .= '<p><b>Assembly</b>: '.($this->option_2_1 == 1? "Yes" : "No").'</p>';
+                            $shippingD .= '<p><b>Assembly</b>: '.($order->option_2_1 == 1? "Yes" : "No").'</p>';
+                            $shippingD .= '<p><b>Mattress Removal</b>: '.($order->option_2_2 == 1? "Yes" : "No").'</p>';
                         break;
                         case 3:
                             $shippingD .= '<h4>Picked up</h4>';
@@ -162,6 +163,8 @@ class OrderController extends Controller
                             $shippingD .= '<p><b>Please choose a date to deliver</b>: '.$this->option_7_1.'</p>';
                             $shippingD .= '<p><b>Is there a specific time you prefer?</b>: '.($this->option_7_2 == 1? "Yes" : "No").'</p>';
                             $shippingD .= '<p><b>Morning/Afternoon</b>: '.$this->option_7_3.'</p>';
+                            $shippingD .= '<p><b>Assembly</b>: '.($order->option_7_4 == 1? "Yes" : "No").'</p>';
+                            $shippingD .= '<p><b>Mattress Removal</b>: '.($order->option_7_5 == 1? "Yes" : "No").'</p>';
                         break;
                     }
                 }
