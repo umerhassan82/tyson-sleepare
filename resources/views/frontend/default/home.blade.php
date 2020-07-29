@@ -362,9 +362,6 @@ headers: {
 					if (validateEmail(sEmail)) {
 						var myDivs	= $('.btnsSec .product-itemSub .product-item').length;
 						dataArr		= [];
-						$('.urlComp').each(function() {
-							urlArr.push($(this).val());
-						});
 						$('.btnsSec .product-itemSub .product-item').each(function() {
 							dataArr.push({
 								prodname: $(this).attr('data-name'),
