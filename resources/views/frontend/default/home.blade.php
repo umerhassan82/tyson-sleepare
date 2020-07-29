@@ -374,7 +374,6 @@ headers: {
 						$.ajax({
 							type		: 'POST',
 							url			: '/sendmail',
-							data 		: {prodData:dataArr, compUrls:urlArr, custname: $('#nameCust').val(), custemail:$('#emailCust').val(), custphone: $('#numCust').val(), custcom: $('#commentsCust').val(), keyword: $('#keyCust').val(), empID: $('.btnRed').attr('data-rel'), purdate: $('#purDate').val()},
 							data 		: {prodData:dataArr, custname: $('#nameCust').val(), custemail:$('#emailCust').val(), custphone: $('#numCust').val(), custcom: $('#commentsCust').val(), keyword: $('#keyCust').val(), empID: $('.btnRed').attr('data-rel'), custLike: $('#popUpImg').val()},
 							beforeSend	: function() {
 								contextLoader.addLoader('.storeFrm');
