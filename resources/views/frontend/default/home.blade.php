@@ -63,7 +63,7 @@ headers: {
 						<div class="col">
 							<div class="store-single-product d-table">                                    
 								<div class="store-single-prod-wrapper d-table-cell align-middle text-center">
-									<a href="javascript:;" class="product-btn {{ $brand->css_class }}">
+									<a href="javascript:;" class="product-btn {{ $brand->css_class }}" data-name="{{ $brand->name }}">
 										<img class="img-fluid" src="{{ $brand->image }}" alt="{{ $brand->name }}" title="{{ $brand->name }}" />
 									</a>
 								</div>
@@ -98,14 +98,14 @@ headers: {
 										<label>How did you find us? <span style="font-size: 11px;">(If you used Google, which keyword you searched for)</span></label><br />
 										<input name="keyword" id="keyCust" type="text" />
 									</div>
-									<div class="col-md-12 col-sm-12">
+									<!-- <div class="col-md-12 col-sm-12">
 										<label>Want to purchase on</label><br />
 										<input name="date" id="purDate" class="datepicker" type="text" />
-									</div>
+									</div> -->
 									<div class="col-md-12 col-sm-12">
 										<div class="form-btn-block">
 											<button type="submit" id="btnSubmit" class="submit-btn">Submit</button>
-											<a href="javascript:;" class="submit-btn purcahse-btn" id="purchaseBtn">Purchase</a>
+											<!-- <a href="javascript:;" class="submit-btn purcahse-btn" id="purchaseBtn">Purchase</a> -->
 										</div>
 									</div>
 								</div>
@@ -134,31 +134,6 @@ headers: {
 							<div class="col-md-12">
 								<div id="popup">
 									<div class="pane" id="popup-content">
-
-										@foreach($brands as $brand)
-											<div class="{{ $brand->css_class }}s innerProds" style="display:none;">
-												@foreach($brand->products as $product)
-													<div class="product-item">
-														@if(!empty($product->image))
-															<img src="{{ $product->image }}" class="img-fluid pull-left" />
-														@endif
-														<p>{{ $product->name }}</p>
-													</div>
-													<div class="product-itemSub">
-														
-														@foreach($product->sizes as $size)
-															<div class="product-item">
-																@if(isset($size["name"]))
-																	<a href="javascript:;" class="prodUrl {{ $product->css_class }}" data-code="{{ isset($size['code']) ? $size['code'] : "" }}" data-name="{{ $product->name }}" data-disc="{{ isset($size['amount']) ? $size['amount'] : "" }}" data-extra="{{ $product->emai_extra }}" data-url="{{ $product->slug }}" data-size="{{ isset($size['name']) ? $size['name'] : "" }}" rel="{{ $product->affiliate_link }}">
-																		<p>{{ $size["name"] }}</p>
-																	</a>
-																@endif
-															</div>
-														@endforeach
-													</div>
-												@endforeach
-											</div>
-										@endforeach
 										<div class="btnsSec" style="display:none;">
 											<div class="product-item"><p>Selected Products</p></div>
 											<div class="product-itemSub"></div>
@@ -173,68 +148,136 @@ headers: {
 				</div>
 			</div>
 		</div> <!-- / Cancel Popup Box ends here -->
-		<div class="modal firmness-model" id="myModalFirm">
-			<div class="col-md-12 product-popup">
+		<div class="modal" id="myModalCustomer">
+			<div class="col-md-12">
 				<div class="modal-content panel panel-default">
 					<div class="modal-header panel-heading"><button type="button" class="close close-popup" data-dismiss="modal">&times;</button></div>
 					<div class="panel-body">
-						<div class="row">
-							<div class="col-md-12">
-								<div id="popup">
-									<div class="pane" id="popup-content">
-										<div class="saatvaFrims innerProdsFirm" style="display:none;">
-											<div class="product-item"><a href="javascript:;" data-ref="saatva" class="firmUrl" rel="Plush Soft"><p>Plush Soft</p></a></div>
-											<div class="product-item"><a href="javascript:;" data-ref="saatva" class="firmUrl" rel="Luxury Firm"><p>Luxury Firm</p></a></div>
-											<div class="product-item"><a href="javascript:;" data-ref="saatva" class="firmUrl" rel="Firm"><p>Firm</p></a></div>
-										</div>
-										<div class="loomFirms innerProdsFirm" style="display:none;">
-											<div class="product-item"><a href="javascript:;" data-ref="loom-leaf" class="firmUrl" rel="Relaxed Firm"><p>Relaxed Firm</p></a></div>
-											<div class="product-item"><a href="javascript:;" data-ref="loom-leaf" class="firmUrl" rel="Firm"><p>Firm</p></a></div>
-										</div>
-										<div class="winkFirms innerProdsFirm" style="display:none;">
-											<div class="product-item"><a href="javascript:;" data-ref="winkbeds" class="firmUrl" rel="Softer"><p>Softer</p></a></div>
-											<div class="product-item"><a href="javascript:;" data-ref="winkbeds" class="firmUrl" rel="Luxury Firm"><p>Luxury Firm</p></a></div>
-											<div class="product-item"><a href="javascript:;" data-ref="winkbeds" class="firmUrl" rel="Firmer"><p>Firmer</p></a></div>
-											<div class="product-item"><a href="javascript:;" data-ref="winkbeds" class="firmUrl" rel="Plus"><p>Plus</p></a></div>
-											<div class="product-item"><a href="javascript:;" data-ref="winkbeds" class="firmUrl" rel="Extra Firm"><p>Extra Firm</p></a></div>
-										</div>
-										<div class="museFirms innerProdsFirm" style="display:none;">
-											<div class="product-item"><a href="javascript:;" data-ref="muse" class="firmUrl" rel="Soft"><p>Soft</p></a></div>
-											<div class="product-item"><a href="javascript:;" data-ref="muse" class="firmUrl" rel="Medium"><p>Medium</p></a></div>
-											<div class="product-item"><a href="javascript:;" data-ref="muse" class="firmUrl" rel="Firm"><p>Firm</p></a></div>
-										</div>
-										<div class="tomorrowFirms innerProdsFirm" style="display:none;">
-											<div class="product-item"><a href="javascript:;" data-ref="tomorrow-hybrid" class="firmUrl" rel="Medium-Firm"><p>Medium-Firm</p></a></div>
-										</div>
-										<div class="nestHybridFirms innerProdsFirm" style="display:none;">
-											<div class="product-item"><a href="javascript:;" data-ref="nest-bedding-hybrid-latex" class="firmUrl" rel="Medium"><p>Medium</p></a></div>
-										</div>
-										<div class="nestSigFirms innerProdsFirm" style="display:none;">
-											<div class="product-item"><a href="javascript:;" data-ref="nest-bedding-alexander-hybrid" class="firmUrl" rel="Medium"><p>Medium</p></a></div>
-										</div>
-										<div class="brookAurFirms innerProdsFirm" style="display:none;">
-											<div class="product-item"><a href="javascript:;" data-ref="brooklyn-bedding-aurora" class="firmUrl" rel="Soft"><p>Soft</p></a></div>
-											<div class="product-item"><a href="javascript:;" data-ref="brooklyn-bedding-aurora" class="firmUrl" rel="Medium"><p>Medium</p></a></div>
-											<div class="product-item"><a href="javascript:;" data-ref="brooklyn-bedding-aurora" class="firmUrl" rel="Firm"><p>Firm</p></a></div>
-										</div>
-										<div class="brookSigFirms innerProdsFirm" style="display:none;">
-											<div class="product-item"><a href="javascript:;" data-ref="brooklyn-bedding-signature-hybrid" class="firmUrl" rel="Soft"><p>Soft</p></a></div>
-											<div class="product-item"><a href="javascript:;" data-ref="brooklyn-bedding-signature-hybrid" class="firmUrl" rel="Medium"><p>Medium</p></a></div>
-											<div class="product-item"><a href="javascript:;" data-ref="brooklyn-bedding-signature-hybrid" class="firmUrl" rel="Firm"><p>Firm</p></a></div>
-										</div>
-										<div class="brookblFirms innerProdsFirm" style="display:none;">
-											<div class="product-item"><a href="javascript:;" data-ref="brooklyn-bedding-bloom-hybrid" class="firmUrl" rel="Soft"><p>Soft</p></a></div>
-											<div class="product-item"><a href="javascript:;" data-ref="brooklyn-bedding-bloom-hybrid" class="firmUrl" rel="Medium"><p>Medium</p></a></div>
-											<div class="product-item"><a href="javascript:;" data-ref="brooklyn-bedding-bloom-hybrid" class="firmUrl" rel="Firm"><p>Firm</p></a></div>
-										</div>
+						<section class="gray-section">
+							<div class="container">
+								<div class="row">
+									<div class="gray-top-head text-center col-lg-12 "><h2>Would you like to learn more about the mattress you just picked?</h2></div>
+								</div>
+								<div class="row mt-4 mb-4">
+									<div class="gray-box col-lg-2 col-md-3 col-xs-6">
+										<a data-name="Comfort Rating" data-name="" href="javascript:;" class="custLike"><div class="gray-box-wrapper">
+											<div class="box-img d-table"><div class="d-table-cell align-middle text-center"><img src="https://res.cloudinary.com/dspvkz45d/image/upload/v1570890998/box-icon1.png" class="img-fluid" /></div></div>
+											<div class="box-title text-center">Comfort Rating</div>
+										</div></a>
+									</div>
+									<div class="gray-box col-lg-2 col-md-3 col-xs-6">
+										<a data-name="Shipping" href="javascript:;" class="custLike"><div class="gray-box-wrapper">
+											<div class="box-img d-table"><div class="d-table-cell align-middle text-center"><img src="https://res.cloudinary.com/dspvkz45d/image/upload/v1570890998/box-icon2.png" class="img-fluid" /></div></div>
+											<div class="box-title text-center">Shipping</div>
+										</div></a>
+									</div>
+									<div class="gray-box col-lg-2 col-md-3 col-xs-6">
+										<a data-name="Durability" href="javascript:;" class="custLike"><div class="gray-box-wrapper">
+											<div class="box-img d-table"><div class="d-table-cell align-middle text-center"><img src="https://res.cloudinary.com/dspvkz45d/image/upload/v1570890998/box-icon3.png" class="img-fluid" /></div></div>
+											<div class="box-title text-center">Durability</div>
+										</div></a>
+									</div>
+									<div class="gray-box col-lg-2 col-md-3 col-xs-6">
+										<a data-name="Material Quality" href="javascript:;" class="custLike"><div class="gray-box-wrapper">
+											<div class="box-img d-table"><div class="d-table-cell align-middle text-center"><img src="https://res.cloudinary.com/dspvkz45d/image/upload/v1570890998/box-icon4.png" class="img-fluid" /></div></div>
+											<div class="box-title text-center">Material Quality</div>
+										</div></a>
+									</div>
+									<div class="gray-box col-lg-2 col-md-3 col-xs-6">
+										<a data-name="Temprature Regulation" href="javascript:;" class="custLike"><div class="gray-box-wrapper">
+											<div class="box-img d-table"><div class="d-table-cell align-middle text-center"><img src="https://res.cloudinary.com/dspvkz45d/image/upload/v1570890998/box-icon5.png" class="img-fluid" /></div></div>
+											<div class="box-title text-center">Temprature Regulation</div>
+										</div></a>
+									</div>
+									<div class="gray-box col-lg-2 col-md-3 col-xs-6">
+										<a data-name="Customer Service" href="javascript:;" class="custLike"><div class="gray-box-wrapper">
+											<div class="box-img d-table"><div class="d-table-cell align-middle text-center"><img src="https://res.cloudinary.com/dspvkz45d/image/upload/v1570890998/box-icon6.png" class="img-fluid" /></div></div>
+											<div class="box-title text-center">Customer Service</div>
+										</div></a>
+									</div>
+									<div class="gray-box col-lg-2 col-md-3 col-xs-6">
+										<a data-name="Off Gassing" href="javascript:;" class="custLike"><div class="gray-box-wrapper">
+											<div class="box-img d-table"><div class="d-table-cell align-middle text-center"><img src="https://res.cloudinary.com/dspvkz45d/image/upload/v1570890998/box-icon7.png" class="img-fluid" /></div></div>
+											<div class="box-title text-center">Off Gassing</div>
+										</div></a>
+									</div>
+									<div class="gray-box col-lg-2 col-md-3 col-xs-6">
+										<a data-name="Side Sleeping" href="javascript:;" class="custLike"><div class="gray-box-wrapper">
+											<div class="box-img d-table"><div class="d-table-cell align-middle text-center"><img src="https://res.cloudinary.com/dspvkz45d/image/upload/v1570890998/box-icon8.png" class="img-fluid" /></div></div>
+											<div class="box-title text-center">Side Sleeping</div>
+										</div></a>
+									</div>
+									<div class="gray-box col-lg-2 col-md-3 col-xs-6">
+										<a data-name="Neck Pain" href="javascript:;" class="custLike"><div class="gray-box-wrapper">
+											<div class="box-img d-table"><div class="d-table-cell align-middle text-center"><img src="https://res.cloudinary.com/dspvkz45d/image/upload/v1570890998/box-icon9.png" class="img-fluid" /></div></div>
+											<div class="box-title text-center">Neck Pain</div>
+										</div></a>
+									</div>
+									<div class="gray-box col-lg-2 col-md-3 col-xs-6">
+										<a data-name="Joint Relief" href="javascript:;" class="custLike"><div class="gray-box-wrapper">
+											<div class="box-img d-table"><div class="d-table-cell align-middle text-center"><img src="https://res.cloudinary.com/dspvkz45d/image/upload/v1570890998/box-icon10.png" class="img-fluid" /></div></div>
+											<div class="box-title text-center">Joint Relief</div>
+										</div></a>
+									</div>
+									<div class="gray-box col-lg-2 col-md-3 col-xs-6">
+										<a data-name="Back Pain Relief" href="javascript:;" class="custLike"><div class="gray-box-wrapper">
+											<div class="box-img d-table"><div class="d-table-cell align-middle text-center"><img src="https://res.cloudinary.com/dspvkz45d/image/upload/v1570890998/box-icon11.png" class="img-fluid" /></div></div>
+											<div class="box-title text-center">Back Pain Relief</div>
+										</div></a>
+									</div>
+									<div class="gray-box col-lg-2 col-md-3 col-xs-6">
+										<a data-name="Value" href="javascript:;" class="custLike"><div class="gray-box-wrapper">
+											<div class="box-img d-table"><div class="d-table-cell align-middle text-center"><img src="https://res.cloudinary.com/dspvkz45d/image/upload/v1570890998/box-icon12.png" class="img-fluid" /></div></div>
+											<div class="box-title text-center">Value</div>
+										</div></a>
+									</div>
+									<div class="gray-box col-lg-2 col-md-3 col-xs-6">
+										<a data-name="Fast Break-in Period" href="javascript:;" class="custLike"><div class="gray-box-wrapper">
+											<div class="box-img d-table"><div class="d-table-cell align-middle text-center"><img src="https://res.cloudinary.com/dspvkz45d/image/upload/v1570890998/box-icon13.png" class="img-fluid" /></div></div>
+											<div class="box-title text-center">Fast Break-in Period</div>
+										</div></a>
+									</div>
+									<div class="gray-box col-lg-2 col-md-3 col-xs-6">
+										<a data-name="Premature Sagging" href="javascript:;" class="custLike"><div class="gray-box-wrapper">
+											<div class="box-img d-table"><div class="d-table-cell align-middle text-center"><img src="https://res.cloudinary.com/dspvkz45d/image/upload/v1570890998/box-icon14.png" class="img-fluid" /></div></div>
+											<div class="box-title text-center">Premature Sagging</div>
+										</div></a>
+									</div>
+									<div class="gray-box col-lg-2 col-md-3 col-xs-6">
+										<a data-name="Motion Isolation" href="javascript:;" class="custLike"><div class="gray-box-wrapper">
+											<div class="box-img d-table"><div class="d-table-cell align-middle text-center"><img src="https://res.cloudinary.com/dspvkz45d/image/upload/v1570890998/box-icon15.png" class="img-fluid" /></div></div>
+											<div class="box-title text-center">Motion Isolation</div>
+										</div></a>
+									</div>
+									<div class="gray-box col-lg-2 col-md-3 col-xs-6">
+										<a data-name="Frame" href="javascript:;" class="custLike"><div class="gray-box-wrapper">
+											<div class="box-img d-table"><div class="d-table-cell align-middle text-center"><img src="https://res.cloudinary.com/dspvkz45d/image/upload/v1570890998/box-icon16.png" class="img-fluid" /></div></div>
+											<div class="box-title text-center">Frame</div>
+										</div></a>
+									</div>
+									<div class="gray-box col-lg-2 col-md-3 col-xs-6">
+										<a data-name="Shoulder Support" href="javascript:;" class="custLike"><div class="gray-box-wrapper">
+											<div class="box-img d-table"><div class="d-table-cell align-middle text-center"><img src="https://res.cloudinary.com/dspvkz45d/image/upload/v1570890998/box-icon17.png" class="img-fluid" /></div></div>
+											<div class="box-title text-center">Shoulder Support</div>
+										</div></a>
+									</div>
+									<div class="gray-box col-lg-2 col-md-3 col-xs-6">
+										<a data-name="Support" href="javascript:;" class="custLike"><div class="gray-box-wrapper">
+											<div class="box-img d-table"><div class="d-table-cell align-middle text-center"><img src="https://res.cloudinary.com/dspvkz45d/image/upload/v1570890998/box-icon18.png" class="img-fluid" /></div></div>
+											<div class="box-title text-center">Support</div>
+										</div></a>
 									</div>
 								</div>
+								<div class="mt-5 text-center">
+									<a href="javascript:;" class="skip-btn career-apply-btn">Skip</a>
+									<a href="javascript:;" style="display:none;" class="skip-btn career-apply-btn custLikeNext">Next</a>
+								</div>
 							</div>
-						</div>
+						</section>
 					</div>
 				</div>
 			</div>
-		</div> <!-- / Cancel Popup Box ends here -->
+		</div>
 		<form id="sheetFrm" action="http://newyork.sleepare.com/google-sheet.php" method="post" class="contact-form" style="display:none;">
 			<input type="hidden" name="from" id="fromEmail">
 			<input type="hidden" name="to" id="toEmailUser">
@@ -249,195 +292,51 @@ headers: {
 				$(document).off('click', '.product-btn').on('click', '.product-btn', function(){
 					$('#myModal').modal('show');
 					$('.modal-backdrop').remove();
-					$('.innerProds').hide();
-					$('.btnsSec').hide();
-					if($(this).hasClass('saatvaProd')){
-						$('.saatvaProds').show();
-						return false;
-					}
-					if($(this).hasClass('purpleProd')){
-						$('.purpleProds').show();
-						return false;
-					}
-					if($(this).hasClass('casperProd')){
-						$('.casperProds').show();
-						return false;
-					}
-					if($(this).hasClass('leesaProd')){
-						$('.leesaProds').show();
-						return false;
-					}
-					if($(this).hasClass('laylaProd')){
-						$('.laylaProds').show();
-						return false;
-					}
-					if($(this).hasClass('dreamProd')){
-						$('.dreamProds').show();
-						return false;
-					}
-					if($(this).hasClass('awaraProd')){
-						$('.awaraProds').show();
-						return false;
-					}
-					if($(this).hasClass('levelProd')){
-						$('.levelProds').show();
-						return false;
-					}
-					if($(this).hasClass('avocadProd')){
-						$('.avocadProds').show();
-						return false;
-					}
-					if($(this).hasClass('sapiraProd')){
-						$('.sapiraProds').show();
-						return false;
-					}
-					if($(this).hasClass('airProd')){
-						$('.airProds').show();
-						return false;
-					}
-					if($(this).hasClass('museProd')){
-						$('.museProds').show();
-						return false;
-					}
-					if($(this).hasClass('winkProd')){
-						$('.winkProds').show();
-						return false;
-					}
-					if($(this).hasClass('spindProd')){
-						$('.spindProds').show();
-						return false;
-					}
-					if($(this).hasClass('nectarProd')){
-						$('.nectarProds').show();
-						return false;
-					}
-					if($(this).hasClass('loomProd')){
-						$('.loomProds').show();
-						return false;
-					}
-					if($(this).hasClass('tomorrowProd')){
-						$('.tomorrowProds').show();
-						return false;
-					}
-					if($(this).hasClass('puffyProd')){
-						$('.puffyProds').show();
-						return false;
-					}
-					if($(this).hasClass('zenProd')){
-						$('.zenProds').show();
-						return false;
-					}
-					if($(this).hasClass('nestBeddingProd')){
-						$('.nestBeddingProds').show();
-						return false;
-					}
-					if($(this).hasClass('brookProd')){
-						$('.brookProds').show();
-						return false;
-					}
-					if($(this).hasClass('helixProd')){
-						$('.helixProds').show();
-						return false;
-					}
-					if($(this).hasClass('ecosaProd')){
-						$('.ecosaProds').show();
-						return false;
-					}
-					if($(this).hasClass('bearProd')){
-						$('.bearProds').show();
-						return false;
-					}
-					if($(this).hasClass('casperProd')){
-						$('.casperProds').show();
-						return false;
-					}
-					if($(this).hasClass('bigfigProd')){
-						$('.bigfigProds').show();
-						return false;
-					}
-					if($(this).hasClass('brentProd')){
-						$('.brentProds').show();
-						return false;
-					}
-					if($(this).hasClass('luftProd')){
-						$('.luftProds').show();
-						return false;
-					}
-				});
-				$(document).off('click', '.prodUrl').on('click', '.prodUrl', function(){
-					var prodName	= $(this).attr('data-name');
-					var prodSize	= $(this).attr('data-size');
-					var prodUrl		= $(this).attr('rel');
-					var urlProd		= $(this).attr('data-url');
-					var prodDisc	= $(this).attr('data-disc');
-					var discCode	= $(this).attr('data-code');
-					$('.btnsSec .product-itemSub').append('<div class="product-item '+urlProd+'" rel="'+prodDisc+'" data-code="'+discCode+'" data-url="'+prodUrl+'" data-name="'+prodName+'" data-size="'+prodSize+'" data-urlorg="'+urlProd+'"><p>'+prodName+' ('+prodSize+')</p></div>');
-					$('.btnsSec .product-itemSub').append('<input type="hidden" name="" class="urlComp" value="'+urlProd+'">');
-					$('.innerProds').hide();
 					$('.btnsSec').show();
-					if($(this).hasClass('firmBtn'))
-					{
-						$('#myModalFirm').modal('show');
-						$('.modal-backdrop').remove();
-						$('.innerProdsFirm').hide();
-						if($(this).hasClass('saatvaFrim')){
-							$('.saatvaFrims').show();
-							return false;
-						}
-						if($(this).hasClass('loomFirm')){
-							$('.loomFirms').show();
-							return false;
-						}
-						if($(this).hasClass('winkFirm')){
-							$('.winkFirms').show();
-							return false;
-						}
-						if($(this).hasClass('museFirm')){
-							$('.museFirms').show();
-							return false;
-						}
-						if($(this).hasClass('tomorrowFirm')){
-							$('.tomorrowFirms').show();
-							return false;
-						}
-						if($(this).hasClass('nestHybridFirm')){
-							$('.nestHybridFirms').show();
-							return false;
-						}
-						if($(this).hasClass('nestSigFirm')){
-							$('.nestSigFirms').show();
-							return false;
-						}
-						if($(this).hasClass('brookAurFirm')){
-							$('.brookAurFirms').show();
-							return false;
-						}
-						if($(this).hasClass('brookSigFirm')){
-							$('.brookSigFirms').show();
-							return false;
-						}
-						if($(this).hasClass('brookblFirm')){
-							$('.brookblFirms').show();
-							return false;
-						}
-					}
-					return false;
+					var prodName	= $(this).attr('data-name');
+					$('.btnsSec .product-itemSub').append('<div class="product-item" data-name="'+prodName+'"><p>'+prodName+'</p></div>');
 				});
-				$(document).off('click', '.firmUrl').on('click', '.firmUrl', function(){
-					$('#myModalFirm').modal('hide');
-					var myClass = $(this).attr('data-ref');
-					$('.btnsSec .product-itemSub .'+myClass).attr('data-firm', $(this).attr('rel'));
-					$('.btnsSec .product-itemSub .'+myClass+' p').append('('+$(this).attr('rel')+')');
-					return false;
-				});
+				
 				$(document).off('click', '.addAnother').on('click', '.addAnother', function(){
 					$('#myModal').modal('hide');
 					return false;
 				});
 				$(document).off('click', '.nextStep').on('click', '.nextStep', function(){
 					$('#myModal').modal('hide');
+					$('#myModalCustomer').modal('show');
+					$('.modal-backdrop').remove();
 					$('.storeProducts').hide();
 					$('.storeForm').show();
+					return false;
+				});
+				$(document).off('click', '.custLike').on('click', '.custLike', function(){
+					$('.custLikeNext').show();
+					var myVal = $('#popUpImg').val();
+					if($(this).hasClass('active')){
+						$(this).removeClass('active');
+						//alert(myVal);
+						var newVal = myVal.replace($(this).attr('data-name')+', ', '');
+						newVal = myVal.replace(', '+$(this).attr('data-name'), '');
+						newVal = myVal.replace($(this).attr('data-name'), '');
+						$('#popUpImg').val(newVal);
+						return false;
+					}else{
+						$(this).addClass('active');
+						if(myVal != '')
+							$('#popUpImg').val(myVal+', '+$(this).attr('data-name'));
+						else
+							$('#popUpImg').val($(this).attr('data-name'));
+					}
+					return false;
+				});
+				$(document).off('click', '.custLikeNext').on('click', '.custLikeNext', function(){
+					$('#myModalCustomer').modal('hide');
+					$('.modal-backdrop').remove();
+					return false;
+				});
+				$(document).off('click', '.skip-btn').on('click', '.skip-btn', function(){
+					$('#myModalCustomer').modal('hide');
+					$('.modal-backdrop').remove();
 					return false;
 				});
 				$(document).off('click', '.btnEmp').on('click', '.btnEmp', function(){
@@ -445,7 +344,8 @@ headers: {
 					$(this).addClass('btnRed');
 					return false;
 				});
-				$(document).off('click', '#btnSubmit').on('click', '#btnSubmit', function(){
+				$(document).off('click', '#btnSubmit').on('click', '#btnSubmit', function(event){
+					event.preventDefault();
 					if($('#nameCust').val() === ""){
 						alert('Please insert Name');
 						return false;
@@ -461,20 +361,13 @@ headers: {
 					}
 					if (validateEmail(sEmail)) {
 						var myDivs	= $('.btnsSec .product-itemSub .product-item').length;
-						urlArr		= [];
 						dataArr		= [];
 						$('.urlComp').each(function() {
 							urlArr.push($(this).val());
 						});
 						$('.btnsSec .product-itemSub .product-item').each(function() {
 							dataArr.push({
-								discamount: $(this).attr('rel'),
-								disccode: $(this).attr('data-code'),
-								produrl: $(this).attr('data-url'),
-								prodorgurl: $(this).attr('data-urlorg'),
 								prodname: $(this).attr('data-name'),
-								prodsize: $(this).attr('data-size'),
-								prodfirm: $(this).attr('data-firm')
 							});
 						});
 						$("#fromEmail").val($('.btnRed').attr('data-rel'));
@@ -485,6 +378,7 @@ headers: {
 							type		: 'POST',
 							url			: '/sendmail',
 							data 		: {prodData:dataArr, compUrls:urlArr, custname: $('#nameCust').val(), custemail:$('#emailCust').val(), custphone: $('#numCust').val(), custcom: $('#commentsCust').val(), keyword: $('#keyCust').val(), empID: $('.btnRed').attr('data-rel'), purdate: $('#purDate').val()},
+							data 		: {prodData:dataArr, custname: $('#nameCust').val(), custemail:$('#emailCust').val(), custphone: $('#numCust').val(), custcom: $('#commentsCust').val(), keyword: $('#keyCust').val(), empID: $('.btnRed').attr('data-rel'), custLike: $('#popUpImg').val()},
 							beforeSend	: function() {
 								contextLoader.addLoader('.storeFrm');
 								//return false;

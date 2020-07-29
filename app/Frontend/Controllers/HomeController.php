@@ -381,38 +381,35 @@ class HomeController extends Controller
                     die("Connection failed: " . $conn->connect_error);
                 }
                 
-                foreach($request->prodData as $prodsData){
-                    $myProduuctName = $prodsData['prodsize'].$prodFrim.' '.$prodsData['prodname'];
-                    $myDiscCode     = $prodsData['disccode'];
+                $arrProds = $request->prodData;
+                if (count($arrProds) > 1) {
+                    $innerData .= 'The mattresses you liked were: ';
+                    $myProduuctNames = '';
+                    foreach($request->prodData as $prodsData){
+                        $myProduuctNames .= '<strong>'.$prodsData['prodname'].'</strong> and ';
+                        $productsData[] = ' '.$myProduuctNames;
+                    }
+                    $myProduuctName = substr($myProduuctNames, 0, -5);
+                    $innerData      .= $myProduuctName;
+                }else{
+                    // echo'<pre>'; print_r($arrProds[0]);echo '</pre>';
+                    // exit;
+                    $myProdName     = $arrProds[0]['prodname'];
+                    $myProduuctName = $arrProds[0]['prodname'];
                     $productsData[] = ' '.$myProduuctName;
-                    $productsUrl[] = $prodsData['prodorgurl'];
-                    //$innerArray = array();
-                    $myURL = 'https://www.sleepare.com/us/thanks/?url='.$to.'&key='.$prodsData['prodorgurl'];
-                    $prodFrim = '';
-                    if(!empty($prodsData['prodfirm'])){
-                        $prodFrim = ' '.$prodsData['prodfirm'];
-                    }
-                    if(!empty($prodsData['emailextra'])){
-                        $productsCop[] = $myDiscCode;
-                        $innerData .= 'Thank you for visiting the SleePare Showroom! Click <a href="'.$myURL.'" target="_blank">here</a> to purchase your '.$myProduuctName.'. '.$prodsData['emailextra'].'.<br /><br />';
-                    }else{
-                        if($myDiscCode === "VENMO"){
-                            $productsCop[] = 'NoCode';
-                            $innerData .= 'Thank you for visiting the SleePare Showroom! Click <a href="'.$myURL.'" target="_blank">here</a> to purchase your '.$myProduuctName.' and get $'.$prodsData['discamount'].' cash back through Venmo.<br /><br />';
-                        }else{
-                            $productsCop[] = $myDiscCode;
-                            // $innerData .= 'Thank you for visiting the SleePare Showroom! Click <a href="'.$myURL.'" target="_blank">here</a> to apply the coupon code '.$myDiscCode.' and get $'.$prodsData['discamount'].' discount on your '.$myProduuctName.'.<br /><br />';
-                            $innerData .= 'Thank you for visiting the SleePare Showroom! Click <a href="'.$myURL.'" target="_blank">here</a> to purchase your '.$myProduuctName.', and don\'t forget to type "'.$myDiscCode.'" in the discount code box on the checkout page to get $'.$prodsData['discamount'].' off your order!.<br /><br />';
-                        }
-                    }
-                    // $innerData .= 'HOW TO GET YOUR DISCOUNT FOR '.$myProduuctName.':<br /><br />1. <a href="'.$myURL.'">Start here</a><br />2. Choose your mattress<br />'.($myDiscCode === "VENMO" ? '3. Proceed to payment window.<br /><br />' : '3. Type your discount code '.$myDiscCode.' in text box, when prompted<br />4. Proceed to payment window.<br /><br />' ).'';
+                    $innerData      .= 'The mattress that you liked was <strong>'.$myProduuctName.'</strong>';
                 }
                 $sendTo = $to;//info@winkbeds.com
-                $txt	= 'Dear '.$request->custname.',<br /><br />
-        <img src="https://www.sleepare.com/wp-content/themes/sleepare/emailopen.php?url='.$to.'&time='.date('Y-m-d H:i:s').'" width="1" height="1" />
-        '.$innerData.'<br /><br />
-        Regards,<br /><br />
-        The SleePare team';
+                $txt	= 'Hi '.$request->custname.',<br /><br /> It was great meeting you at our showroom today,<br /><br />
+        '.$innerData.'<br /><br /> When you are ready to purchase, email us at <a href="mailto:info@sleepare.com">info@sleepare.com</a>, or <a href="https://newyork.sleepare.com/mattress" target="_blank">click here</a><br /><br />
+        When buying a mattress from SleePare you will not only get excellent customer service but also: <br /><br />
+        <span style="margin-left:20px;">* The best prices, Guaranteed</span><br /><br />
+        <span style="margin-left:20px;">* Easy and free exchanges, with any other brand that we carry</span><br /><br />
+        <span style="margin-left:20px;">* 100 Days or more free Trail at your home</span><br /><br />
+        <span style="margin-left:20px;">* 30% discount on pillows, sheets, and beds at <a href="https://www.maloufsleep.com/" target="_blank">www.Maloufsleep.com</a></span><br /><br />
+        <span style="margin-left:20px;">* Optional white glove and removal service for any mattress purchase</span><br /><br />
+        If you have any questions about purchasing a mattress, our showroom, inventory, delivery, etc,  please <a href="mailto:info@sleepare.com">contact us</a>. Our Sleep Pros are happy to help with anything you may need. We appreciate you stopping by and hope we helped you find your next mattress.<br /><br />
+        '.$empName.'';
                 //echo 'test: '.$txt; exit;
                 $mail = new PHPMailer(true);                          // Passing `true` enables exceptions
                 $mail->isSMTP();                                      // Set mailer to use SMTP
@@ -436,7 +433,7 @@ class HomeController extends Controller
                 $productsCopDa = implode(', ', $productsCop);
                 $productsData = implode(', ', $productsData);
                 //exit;
-                $sql = 'INSERT INTO tbluser_tyson (cust_name, cust_email, cust_number, cust_comments, keyword, email_text, cust_date, employee, produrls, prodcops) VALUES ("'.$request->custname.'", "'.$to.'", "'.$request->custphone.'", "'.$request->custcom.'", "'.$request->keyword.'", "'.$productsDataT.'", "'.date('Y-m-d H:i:s').'", "'.$empID.'", "'.$productsUrlDa.'", "'.$productsCopDa.'")';
+                $sql = 'INSERT INTO tbluser_tyson (cust_name, cust_email, cust_number, cust_comments, keyword, email_text, cust_date, employee, customerlike, emailcontent) VALUES ("'.$request->custname.'", "'.$to.'", "'.$request->custphone.'", "'.$request->custcom.'", "'.$request->keyword.'", "'.$productsDataT.'", "'.date('Y-m-d H:i:s').'", "'.$empID.'", "'.$request->custLike.'", "'.htmlentities($txt).'")';
                 //echo $sql;
                 $conn->query($sql);
                 $conn->close();
