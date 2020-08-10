@@ -56,6 +56,10 @@ class OrderController extends Controller
                 $html = array();
                 foreach($items as $key => $item){
                     $product = Product::find($item->product_id);
+                    if(!empty($product))
+                        $name = $product->title;
+                    else
+                        $name = '';
                     $html[] =  ($key+1).": ".$product->title.' x '.($item->qty>1? $item->qty : 1);
                 }
                 if(count($html) > 0)
