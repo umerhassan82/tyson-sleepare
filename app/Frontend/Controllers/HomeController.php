@@ -352,18 +352,21 @@ class HomeController extends Controller
                 $count	= 0;
                 $to		= strtolower($request->custemail);
                 $txt	= '';
-
+                $emailFrom = 'coupon@sleepare.com';
+                $password = 'Sleepare6996!';
                 if(!isset($request->empID)){
                     $empID = 'Dustin';
                     $empName = 'Dustin Morgan';
-                    $emailFrom = 'coupon@sleepare.com';
-                    $password = 'Sleepare6996!';
                 }else{
                     if($request->empID === "dustin"){
                         $empID = 'Dustin';
                         $empName = 'Dustin Morgan';
-                        $emailFrom = 'coupon@sleepare.com';
-                        $password = 'Sleepare6996!';
+                    }else if($request->empID === "bobby"){
+                        $empID = 'Bobby';
+                        $empName = 'Bobby';
+                    }else if($request->empID === "james"){
+                        $empID = 'James';
+                        $empName = 'James';
                     }
                 }
                 
