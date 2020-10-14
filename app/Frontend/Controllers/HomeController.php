@@ -345,6 +345,7 @@ class HomeController extends Controller
             $myUserKey	  = '';
             $prodFrim	  = '';
             $innerData    = '';
+            $innerLink    = ', or <a href="https://tyson.sleepare.com/mattress" target="_blank">click here</a>';
             $productsData = array();
             $productsUrl  = array();
             $productsCop  = array();
@@ -389,7 +390,14 @@ class HomeController extends Controller
                     $innerData .= 'The mattresses you liked were: ';
                     $myProduuctNames = '';
                     foreach($request->prodData as $prodsData){
-                        $myProduuctNames .= '<strong>'.$prodsData['prodname'].'</strong> and ';
+                        if($prodsData['prodname'] === "Saatva")
+                            $myProduuctNames .= '<strong><a href="https://www.globalcampaigntracker.com/GRW3FDR/W9K8HR8/" target="_blank">'.$prodsData['prodname'].'</a></strong> and ';
+                        else if($prodsData['prodname'] === "Avocado Green")
+                            $myProduuctNames .= '<strong><a href="https://af.sleepare.com/m/avocado/" target="_blank">'.$prodsData['prodname'].'</a></strong> and ';
+                        else if($prodsData['prodname'] === "Layla")
+                            $myProduuctNames .= '<strong><a href="https://af.sleepare.com/m/layla/" target="_blank">'.$prodsData['prodname'].'</a></strong> and ';
+                        else
+                            $myProduuctNames .= '<strong>'.$prodsData['prodname'].'</strong> and ';
                         $productsData[] = ' '.$myProduuctNames;
                     }
                     $myProduuctName = substr($myProduuctNames, 0, -5);
@@ -401,10 +409,16 @@ class HomeController extends Controller
                     $myProduuctName = $arrProds[0]['prodname'];
                     $productsData[] = ' '.$myProduuctName;
                     $innerData      .= 'The mattress that you liked was <strong>'.$myProduuctName.'</strong>';
+                    if($myProduuctName === "Saatva")
+                        $innerLink = ', or <a href="https://www.globalcampaigntracker.com/GRW3FDR/W9K8HR8/" target="_blank">click here</a>';
+                    else if($myProduuctName === "Avocado Green")
+                        $innerLink = ', or <a href="https://af.sleepare.com/m/avocado/" target="_blank">click here</a>';
+                    else if($myProduuctName === "Layla")
+                        $innerLink = ', or <a href="https://af.sleepare.com/m/layla/" target="_blank">click here</a>';
                 }
                 $sendTo = $to;//info@winkbeds.com
                 $txt	= 'Hi '.$request->custname.',<br /><br /> It was great meeting you at our showroom today,<br /><br />
-        '.$innerData.'<br /><br /> When you are ready to purchase, email us at <a href="mailto:info@sleepare.com">info@sleepare.com</a>, or <a href="https://newyork.sleepare.com/mattress" target="_blank">click here</a><br /><br />
+        '.$innerData.'<br /><br /> When you are ready to purchase or if you have ant questions, please email us at <a href="mailto:info@sleepare.com">info@sleepare.com</a>'.$innerLink.'<br /><br />
         When buying a mattress from SleePare you will not only get excellent customer service but also: <br /><br />
         <span style="margin-left:20px;">* The best prices, Guaranteed</span><br /><br />
         <span style="margin-left:20px;">* Easy and free exchanges, with any other brand that we carry</span><br /><br />
