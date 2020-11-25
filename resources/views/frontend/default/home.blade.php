@@ -115,8 +115,8 @@ headers: {
 										<textarea name="comments" id="commentsCust" rows="30" cols="50"></textarea>
 										<!-- <a href="javascript:;" data-rel="genero" class="submit-btn btnGray btnLogin btnEmp">Genero</a> -->
 										<a href="javascript:;" data-rel="dustin" class="submit-btn btnGray btnLogin btnEmp">Dustin</a>
-										<a href="javascript:;" data-rel="james" class="submit-btn btnGray btnLogin btnEmp">James</a>
-										<a href="javascript:;" data-rel="bobby" class="submit-btn btnGray btnLogin btnEmp">Bobby</a>
+										<a href="javascript:;" data-rel="Arlette" class="submit-btn btnGray btnLogin btnEmp">Arlette</a>
+										<a href="javascript:;" data-rel="Tanner" class="submit-btn btnGray btnLogin btnEmp">Tanner</a>
 									</div>  
 								</div>
 							</div>

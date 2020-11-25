@@ -362,12 +362,12 @@ class HomeController extends Controller
                     if($request->empID === "dustin"){
                         $empID = 'Dustin';
                         $empName = 'Dustin Morgan';
-                    }else if($request->empID === "bobby"){
-                        $empID = 'Bobby';
-                        $empName = 'Bobby';
-                    }else if($request->empID === "james"){
-                        $empID = 'James';
-                        $empName = 'James';
+                    }else if($request->empID === "Tanner"){
+                        $empID = 'Tanner';
+                        $empName = 'Tanner';
+                    }else if($request->empID === "Arlette"){
+                        $empID = 'Arlette';
+                        $empName = 'Arlette';
                     }
                 }
                 
