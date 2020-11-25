@@ -345,7 +345,7 @@ class HomeController extends Controller
             $myUserKey	  = '';
             $prodFrim	  = '';
             $innerData    = '';
-            $innerLink    = ', or <a href="https://tyson.sleepare.com/mattress" target="_blank">click here</a>';
+            $innerLink    = ', or <a href="https://newyork.sleepare.com/mattress" target="_blank">click here</a>';
             $productsData = array();
             $productsUrl  = array();
             $productsCop  = array();
