@@ -25,7 +25,7 @@ class AppServiceProvider extends ServiceProvider
         // 	  return base_path().'/newyork';
         //     });
         
-        Config::load();
+        //Config::load();
     }
 
     /**
