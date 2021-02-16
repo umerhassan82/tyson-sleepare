@@ -370,8 +370,8 @@ class HomeController extends Controller
                         $empName = 'Arlette';
                     }
                 }
-                
-                $servername = "35.214.152.133";
+
+                $servername = "35.214.175.133";
                 $username 	= "sleepmag_store";
                 $passworddb = "(hS63x-p87";
                 $dbname 	= "sleepmag_store";
