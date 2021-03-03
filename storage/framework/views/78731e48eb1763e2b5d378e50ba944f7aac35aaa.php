@@ -44,7 +44,7 @@
                 </div>
             </div>
 
-            <form method="POST" action="/place-order">
+            <form method="POST" action="/place-order" id="payment-form">
 
                 <div class="row">
                     <div class="col-md-12">
@@ -66,6 +66,53 @@
                         </div>
                     </div>
                 </div>
+
+                <div id="accordion">
+
+                    <?php if(auth::check()): ?>
+                        <div class="card">
+                            <div class="card-header" id="headingTwo">
+                                <h5 class="mb-0">
+                                    <label class="btn btn-link mb-0" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                        <input type="radio" value="1" class="mr-2 paymentType" checked name="paymentType" /> Paid Clover
+                                    </label>
+                                    <label class="btn btn-link mb-0" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                        <input type="radio" value="3" class="mr-2 paymentType" checked name="paymentType" /> Financing
+                                    </label>
+                                </h5>
+                            </div>
+                        </div>
+                    <?php endif; ?>
+                
+                    <div class="card">
+                        <div class="card-header" id="headingOne">
+                            <h5 class="mb-0">
+                                <label class="btn btn-link collapsed mb-0" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                    <input type="radio" value="2" checked class="mr-2 paymentType" name="paymentType" /> Credit or debit card
+                                </label>
+                                <img class="paymentLogos" src="/images/image.png" />
+                            </h5>
+                        </div>
+                        <div id="" class="" aria-labelledby="headingOne" data-parent="#accordion">
+                            <div class="card-body">
+
+                                <div class="col-md-12 mt-4 mb-4">
+                                    <div class="form-row mb-3">
+                                        <div id="card-element">
+                                            <!-- A Stripe Element will be inserted here. -->
+                                        </div>
+                
+                                        <!-- Used to display form errors. -->
+                                        <div id="card-errors" class="error" role="alert"></div>
+                                    
+                                    </div>
+                                    <input type="hidden" value="<?php echo e($total*config('rate'), false); ?>" name="total_cost">
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>    
 
                 <div class="row">
                     <div class="col-lg-12">
@@ -98,7 +145,7 @@
                     <div class="col">
                         <div class="col-lg-12"><b>Email</b></div>
                         <div class="col-md-12">
-                            <input type="text" name="user_email" id="cust_email" value="<?php echo e(isset($fsession['user_email'])?$fsession['user_email']:'', false); ?>" class="form-control" required>
+                            <input type="email" name="user_email" id="cust_email" value="<?php echo e(isset($fsession['user_email'])?$fsession['user_email']:'', false); ?>" class="form-control" required>
                         </div>
                     </div>
                 </div>
@@ -182,6 +229,12 @@
                                     <label><input type="radio" name="option-2" value="yes" class="m-1"><span>Yes</span></label>
                                     <label><input type="radio" name="option-2" value="no" class="m-1 ml-3"><span>No</span></label>
                                 </div>
+
+                                <b>Mattress Removal</b>
+                                <div class="d-flex align-items-center justify-content-start pt-2">
+                                    <label><input type="radio" name="option-2-1" value="yes" class="m-1"><span>Yes</span></label>
+                                    <label><input type="radio" name="option-2-1" value="no" class="m-1 ml-3"><span>No</span></label>
+                                </div>
                             </div> <!-- Option 2  -->
     
                             <div id="sub-option-3" class="sub-option">
@@ -228,6 +281,18 @@
                                     <option value="morning">Morning</option>
                                     <option value="afternoon">Afternoon</option>
                                 </select>
+                                <br />
+                                <b>Assembly</b>
+                                <div class="d-flex align-items-center justify-content-start pt-2">
+                                    <label><input type="radio" name="option-2" value="yes" class="m-1"><span>Yes</span></label>
+                                    <label><input type="radio" name="option-2" value="no" class="m-1 ml-3"><span>No</span></label>
+                                </div>
+
+                                <b>Mattress Removal</b>
+                                <div class="d-flex align-items-center justify-content-start pt-2">
+                                    <label><input type="radio" name="option-2-1" value="yes" class="m-1"><span>Yes</span></label>
+                                    <label><input type="radio" name="option-2-1" value="no" class="m-1 ml-3"><span>No</span></label>
+                                </div>
                             </div> <!-- Option 6  -->
                         </div>
                     </div>
@@ -311,6 +376,7 @@
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('bottom-js'); ?>
+        <script src="https://js.stripe.com/v3/"></script>
         <script>
             $(document).ready(function(){
                 $('#findus').on('input', function() {
@@ -347,6 +413,99 @@
                     $('#keyword-dropdown').removeClass('show');
                 });
 
+                // ----------------------------------------- Stripe
+                var stripe = Stripe('<?php echo e(config("services.stripe.key"), false); ?>');
+        
+                var elements = stripe.elements();
+                var style = {
+                    base: {
+                        color: '#32325d',
+                        fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+                        fontSmoothing: 'antialiased',
+                        fontSize: '16px',
+                        '::placeholder': {
+                        color: '#aab7c4'
+                        }
+                    },
+                    invalid: {
+                        color: '#fa755a',
+                        iconColor: '#fa755a'
+                    }
+                };
+
+                var card = elements.create('card', {style: style});
+
+                card.mount('#card-element');
+
+                card.addEventListener('change', function(event) {
+                    var displayError = document.getElementById('card-errors');
+                    // var byPass = document.getElementById('passValidation').checked;
+
+                    if (event.error) {
+                        displayError.textContent = event.error.message;
+                    } else {
+                        displayError.textContent = '';
+                    }
+                });
+
+
+                var form = document.getElementById('payment-form');
+
+                form.addEventListener('submit', function(event) {
+
+                    var paymentType = document.querySelector('input[name="paymentType"]:checked').value;
+
+                    // alert(paymentType);
+                    // return false;
+
+                    if(paymentType == 1){
+                        document.getElementById("checkout-btn").disabled = true;
+                        form.submit();
+                        return false;
+                    }else if(paymentType == 3){
+                        event.preventDefault();
+                        // go to klarna checkout page
+                        window.location.href = '/klarna/checkout';
+                        return false;
+                    }else{
+                        
+                        event.preventDefault();
+                        // var byPass = document.getElementById('passValidation').checked;
+                        // console.log(byPass);
+                        stripe.createToken(card).then(function(result) {
+                            if (result.error) {
+                                var errorElement = document.getElementById('card-errors');
+                                errorElement.textContent = result.error.message;
+                            } else {
+                                document.getElementById("checkout-btn").disabled = true;
+                                stripeTokenHandler(result.token);
+                            }
+                        });
+
+                    }
+
+                });
+                function stripeTokenHandler(token) {
+                    // var byPass = document.getElementById('passValidation').checked;
+                    var form = document.getElementById('payment-form');
+
+                    // var hiddenInput1 = document.createElement('input');
+                    // hiddenInput1.setAttribute('type', 'hidden');
+                    // hiddenInput1.setAttribute('name', 'passValidation');
+                    // hiddenInput1.setAttribute('value', byPass);
+                    // form.appendChild(hiddenInput1);
+
+
+                    // if(!byPass){
+                        var hiddenInput = document.createElement('input');
+                        hiddenInput.setAttribute('type', 'hidden');
+                        hiddenInput.setAttribute('name', 'stripeToken');
+                        hiddenInput.setAttribute('value', token.id);
+                        form.appendChild(hiddenInput);
+                    // }
+
+                    form.submit();
+                }
             });
         </script>
 <?php $__env->stopSection(); ?>

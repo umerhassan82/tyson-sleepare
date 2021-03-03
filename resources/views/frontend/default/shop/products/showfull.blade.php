@@ -82,22 +82,18 @@
         
         <br />
 
-        <div class="row">
-            <div class="col-md-2">
-                <b>Discount:</b>
+        @if(auth::check())
+            <div class="row">
+                <div class="col-md-2">
+                    <b>Discount:</b>
+                </div>
+                <input type="hidden" name="discountType" value="2" />
+                <div class="col-md-4">
+                    <input type="text" name="discoutValue" id="discoutValue" class="form-control" />
+                </div>
             </div>
-            {{-- <div class="col-md-3">
-                <select name="discountType" class="form-control text-center">
-                    <option value="1">Percent</option>
-                    <option value="2">Flat</option>
-                </select>
-            </div> --}}
-            <input type="hidden" name="discountType" value="2" />
-            <div class="col-md-4">
-                <input type="text" name="discoutValue" id="discoutValue" class="form-control" />
-            </div>
-        </div>
-        <br />
+            <br />
+        @endif
 
         <div class="row">
             <div class="col-md-5">

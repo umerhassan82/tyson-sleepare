@@ -9,7 +9,7 @@
 <div class="row">
     <div class="col-6 product-detail">
         <?php if( !empty($product->photo) ): ?>
-            <img class="img-responsive" src="<?php echo e(env('IMAGE_PATH').'/uploads/'.$product->photo, false); ?>" alt="<?php echo e($product->title, false); ?>" />
+            <img class="img-responsive" src="https://newyork.sleepare.com/uploads/<?php echo e($product->photo, false); ?>" alt="<?php echo e($product->title, false); ?>" />
         <?php else: ?>
             <?php echo e(Html::image('https://dummyimage.com/640x480/000/fff.jpg&text=No+image', $product->title, ['class'=>'img-responsive']), false); ?>
 
@@ -83,17 +83,18 @@
         
         <br />
 
-        <div class="row">
-            <div class="col-md-2">
-                <b>Discount:</b>
+        <?php if(auth::check()): ?>
+            <div class="row">
+                <div class="col-md-2">
+                    <b>Discount:</b>
+                </div>
+                <input type="hidden" name="discountType" value="2" />
+                <div class="col-md-4">
+                    <input type="text" name="discoutValue" id="discoutValue" class="form-control" />
+                </div>
             </div>
-            
-            <input type="hidden" name="discountType" value="2" />
-            <div class="col-md-4">
-                <input type="text" name="discoutValue" id="discoutValue" class="form-control" />
-            </div>
-        </div>
-        <br />
+            <br />
+        <?php endif; ?>
 
         <div class="row">
             <div class="col-md-5">

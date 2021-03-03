@@ -14,7 +14,7 @@
                 <a href="/<?php echo e($item['id'], false); ?>-<?php echo e($item['slug'], false); ?>" title="<?php echo e($item['name'], false); ?>">
                     <?php if( $item['image'] !== null ): ?>
                         <?php
-                            $imageURL = env('IMAGE_PATH').'/uploads/'.$item['image'];
+                            $imageURL = 'https://newyork.sleepare.com/uploads/'.$item['image'];
                         ?>
                         <img class="img-responsive" src="<?php echo e($imageURL, false); ?>" alt="<?php echo e($item['name'], false); ?>" />
                     <?php else: ?>
