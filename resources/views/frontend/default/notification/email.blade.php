@@ -101,7 +101,7 @@
                             </tr>
                             <tr style="font-family:sans-serif">
                                 <td style="font-family:sans-serif;border-collapse:collapse">
-                                    <p><a href="{{ url('/pdf/shipping_and_returning.pdf') }}" target="_blank">Return Policy</a></p>
+                                    <p><a href="https://www.sleepare.com/us/return-policy/" target="_blank">Return Policy</a></p>
                                     <p style="font-family:sans-serif">&copy; {{ date('Y') }} SleePare All rights reserved.</p>
                                 </td>
                             </tr>
