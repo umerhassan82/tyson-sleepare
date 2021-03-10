@@ -83,18 +83,23 @@
         
         <br />
 
-        <?php if(auth::check()): ?>
-            <div class="row">
+        <div class="row">
+            
+            <input type="hidden" name="discountType" value="2" />
+            <?php if(Auth::check()): ?>
                 <div class="col-md-2">
                     <b>Discount:</b>
                 </div>
-                <input type="hidden" name="discountType" value="2" />
                 <div class="col-md-4">
                     <input type="text" name="discoutValue" id="discoutValue" class="form-control" />
                 </div>
-            </div>
-            <br />
-        <?php endif; ?>
+            <?php else: ?>
+                <input type="hidden" name="discoutValue" id="discoutValue" class="form-control" />
+            <?php endif; ?>
+
+        </div>
+
+        <br/>
 
         <div class="row">
             <div class="col-md-5">

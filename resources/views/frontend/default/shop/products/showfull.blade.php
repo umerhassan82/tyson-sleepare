@@ -90,7 +90,7 @@
                 </select>
             </div> --}}
             <input type="hidden" name="discountType" value="2" />
-            @if(isset(Admin::user()->id) && !empty(Admin::user()->id))
+            @if(Auth::check())
                 <div class="col-md-2">
                     <b>Discount:</b>
                 </div>
