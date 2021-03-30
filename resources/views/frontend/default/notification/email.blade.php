@@ -43,24 +43,23 @@
                     <p style="font-family:sans-serif">What's next?</p>
                     <ul style="font-size:16px;font-family:sans-serif">
                         <li style="margin-bottom:8px;line-height:1.5;font-family:sans-serif">
-                            <b style="font-family:sans-serif">Mattress Orders:</b> Allow 1-2 business days for our team to build and compress your mattress before it’s boxed and placed on the truck for delivery.
+                            <b style="font-family:sans-serif">Mattress Manufacturing:</b> Your Mattress is handmade per order. Please allow 5-15 business days for the manufacturer to build your mattress before it’s boxed and placed on the truck for delivery. Please note some Brands are experiencing longer production time due to the current situation with Covid-19, and disruption of supply chains.
                         </li>
                         <li style="margin-bottom:8px;line-height:1.5;font-family:sans-serif">
-                            <b style="font-family:sans-serif">Tracking Number:</b> You will receive notification that your order has shipped 4-8 business days from when you placed the order.
-                        </li>
-                        <li style="margin-bottom:8px;line-height:1.5;font-family:sans-serif">
-                            <b style="font-family:sans-serif">Delivery:</b> After receiving your shipping notification, <b style="font-family:sans-serif"><em>allow 7-10 business days for delivery</em>.</b>
+                            <b style="font-family:sans-serif">Tracking Number:</b> You will receive notification From Sleepare after your mattress has been shipped containing a tracking number. Shipping usually takes 2-5 Business days, depending on brand and customer location.
                         </li>
                     </ul>
                     <p style="font-size:16px;color:rgba(0,0,0,0.54);font-family:sans-serif">Other things to note:</p>
                     <ul style="font-size:16px;color:rgba(0,0,0,0.54);font-family:sans-serif">
                         <li style="margin-bottom:8px;line-height:1.5;font-family:sans-serif">
-                            Products are shipped separately from various warehouse locations.
+                            Additional products ship separately from various warehouse locations, and might arrive in a separate shipping.
                         </li>
                         <li style="margin-bottom:8px;line-height:1.5;font-family:sans-serif">
-                            <b style="font-family:sans-serif">White-Glove Delivery:</b> You will receive a call from the delivery agent within 1-2 weeks to schedule your delivery date and time.
+                            <b style="font-family:sans-serif">White-Glove Delivery:</b> You will receive a call from the delivery agent once your items have arrived at their warehouse, to schedule your delivery date and time.
                         </li>
                     </ul>
+                    <p style="font-size:16px;color:rgba(0,0,0,0.54);font-family:sans-serif">If you have any questions regarding the progress of your order, please feel free to email us at info@sleepare.com</p>
+                    <p style="font-size:16px;color:rgba(0,0,0,0.54);font-family:sans-serif">SleePare is highly appreciative of your business and we will work hard to see you get your order as soon as possible.</p>
                 </td>
             </tr>
             <tr style="font-family:sans-serif">
@@ -94,14 +93,14 @@
                             <tr style="font-family:sans-serif">
                                 <td style="font-family:sans-serif;border-collapse:collapse" valign="top" align="center">
                                     <p style="font-family:sans-serif">
-                                    <b style="font-family:sans-serif">Questions or concerns?</b><br style="font-family:sans-serif">We're hear to help. Our office hours are <b>Weekdays</b> 10:00 am to 08:30 pm <b>Saturday</b> 10:00 am to 07:30 pm <b>Sunday</b> 10:00 am to 06:30 pm.</p>
+                                    <b style="font-family:sans-serif">Questions or concerns?</b><br style="font-family:sans-serif">We're hear to help. Our office hours are <b>Weekdays</b> 10:00 am to 07:00 pm <b>Saturday and Sunday</b> 10:00 am to 06:30 pm.</p>
                                     <p style="font-family:sans-serif">Call Us <a href="tel:+13474256001" style="color:rgb(169,169,169);text-decoration:underline;font-weight:normal;font-family:sans-serif" target="_blank">+1 347 4256001</a></p>
                                     <p style="font-family:sans-serif">Email <a href="mailto:info@sleepare.com" style="color:rgb(169,169,169);text-decoration:underline;font-weight:normal;font-family:sans-serif" target="_blank">info@sleepare.com</a></p>
                                 </td>
                             </tr>
                             <tr style="font-family:sans-serif">
                                 <td style="font-family:sans-serif;border-collapse:collapse">
-                                    <p><a href="https://www.sleepare.com/us/return-policy/" target="_blank">Return Policy</a></p>
+                                    <p><a href="https://www.sleepare.com/us/return-policy/" target="_blank">Please read our Return Policy</a></p>
                                     <p style="font-family:sans-serif">&copy; {{ date('Y') }} SleePare All rights reserved.</p>
                                 </td>
                             </tr>
