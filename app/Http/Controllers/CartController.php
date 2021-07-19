@@ -105,11 +105,12 @@ class CartController extends Controller
      * @param  Cart  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
         $item = LaraCart::find(['id' => $id]);
-
-        LaraCart::removeItem($item->getHash());
+        if(!empty($item)) {
+            LaraCart::removeItem($item->getHash());
+        }
         return redirect('cart');
     }
 }

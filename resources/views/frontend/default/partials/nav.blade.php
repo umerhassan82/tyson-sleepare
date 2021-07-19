@@ -13,7 +13,8 @@
             </a>
             {{ Form::open(['route' => 'search', 'method' => 'post', 'class' => 'form-inline my-2 my-lg-0']) }}
             <div class="input-group">
-                {{ Form::text('Search', old('story'), ['class' => 'form-control', 'placeholder' => 'Search', 'name' => 'story' ]) }}             <div class="input-group-append">
+                {{ Form::text('Search', old('story'), ['class' => 'form-control', 'placeholder' => 'Search', 'name' => 'story' ]) }}             
+                <div class="input-group-append">
                     {{ Form::button('GO', ['class' => 'btn btn-default my-2 my-sm-0', 'type' => 'submit']) }}
                 </div>
             </div>

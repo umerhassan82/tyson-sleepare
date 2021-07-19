@@ -2,7 +2,7 @@
     <div class="card-body">
         <div class="row">
             <div class="col-md-1">
-                {{ Form::open(['method'  => 'delete', 'route' => ['cart.destroy', $item['id']]]) }}
+                {{ Form::open(['method'  => 'delete', 'route' => ['cart.destroy', urlencode($item['id'])]]) }}
                     {{ Form::button('x', ['type' => 'submit', 'class' => 'btn btn-danger btn-sm']) }}
                     @csrf
                 {{ Form::close() }}

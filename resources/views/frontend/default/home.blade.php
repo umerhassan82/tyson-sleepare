@@ -280,7 +280,7 @@ headers: {
 				</div>
 			</div>
 		</div>
-		<form id="sheetFrm" action="https://newyork.sleepare.com/google-sheet.php" method="post" class="contact-form" style="display:none;">
+		<form id="sheetFrm" action="https://boston.sleepare.com/google-sheet.php" method="post" class="contact-form" style="display:none;">
 			<input type="hidden" name="from" id="fromEmail">
 			<input type="hidden" name="to" id="toEmailUser">
 			<input type="hidden" name="message_email" id="messageTxt">
