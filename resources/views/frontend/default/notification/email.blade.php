@@ -39,27 +39,30 @@
             <tr style="font-family:sans-serif">                            
                 <td style="border-top:0px solid rgb(255,255,255);color:rgb(63,63,60);font-size:24px;line-height:34px;font-family:sans-serif;border-collapse:collapse;padding:0px 30px" bgcolor="#ffffff" align="left">
                     <p style="font-size:18px;line-height:1.5;font-family:sans-serif">Hi, {!! $customerName !!}!</p>
-                    <p style="margin-bottom:0px;font-family:sans-serif">We've received your order and we will get started on it right away.</p>
+                    <p style="margin-bottom:0px;font-family:sans-serif">We've received your order, and we will get started on it right away.</p>
                     <p style="font-family:sans-serif">What's next?</p>
                     <ul style="font-size:16px;font-family:sans-serif">
                         <li style="margin-bottom:8px;line-height:1.5;font-family:sans-serif">
-                            <b style="font-family:sans-serif">Mattress Manufacturing:</b> Your Mattress is handmade per order. Please allow 5-15 business days for the manufacturer to build your mattress before it’s boxed and placed on the truck for delivery. Please note some Brands are experiencing longer production time due to the current situation with Covid-19, and disruption of supply chains.
+                            <b style="font-family:sans-serif">Mattress Manufacturing:</b> Your Mattress is handmade per order. Please allow 5-15 business days for the manufacturer to build your mattress before it's boxed and placed on the truck for delivery. Please note some brands are experiencing longer production times due to global disruption of supply chains.
                         </li>
                         <li style="margin-bottom:8px;line-height:1.5;font-family:sans-serif">
-                            <b style="font-family:sans-serif">Tracking Number:</b> You will receive notification From Sleepare after your mattress has been shipped containing a tracking number. Shipping usually takes 2-5 Business days, depending on brand and customer location.
+                            <b style="font-family:sans-serif">Standard shipping:</b> You will receive a notification From Sleepare after your mattress has been shipped containing a tracking number. A tracking number might be available before shipping, or sometimes only a day or two after shipping. <br />Shipping usually takes 2-5 Business days, depending on brand and customer location. In most cases, no changes to shipping times or address can be made once the mattress has shipped. Note that free Standard shipping is a UPS/ FedEx ground service, and your order will not be brought into the residence. <br />If you require assistance setting up your new mattress, please refer to our White-glove delivery service.
                         </li>
                     </ul>
-                    <p style="font-size:16px;color:rgba(0,0,0,0.54);font-family:sans-serif">Other things to note:</p>
                     <ul style="font-size:16px;color:rgba(0,0,0,0.54);font-family:sans-serif">
                         <li style="margin-bottom:8px;line-height:1.5;font-family:sans-serif">
-                            Additional products ship separately from various warehouse locations, and might arrive in a separate shipping.
+                            <b style="font-family:sans-serif">Delayed Standard Shipping:</b> This is a complimentary service by Sleepare, where we will try to time the order to fit a desired timeframe. Please Do Not use this service if you need your order in very specific dates for delivery, as there is no guarantee that it will be met with that service.
                         </li>
                         <li style="margin-bottom:8px;line-height:1.5;font-family:sans-serif">
-                            <b style="font-family:sans-serif">White-Glove Delivery:</b> You will receive a call from the delivery agent once your items have arrived at their warehouse, to schedule your delivery date and time.
+                            <b style="font-family:sans-serif">White-Glove Delivery:</b> You will receive a call from the delivery agent once your items have arrived at their warehouse to schedule your delivery date and time. <br />If you have any questions regarding the progress of your order, please feel free to email us at info@sleepare.com or <a href="https://www.sleepare.com/us/contact-us/">chat</a> with us.
                         </li>
                     </ul>
                     <p style="font-size:16px;color:rgba(0,0,0,0.54);font-family:sans-serif">If you have any questions regarding the progress of your order, please feel free to email us at info@sleepare.com</p>
-                    <p style="font-size:16px;color:rgba(0,0,0,0.54);font-family:sans-serif">SleePare is highly appreciative of your business and we will work hard to see you get your order as soon as possible.</p>
+                    <p style="margin-bottom:8px;line-height:1.5;font-family:sans-serif">Other things to note:</p>
+                    <p style="font-size:16px;color:rgba(0,0,0,0.54);font-family:sans-serif">Additional products might ship separately from various warehouse locations and might arrive in separate shipping.</p>
+                    <p style="font-size:16px;color:rgba(0,0,0,0.54);font-family:sans-serif">If you didn't get a chance at the store, please review our exchange/return policy <a href="https://www.sleepare.com/us/return-policy/">Here.</a></p>
+                    <p style="font-size:16px;color:rgba(0,0,0,0.54);font-family:sans-serif">SleePare is highly appreciative of your business, and we will work hard to see you get your order as soon as possible.</p>
+                    <p style="font-size:16px;color:rgba(0,0,0,0.54);font-family:sans-serif">We will highly appreciate your help, reading and confirming the address and order details below:</p>
                 </td>
             </tr>
             <tr style="font-family:sans-serif">
