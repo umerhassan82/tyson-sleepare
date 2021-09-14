@@ -354,7 +354,7 @@ class HomeController extends Controller
                 $to		= strtolower($request->custemail);
                 $txt	= '';
                 $emailFrom = 'coupon@sleepare.com';
-                $password = 'Sleepare6996!';
+                $password = 'Coupons123456';
                 if(!isset($request->empID)){
                     $empID = 'Dustin';
                     $empName = 'Dustin Morgan';
