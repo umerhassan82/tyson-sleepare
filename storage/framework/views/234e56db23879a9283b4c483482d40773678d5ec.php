@@ -1,5 +1,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-
+<style>
+    .divTableCell{
+        display: table-cell;
+    }
+</style>
 <div style="width:600px; margin:0 auto;">
 
     <?php if(isset($header) && $header == 1): ?>
@@ -16,7 +20,7 @@
         ?>
     <?php else: ?>
         <?php
-            $logo = URL::asset('images/logo.svg');
+            $logo = URL::asset('images/logo.png');
         ?>
     <?php endif; ?>
 
@@ -38,30 +42,32 @@
     <table>
         <tbody>
             <tr style="font-family:sans-serif">                            
-                <td style="border-top:0px solid rgb(255,255,255);color:rgb(63,63,60);font-size:24px;line-height:34px;font-family:sans-serif;border-collapse:collapse;padding:0px 30px" bgcolor="#ffffff" align="left">
+                <td style="border-top:0px solid rgb(255,255,255); color:rgb(0,0,0);font-size:24px;line-height:34px;font-family:sans-serif;border-collapse:collapse;padding:0px 30px" bgcolor="#ffffff" align="left">
                     <p style="font-size:18px;line-height:1.5;font-family:sans-serif">Hi, <?php echo $customerName; ?>!</p>
-                    <p style="margin-bottom:0px;font-family:sans-serif">We've received your order and we will get started on it right away.</p>
+                    <p style="margin-bottom:0px;font-family:sans-serif">We've received your order, and we will get started on it right away.</p>
                     <p style="font-family:sans-serif">What's next?</p>
                     <ul style="font-size:16px;font-family:sans-serif">
-                        <li style="margin-bottom:8px;line-height:1.5;font-family:sans-serif">
-                            <b style="font-family:sans-serif">Mattress Orders:</b> Allow 1-2 business days for our team to build and compress your mattress before it’s boxed and placed on the truck for delivery.
+                        <li style="margin-bottom:8px;line-height:1.5;font-family:sans-serif;font-size:16px;">
+                            <b style="font-family:sans-serif">Mattress Manufacturing:</b> Your Mattress is handmade per order. Please allow 5-15 business days for the manufacturer to build your mattress before it's boxed and placed on the truck for delivery. Please note some brands are experiencing longer production times due to global disruption of supply chains.
                         </li>
-                        <li style="margin-bottom:8px;line-height:1.5;font-family:sans-serif">
-                            <b style="font-family:sans-serif">Tracking Number:</b> You will receive notification that your order has shipped 4-8 business days from when you placed the order.
-                        </li>
-                        <li style="margin-bottom:8px;line-height:1.5;font-family:sans-serif">
-                            <b style="font-family:sans-serif">Delivery:</b> After receiving your shipping notification, <b style="font-family:sans-serif"><em>allow 7-10 business days for delivery</em>.</b>
+                        <li style="margin-bottom:8px;line-height:1.5;font-family:sans-serif;font-size:16px;">
+                            <b style="font-family:sans-serif">Standard shipping:</b> You will receive a notification From Sleepare after your mattress has been shipped containing a tracking number. A tracking number might be available before shipping, or sometimes only a day or two after shipping. <br />Shipping usually takes 2-5 Business days, depending on brand and customer location. In most cases, no changes to shipping times or address can be made once the mattress has shipped. Note that free Standard shipping is a UPS/ FedEx ground service, and your order will not be brought into the residence. <br />If you require assistance setting up your new mattress, please refer to our White-glove delivery service.
                         </li>
                     </ul>
-                    <p style="font-size:16px;color:rgba(0,0,0,0.54);font-family:sans-serif">Other things to note:</p>
-                    <ul style="font-size:16px;color:rgba(0,0,0,0.54);font-family:sans-serif">
-                        <li style="margin-bottom:8px;line-height:1.5;font-family:sans-serif">
-                            Products are shipped separately from various warehouse locations.
+                    <ul style="font-size:16px;color:rgba(0,0,0,8);font-family:sans-serif">
+                        <li style="margin-bottom:8px;line-height:1.5;font-family:sans-serif;font-size:16px;">
+                            <b style="font-family:sans-serif">Delayed Standard Shipping:</b> This is a complimentary service by Sleepare, where we will try to time the order to fit a desired timeframe. Please Do Not use this service if you need your order in very specific dates for delivery, as there is no guarantee that it will be met with that service.
                         </li>
-                        <li style="margin-bottom:8px;line-height:1.5;font-family:sans-serif">
-                            <b style="font-family:sans-serif">White-Glove Delivery:</b> You will receive a call from the delivery agent within 1-2 weeks to schedule your delivery date and time.
+                        <li style="margin-bottom:8px;line-height:1.5;font-family:sans-serif;font-size:16px;">
+                            <b style="font-family:sans-serif">White-Glove Delivery:</b> You will receive a call from the delivery agent once your items have arrived at their warehouse to schedule your delivery date and time. <br />If you have any questions regarding the progress of your order, please feel free to email us at info@sleepare.com or <a href="https://www.sleepare.com/us/contact-us/">chat</a> with us.
                         </li>
                     </ul>
+                    <p style="margin-bottom:8px;line-height:1.5;font-family:sans-serif">Other things to note:</p>
+                    <p style="font-size:16px;color:rgba(0,0,0,8);font-family:sans-serif;line-height:1.5;">Additional products might ship separately from various warehouse locations and might arrive in separate shipping.</p>
+                    <p style="font-size:16px;color:rgba(0,0,0,8);font-family:sans-serif;line-height:1.5;">If you didn't get a chance at the store, please review our exchange/return policy <a href="https://www.sleepare.com/us/return-policy/">Here.</a></p>
+                    <p style="font-size:16px;color:rgba(0,0,0,8);font-family:sans-serif;line-height:1.5;">SleePare is highly appreciative of your business, and we will work hard to see you get your order as soon as possible.</p>
+                    <p style="font-size:16px;color:rgba(0,0,0,8);font-family:sans-serif;line-height:1.5;">If you have any questions regarding the progress of your order, please feel free to email us at info@sleepare.com</p>
+                    <p style="font-size:16px;color:rgba(0,0,0,8);font-family:sans-serif;line-height:1.5;">We will highly appreciate your help, reading and confirming the address and order details below:</p>
                 </td>
             </tr>
             <tr style="font-family:sans-serif">
@@ -97,14 +103,14 @@
                             <tr style="font-family:sans-serif">
                                 <td style="font-family:sans-serif;border-collapse:collapse" valign="top" align="center">
                                     <p style="font-family:sans-serif">
-                                    <b style="font-family:sans-serif">Questions or concerns?</b><br style="font-family:sans-serif">We're hear to help. Our office hours are <b>Weekdays</b> 10:00 am to 08:30 pm <b>Saturday</b> 10:00 am to 07:30 pm <b>Sunday</b> 10:00 am to 06:30 pm.</p>
+                                    <b style="font-family:sans-serif">Questions or concerns?</b><br style="font-family:sans-serif">We're hear to help. Our office hours are <b>Weekdays</b> 10:00 am to 07:00 pm <b>Saturday and Sunday</b> 10:00 am to 06:30 pm.</p>
                                     <p style="font-family:sans-serif">Call Us <a href="tel:+13474256001" style="color:rgb(169,169,169);text-decoration:underline;font-weight:normal;font-family:sans-serif" target="_blank">+1 347 4256001</a></p>
                                     <p style="font-family:sans-serif">Email <a href="mailto:info@sleepare.com" style="color:rgb(169,169,169);text-decoration:underline;font-weight:normal;font-family:sans-serif" target="_blank">info@sleepare.com</a></p>
                                 </td>
                             </tr>
                             <tr style="font-family:sans-serif">
                                 <td style="font-family:sans-serif;border-collapse:collapse">
-                                    <p><a href="<?php echo e(url('/pdf/shipping_and_returning.pdf'), false); ?>" target="_blank">Return Policy</a></p>
+                                    <p><a href="https://www.sleepare.com/us/return-policy/" target="_blank">Please read our Return Policy</a></p>
                                     <p style="font-family:sans-serif">&copy; <?php echo e(date('Y'), false); ?> SleePare All rights reserved.</p>
                                 </td>
                             </tr>

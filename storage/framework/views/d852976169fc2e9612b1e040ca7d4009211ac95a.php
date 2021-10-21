@@ -15,7 +15,8 @@
             <?php echo e(Form::open(['route' => 'search', 'method' => 'post', 'class' => 'form-inline my-2 my-lg-0']), false); ?>
 
             <div class="input-group">
-                <?php echo e(Form::text('Search', old('story'), ['class' => 'form-control', 'placeholder' => 'Search', 'name' => 'story' ]), false); ?>             <div class="input-group-append">
+                <?php echo e(Form::text('Search', old('story'), ['class' => 'form-control', 'placeholder' => 'Search', 'name' => 'story' ]), false); ?>             
+                <div class="input-group-append">
                     <?php echo e(Form::button('GO', ['class' => 'btn btn-default my-2 my-sm-0', 'type' => 'submit']), false); ?>
 
                 </div>

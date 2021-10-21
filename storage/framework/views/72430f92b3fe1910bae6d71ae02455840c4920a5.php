@@ -2,7 +2,7 @@
     <div class="card-body">
         <div class="row">
             <div class="col-md-1">
-                <?php echo e(Form::open(['method'  => 'delete', 'route' => ['cart.destroy', $item['id']]]), false); ?>
+                <?php echo e(Form::open(['method'  => 'delete', 'route' => ['cart.destroy', urlencode($item['id'])]]), false); ?>
 
                     <?php echo e(Form::button('x', ['type' => 'submit', 'class' => 'btn btn-danger btn-sm']), false); ?>
 

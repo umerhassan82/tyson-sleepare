@@ -69,7 +69,7 @@
 
                 <div id="accordion">
 
-                    <?php if(auth::check()): ?>
+                    <?php if(Auth::check()): ?>
                         <div class="card">
                             <div class="card-header" id="headingTwo">
                                 <h5 class="mb-0">
