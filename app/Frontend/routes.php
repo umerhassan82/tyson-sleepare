@@ -25,6 +25,7 @@ Route::group(['middleware' => 'shop'], function () {
     Route::get('/formdata/{data?}', ['as' => '/formdata', 'uses' => 'CheckoutController@savesession']);
 
     Route::post('place-order', ['as' => 'place-order', 'uses' => 'CheckoutController@proceedPayment']);
+    Route::post('/custom/add', ['as' => 'custom.add', 'uses' => 'CartController@store_custom']);
 
     Route::get('thank-you', ['as' => 'thank-you', 'uses' => 'CheckoutController@thankyou']);
     Route::get('cancelled', ['as' => 'cancelled', 'uses' => 'CheckoutController@cancelled']);

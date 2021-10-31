@@ -39,6 +39,32 @@ class CartController extends Controller
         return view('frontend.'.config('template').'.shop.cart.index', ['cart' => $cart_data, 'persons' => $persons, 'total' => $total, 'close' => true]);
     }
 
+    public function store_custom(Request $request)
+    {
+        $product_name  = $request->custom_name;
+        $new_id        = rand(100, 999).str_replace(" ","_", $product_name);
+        $product_qty   = $request->custom_qty;
+        $product_price = $request->custom_price;
+        LaraCart::add(
+            $new_id,
+            $product_name,
+            $product_qty,
+            $product_price,
+            $options = [
+                'photo'             =>  "",
+                'slug'              =>  "",
+                'cat_id'            =>  "",
+                'discount_value'    =>  "",
+                'discount_type'     =>  "",
+                'full_price'        =>  $product_price,
+                'product_size'      =>  "",
+                'firmness'          =>  "",
+                'product_id'        =>  ""
+            ]
+        );
+        return 1;
+    }
+
     /**
      * Store a newly created resource in storage.
      *

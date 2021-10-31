@@ -48,10 +48,6 @@ class CartController extends Controller
      */
     public function store(Request $request)
     {
-//        LaraCart::destroyCart();
-
-        // dd($request);
-
         $product_id = $request->product_id;
         $product_qty = $request->qty;
         $product_price = $request->product_price;
@@ -67,10 +63,7 @@ class CartController extends Controller
                 break;
             }// end switch
         }// end if
-
         $product_price = $price;
-
-        
         $product = Product::where('id', $product_id)->firstOrFail();
         $new_id = rand(100, 999).$product_id;
 

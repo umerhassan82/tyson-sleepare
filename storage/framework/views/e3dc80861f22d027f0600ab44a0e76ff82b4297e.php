@@ -69,6 +69,26 @@
             $("#product_size").val($(this).find('option:selected').attr("data-prodname"));
         });
 
+        $(document).on("click", "#addCustom", function(){
+            var url = $("#customProductForm").attr("action");
+            var customName = $("#custom_name").val();
+            if(customName != ""){
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data : $("#customProductForm").serialize(),
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function(result) {
+                        if(result == 1){
+                            window.location.href = '/cart';
+                        }
+                    }
+                });
+            }
+        });
+
         $("#pjax-container input").change(function(){
             var formData = $("#pjax-container form").serialize();
 
