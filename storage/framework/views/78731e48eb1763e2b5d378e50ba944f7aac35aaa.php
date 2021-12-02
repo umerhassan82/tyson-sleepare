@@ -193,8 +193,8 @@
                             <input type="text" id="postal_code" name="zipcode" value="<?php echo e(isset($fsession['zipcode'])?$fsession['zipcode']:'', false); ?>"  class="form-control">
                         </div>
                     </div>
-                    <div class="col d-flex">
-                        <div class="col-lg-6">
+                    <div class="col d-lg-flex">
+                        <div class="col-lg-6 col-xs-12">
                             <b>Shipping</b>
                             <select id="shipping-field" name="shippingType" class="form-control">
                                 <option value="0">Choose Option</option>
@@ -205,16 +205,14 @@
                                 <option value="5">Partly Pick up</option>
                                 <option value="6">Delayed - Regular</option>
                                 <option value="7">Delayed - White Glove</option>
+                                <option value="8">Drop Off</option>
                             </select>
+                            <p class="shipping-cost-div mt-2">Shipping Cost: $<span></span></p>
                         </div>
-                        <div class="col-lg-6 col">
+                        <div class="col-lg-6 col-xs-12 col">
                             
                             <div id="sub-option-1" class="sub-option">
-                                <b>Assembly</b>    
-                                <div class="d-flex align-items-center justify-content-start pt-2">
-                                    <label><input type="radio" name="option-1" value="yes" class="m-1"><span>Yes</span></label>
-                                    <label><input type="radio" name="option-1" value="no" class="m-1 ml-3"><span>No</span></label>
-                                </div>
+                                
     
                                 <b>Mattress Removal</b>
                                 <div class="d-flex align-items-center justify-content-start pt-2">
@@ -224,16 +222,12 @@
                             </div> <!-- Option 1  -->
     
                             <div id="sub-option-2" class="sub-option">
-                                <b>Assembly</b>
-                                <div class="d-flex align-items-center justify-content-start pt-2">
-                                    <label><input type="radio" name="option-2" value="yes" class="m-1"><span>Yes</span></label>
-                                    <label><input type="radio" name="option-2" value="no" class="m-1 ml-3"><span>No</span></label>
-                                </div>
+                                
 
                                 <b>Mattress Removal</b>
                                 <div class="d-flex align-items-center justify-content-start pt-2">
-                                    <label><input type="radio" name="option-2-1" value="yes" class="m-1"><span>Yes</span></label>
-                                    <label><input type="radio" name="option-2-1" value="no" class="m-1 ml-3"><span>No</span></label>
+                                    <label><input type="radio" name="option-2-1" value="yes" class="removal-shipping m-1"><span>Yes</span></label>
+                                    <label><input type="radio" name="option-2-1" value="no" class="removal-shipping m-1 ml-3"><span>No</span></label>
                                 </div>
                             </div> <!-- Option 2  -->
     
@@ -281,22 +275,16 @@
                                     <option value="morning">Morning</option>
                                     <option value="afternoon">Afternoon</option>
                                 </select>
-                                <br />
-                                <b>Assembly</b>
-                                <div class="d-flex align-items-center justify-content-start pt-2">
-                                    <label><input type="radio" name="option-2" value="yes" class="m-1"><span>Yes</span></label>
-                                    <label><input type="radio" name="option-2" value="no" class="m-1 ml-3"><span>No</span></label>
-                                </div>
+                                
 
                                 <b>Mattress Removal</b>
                                 <div class="d-flex align-items-center justify-content-start pt-2">
-                                    <label><input type="radio" name="option-2-1" value="yes" class="m-1"><span>Yes</span></label>
-                                    <label><input type="radio" name="option-2-1" value="no" class="m-1 ml-3"><span>No</span></label>
+                                    <label><input type="radio" name="option-7-5" value="yes" class="removal-shipping m-1"><span>Yes</span></label>
+                                    <label><input type="radio" name="option-7-5" value="no" class="removal-shipping m-1 ml-3"><span>No</span></label>
                                 </div>
                             </div> <!-- Option 6  -->
                         </div>
                     </div>
-    
                 </div>
     
                 <div class="row mb-3">
@@ -379,6 +367,51 @@
         <script src="https://js.stripe.com/v3/"></script>
         <script>
             $(document).ready(function(){
+                var whiteGlovesShipping = 165;
+                var whiteGlovesShippingAndRemoval = whiteGlovesShipping + 80;
+                var totalElem = $("#paid_amount");
+                var getCurrentTotal = totalElem.val();
+
+                $(document).on("change", "#shipping-field", function(){    
+                    var shippingValue = $("#shipping-field").val();
+                    if(shippingValue == 2 || shippingValue == 7 || shippingValue == 1){
+                        $("#shipping-cost").val(whiteGlovesShipping);
+                        updateShippingInTotal(whiteGlovesShipping);
+                        showShipping(whiteGlovesShipping);
+                    }else{
+                        updateShippingInTotal(0);
+                        $("#shipping-cost").val(0);
+                        hideShipping();
+                    }
+                });
+
+                $(document).on("change", ".removal-shipping", function(){
+                    var shippingValue = $(this).val();
+                    if(shippingValue == 'yes'){
+                        $("#shipping-cost").val(whiteGlovesShippingAndRemoval);
+                        updateShippingInTotal(whiteGlovesShippingAndRemoval);
+                        showShipping(whiteGlovesShippingAndRemoval);
+                    }else{
+                        showShipping(whiteGlovesShipping);
+                        updateShippingInTotal(whiteGlovesShipping);
+                        $("#shipping-cost").val(whiteGlovesShipping);
+                    }
+                });
+
+                function updateShippingInTotal(cost){
+                    var total = +getCurrentTotal + +cost;
+                    totalElem.val(total.toFixed(2));
+                }
+
+                function showShipping(price){
+                    $(".shipping-cost-div").show();
+                    $(".shipping-cost-div span").empty().append(price);
+                }
+
+                function hideShipping(price){
+                    $(".shipping-cost-div").hide();
+                }
+
                 $('#findus').on('input', function() {
                     getKeywordOptions();
                 }); // end
