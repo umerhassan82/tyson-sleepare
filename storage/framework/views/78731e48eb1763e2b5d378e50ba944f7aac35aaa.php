@@ -53,14 +53,14 @@
                             <div class="col"></div>
                             <div class="col totalPrices">
                                 <div class="col-md-12 mt-4 pr-0">
-                                    <h4 class="mt-2"><b>Tax:</b> $<span id="totalCost"><?php echo e(number_format($cart_tax, 2), false); ?></span></h4>
+                                    <h4 class="mt-2"><b>Tax:</b> $<span id="cart-tax"><?php echo e(number_format($cart_tax, 2), false); ?></span></h4>
                                     <input type="hidden" id="cart_tax" name="cart_tax" value="<?php echo e(sprintf('%0.2f', $cart_tax), false); ?>" class="form-control">
                                 </div>
                                 <div class="col-md-12">
-                                    <h4 class="mt-2"><b>Total:</b> $<span id="totalCost"><?php echo e(number_format($total*config('rate'), 2), false); ?></span></h4>
+                                    <h4 class="mt-2"><b>Total:</b> $<span id="total-cost"><?php echo e(number_format($total*config('rate'), 2), false); ?></span></h4>
                                 </div>
                                 <div class="col-md-12">
-                                    <h4 class="mt-2"><b>Grand Total:</b> $<span id="totalCost"><?php echo e(number_format($grand_total, 2), false); ?></span></h4>
+                                    <h4 class="mt-2"><b>Grand Total:</b> $<span id="grand-total"><?php echo e(number_format($grand_total, 2), false); ?></span></h4>
                                 </div>
                             </div>
                         </div>
@@ -212,18 +212,14 @@
                         <div class="col-lg-6 col-xs-12 col">
                             
                             <div id="sub-option-1" class="sub-option">
-                                
-    
                                 <b>Mattress Removal</b>
                                 <div class="d-flex align-items-center justify-content-start pt-2">
-                                    <label><input type="radio" name="option-2-1" value="yes" class="m-1"><span>Yes</span></label>
-                                    <label><input type="radio" name="option-2-1" value="no" class="m-1 ml-3"><span>No</span></label>
+                                    <label><input type="radio" name="option-2-1" value="yes" class="removal-shipping m-1"><span>Yes</span></label>
+                                    <label><input type="radio" name="option-2-1" value="no" class="removal-shipping m-1 ml-3"><span>No</span></label>
                                 </div>
                             </div> <!-- Option 1  -->
     
                             <div id="sub-option-2" class="sub-option">
-                                
-
                                 <b>Mattress Removal</b>
                                 <div class="d-flex align-items-center justify-content-start pt-2">
                                     <label><input type="radio" name="option-2-1" value="yes" class="removal-shipping m-1"><span>Yes</span></label>
@@ -275,8 +271,6 @@
                                     <option value="morning">Morning</option>
                                     <option value="afternoon">Afternoon</option>
                                 </select>
-                                
-
                                 <b>Mattress Removal</b>
                                 <div class="d-flex align-items-center justify-content-start pt-2">
                                     <label><input type="radio" name="option-7-5" value="yes" class="removal-shipping m-1"><span>Yes</span></label>
@@ -373,34 +367,42 @@
                 var getCurrentTotal = totalElem.val();
 
                 $(document).on("change", "#shipping-field", function(){    
-                    var shippingValue = $("#shipping-field").val();
-                    if(shippingValue == 2 || shippingValue == 7 || shippingValue == 1){
-                        $("#shipping-cost").val(whiteGlovesShipping);
+                    var shippingValue = $(this).val();
+                    if(shippingValue == 2 || shippingValue == 7){
                         updateShippingInTotal(whiteGlovesShipping);
-                        showShipping(whiteGlovesShipping);
                     }else{
                         updateShippingInTotal(0);
-                        $("#shipping-cost").val(0);
-                        hideShipping();
                     }
                 });
 
                 $(document).on("change", ".removal-shipping", function(){
                     var shippingValue = $(this).val();
-                    if(shippingValue == 'yes'){
-                        $("#shipping-cost").val(whiteGlovesShippingAndRemoval);
-                        updateShippingInTotal(whiteGlovesShippingAndRemoval);
-                        showShipping(whiteGlovesShippingAndRemoval);
-                    }else{
-                        showShipping(whiteGlovesShipping);
-                        updateShippingInTotal(whiteGlovesShipping);
-                        $("#shipping-cost").val(whiteGlovesShipping);
+                    var shippingType = $("#shipping-field").val();
+
+                    if(shippingType == 1) {
+                        if(shippingValue == 'yes') {
+                            updateShippingInTotal(whiteGlovesShipping);
+                        } else {
+                            updateShippingInTotal(0);
+                        }
+                    } else {
+                        if(shippingValue == 'yes'){
+                            updateShippingInTotal(whiteGlovesShippingAndRemoval);
+                        }else{
+                            updateShippingInTotal(whiteGlovesShipping);
+                        }
                     }
                 });
 
                 function updateShippingInTotal(cost){
                     var total = +getCurrentTotal + +cost;
                     totalElem.val(total.toFixed(2));
+                    showShipping(cost);
+                    $("#shipping-cost").val(cost);
+                    if(cost == 0) {
+                        hideShipping();
+                    }
+                    $("#grand-total").html(total);
                 }
 
                 function showShipping(price){
