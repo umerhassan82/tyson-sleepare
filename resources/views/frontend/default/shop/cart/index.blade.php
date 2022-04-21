@@ -362,8 +362,8 @@
         <script src="https://js.stripe.com/v3/"></script>
         <script>
             $(document).ready(function(){
-                var whiteGlovesShipping = 165;
-                var whiteGlovesShippingAndRemoval = whiteGlovesShipping + 80;
+                var whiteGlovesShipping = 190;
+                var whiteGlovesShippingAndRemoval = whiteGlovesShipping + 95;
                 var totalElem = $("#paid_amount");
                 var getCurrentTotal = totalElem.val();
 
@@ -403,7 +403,7 @@
                     if(cost == 0) {
                         hideShipping();
                     }
-                    $("#grand-total").html(total);
+                    $("#grand-total").html(total.toFixed(2));
                 }
 
                 function showShipping(price){
