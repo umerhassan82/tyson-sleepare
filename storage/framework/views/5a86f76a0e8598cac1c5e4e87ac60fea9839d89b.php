@@ -34,7 +34,6 @@
 
         <?php echo e(Form::open(['route' => 'cart.store', "id" => "product_form"]), false); ?>
 
-
         <div class="row">
             <div class="col-md-2">
                 <b>Options:</b>
@@ -84,7 +83,6 @@
         <br />
 
         <div class="row">
-            
             <input type="hidden" name="discountType" value="2" />
             <?php if(Auth::check()): ?>
                 <div class="col-md-2">
@@ -96,11 +94,14 @@
             <?php else: ?>
                 <input type="hidden" name="discoutValue" id="discoutValue" class="form-control" />
             <?php endif; ?>
-
+            <div class="col mt-3">
+                <label for="open-mattress">
+                    <input id="open-mattress" type="checkbox" name="open_mattress" value="1" />
+                    <b>Open Mattress Final Sale</b>
+                </label>
+            </div>
         </div>
-
         <br/>
-
         <div class="row">
             <div class="col-md-5">
                 <h3><b>COST:</b> $<span class="show_price"><?php echo e($price, false); ?></span></h3>
@@ -118,7 +119,6 @@
          <input type="hidden" name="product_size" id="product_size" value="<?php echo e($size, false); ?>" class="form-control" />
         <?php echo csrf_field(); ?>
         <?php echo e(Form::close(), false); ?>
-
 
         <hr/>
     </div>

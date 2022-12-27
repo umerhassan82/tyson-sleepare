@@ -191,10 +191,11 @@
             }
         });
 
-        $(document).on("change", "#shipping-field", function(){
+        $(document).on("change", ".shipping-field", function(){
             var getValue = $(this).val();
-            $(".sub-option").hide();
-            $("#sub-option-"+getValue).show();
+            var productValue = $("option:selected", this).attr('data-product');
+            $("#sub-items-div-"+productValue+" .sub-option").hide();
+            $("#sub-option-"+getValue+"-"+productValue).show();
         });
     });
 

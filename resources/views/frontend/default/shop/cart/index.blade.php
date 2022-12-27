@@ -12,9 +12,8 @@
     <div class="col-md-12">
         <?php
             $sessionForm = session()->get('checkout-form');
-            $cart_tax = ($total*config('rate') * 6) / 100;
-            $grand_total = $total*config('rate') + $cart_tax;
-
+            $cart_tax = ($total * 6) / 100;
+            $grand_total = $total + $cart_tax;
             
             if(!empty($sessionForm)){
                 $fields  = explode("&", $sessionForm);
@@ -33,43 +32,53 @@
         ?>
 
         @if( count($cart) > 0 )
-            <div class="row">
-                <div class="col-md-12">
-                    <h3 style="margin-top: 0">Cart</h3>
-                    @foreach ($cart as $item)
-                        <?php
-                            $selected_item = $item;
-                        ?>
-                        @include ('frontend.'.config('template').'.shop.cart.item', ['item' => $item])
-                    @endforeach
-                </div>
-            </div>
-
             <form method="POST" action="/place-order" id="payment-form">
-
                 <div class="row">
                     <div class="col-md-12">
-                          <div class="row">
-                            <div class="col"></div>
-                            <div class="col"></div>
-                            <div class="col totalPrices">
-                                <div class="col-md-12 mt-4 pr-0">
-                                    <h4 class="mt-2"><b>Tax:</b> $<span id="cart-tax">{{ number_format($cart_tax, 2) }}</span></h4>
-                                    <input type="hidden" id="cart_tax" name="cart_tax" value="{{ sprintf('%0.2f', $cart_tax) }}" class="form-control">
-                                </div>
-                                <div class="col-md-12">
-                                    <h4 class="mt-2"><b>Total:</b> $<span id="total-cost">{{ number_format($total*config('rate'), 2) }}</span></h4>
-                                </div>
-                                <div class="col-md-12">
-                                    <h4 class="mt-2"><b>Grand Total:</b> $<span id="grand-total">{{ number_format($grand_total, 2) }}</span></h4>
-                                </div>
-                            </div>
-                        </div>
+                        <h3 style="margin-top: 0">Cart</h3>
+                        @foreach ($cart as $item)
+                            <?php
+                                $selected_item = $item;
+                            ?>
+                            @include ('frontend.'.config('template').'.shop.cart.item', ['item' => $item])
+                        @endforeach
                     </div>
                 </div>
-
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="row">
+                          <div class="col col-8"></div>  
+                          <div class="col col-4 totalPrices">
+                              <div class="col-md-12 mt-4">
+                                  <h4 class="mt-2">
+                                      <b>Total:</b> 
+                                      <span class="text-secondary">$</span><span class="text-secondary" id="total-cost">{{ number_format($total*config('rate'), 2) }}</span>
+                                  </h4>
+                              </div>
+                              <div class="col-md-12">
+                                  <h4 class="mt-2">
+                                      <b>Shipping:</b> 
+                                      <span class="text-secondary">$</span><span class="text-secondary" id="total-shipping">0.00</span>
+                                  </h4>
+                              </div>
+                              <div class="col-md-12 pr-0">
+                                  <h4 class="mt-2">
+                                      <b>Tax:</b> 
+                                      <span class="text-secondary">$</span><span class="text-secondary" id="cart-tax">{{ number_format($cart_tax, 2) }}</span>
+                                  </h4>
+                                  <input type="hidden" id="cart_tax" name="cart_tax" value="{{ round($cart_tax, 2) }}" class="form-control">
+                              </div>
+                              <div class="col-md-12 mb-4 mt-3">
+                                  <h4 class="mt-2">
+                                      <b>Grand Total:</b> 
+                                      $<span id="grand-total">{{ number_format($grand_total, 2) }}</span>
+                                  </h4>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                </div>
                 <div id="accordion">
-
                     @if(Auth::check())
                         <div class="card">
                             <div class="card-header" id="headingTwo">
@@ -173,12 +182,6 @@
                             <input type="text" name="aprtment_num" id="street_number" value="{{ isset($fsession['aprtment_num'])?$fsession['aprtment_num']:'' }}" class="form-control">
                         </div>
                     </div>
-                    <!-- <div class="col">
-                        <div class="col-lg-12"><b>City</b></div>
-                        <div class="col-md-12">
-                            <input type="text" id="locality" name="city" value="{{-- isset($fsession['city'])?$fsession['city']:'' --}}"  class="form-control">
-                        </div>
-                    </div> -->
                     <div class="col">
                         <div class="col-lg-12"><b>State</b></div>
                         <div class="col-md-12">
@@ -188,96 +191,10 @@
                 </div>
     
                 <div class="row mb-3">
-                    <div class="col">
+                    <div class="col col-6">
                         <div class="col-lg-12"><b>Zip</b></div>
                         <div class="col-md-12">
                             <input type="text" id="postal_code" name="zipcode" value="{{ isset($fsession['zipcode'])?$fsession['zipcode']:'' }}"  class="form-control">
-                        </div>
-                    </div>
-                    <div class="col d-lg-flex">
-                        <div class="col-lg-6 col-xs-12">
-                            <b>Shipping</b>
-                            <select id="shipping-field" name="shippingType" class="form-control">
-                                <option value="0">Choose Option</option>
-                                <option value="1">Regular shipping immediatly</option>
-                                <option value="2">White Glove shipping immediately</option>
-                                <option value="3">Picked up</option>
-                                <option value="4">Will Pick up</option>
-                                <option value="5">Partly Pick up</option>
-                                <option value="6">Delayed - Regular</option>
-                                <option value="7">Delayed - White Glove</option>
-                                <option value="8">Drop Off</option>
-                            </select>
-                            <p class="shipping-cost-div mt-2">Shipping Cost: $<span></span></p>
-                        </div>
-                        <div class="col-lg-6 col-xs-12 col">
-                            
-                            <div id="sub-option-1" class="sub-option">
-                                <b>Mattress Removal</b>
-                                <div class="d-flex align-items-center justify-content-start pt-2">
-                                    <label><input type="radio" name="option-2-1" value="yes" class="removal-shipping m-1"><span>Yes</span></label>
-                                    <label><input type="radio" name="option-2-1" value="no" class="removal-shipping m-1 ml-3"><span>No</span></label>
-                                </div>
-                            </div> <!-- Option 1  -->
-    
-                            <div id="sub-option-2" class="sub-option">
-                                <b>Mattress Removal</b>
-                                <div class="d-flex align-items-center justify-content-start pt-2">
-                                    <label><input type="radio" name="option-2-1" value="yes" class="removal-shipping m-1"><span>Yes</span></label>
-                                    <label><input type="radio" name="option-2-1" value="no" class="removal-shipping m-1 ml-3"><span>No</span></label>
-                                </div>
-                            </div> <!-- Option 2  -->
-    
-                            <div id="sub-option-3" class="sub-option">
-                                <b>Picked up</b>
-                                <div class="d-flex align-items-center justify-content-start pt-2">
-                                    <p>Print Receipt with delivered certificate</p>
-                                </div>
-                            </div> <!-- Option 3  -->
-    
-                            <div id="sub-option-4" class="sub-option">
-                                <b>Product in stock</b>
-                                <div class="d-flex align-items-center justify-content-start pt-2">
-                                    <label><input type="radio" name="option-4" value="yes" class="m-1"><span>Yes</span></label>
-                                    <label><input type="radio" name="option-4" value="no" class="m-1 ml-3"><span>No</span></label>
-                                </div>
-                            </div> <!-- Option 4  -->
-    
-                            <div id="sub-option-5" class="sub-option">
-                                <b>Please Specify what was picked up and suppose to be ordered</b>
-                                <div class="d-flex align-items-center justify-content-start pt-2">
-                                    <input type="text" name="option-5" class="form-control">
-                                </div>
-                            </div> <!-- Option 5  -->
-    
-                            <div id="sub-option-6" class="sub-option">
-                                <b>Please enter the first day when you will be ready to receive the product</b>
-                                <div class="d-flex align-items-center justify-content-start pt-2">
-                                    <input type="date" min="<?php echo(date('Y-m-d')); ?>" name="option-6" class="form-control">
-                                </div>
-                            </div> <!-- Option 6  -->
-    
-                            <div id="sub-option-7" class="sub-option">
-                                <b>Please choose a date to deliver</b>
-                                <div class="d-flex align-items-center justify-content-start pt-2">
-                                    <input type="date" min="<?php echo(date('Y-m-d')); ?>" name="option-7" class="form-control">
-                                </div>
-                                <br />
-                                <b>Is there a specific time you prefer?</b>
-                                <div class="d-flex align-items-center justify-content-start preferTimeCheck pt-2">
-                                    <label><input type="radio" name="option-7" value="yes" class="m-1"><span>Yes</span></label>
-                                    <label><input type="radio" name="option-7" value="no" class="m-1 ml-3"><span>No</span></label>
-                                </div>
-                                <select name="option-7-1" class="form-control preferTime">
-                                    <option value="morning">Morning</option>
-                                    <option value="afternoon">Afternoon</option>
-                                </select>
-                                <b>Mattress Removal</b>
-                                <div class="d-flex align-items-center justify-content-start pt-2">
-                                    <label><input type="radio" name="option-7-5" value="yes" class="removal-shipping m-1"><span>Yes</span></label>
-                                    <label><input type="radio" name="option-7-5" value="no" class="removal-shipping m-1 ml-3"><span>No</span></label>
-                                </div>
-                            </div> <!-- Option 6  -->
                         </div>
                     </div>
                 </div>
@@ -364,55 +281,94 @@
             $(document).ready(function(){
                 var whiteGlovesShipping = 190;
                 var whiteGlovesShippingAndRemoval = whiteGlovesShipping + 95;
-                var totalElem = $("#paid_amount");
+                var dropOffCost = 100;
+                var whiteGlovesShippingForBase = 240;
+                var dropOffCostBase = 120;
+
+                var totalElem = $("#orignal_price");
                 var getCurrentTotal = totalElem.val();
 
-                $(document).on("change", "#shipping-field", function(){    
+                $(document).on("change", ".shipping-field", function(){    
                     var shippingValue = $(this).val();
-                    if(shippingValue == 2 || shippingValue == 7){
-                        updateShippingInTotal(whiteGlovesShipping);
-                    }else{
-                        updateShippingInTotal(0);
+                    var productValue = $("option:selected", this).attr('data-product');
+
+                    switch (shippingValue) {
+                        case "2": case "7":
+                            updateShippingInTotal(whiteGlovesShipping, productValue);
+                        break;
+                        case "8":
+                            updateShippingInTotal(dropOffCost, productValue);
+                        break;
+                        case "10":
+                            updateShippingInTotal(whiteGlovesShippingForBase, productValue);
+                        break;
+                        case "11":
+                            updateShippingInTotal(dropOffCostBase, productValue);
+                        break;
+                        default: 
+                            updateShippingInTotal(0, productValue);
+                        break;
                     }
+                });
+
+                $(document).on("change", ".item-shipping-cost", function () { 
+                    updateGrandTotal();
                 });
 
                 $(document).on("change", ".removal-shipping", function(){
                     var shippingValue = $(this).val();
-                    var shippingType = $("#shipping-field").val();
+                    var productValue = $(this).attr('data-product');
+                    var shippingType = $("#shipping-field-"+productValue).val();
 
                     if(shippingType == 1) {
                         if(shippingValue == 'yes') {
-                            updateShippingInTotal(whiteGlovesShipping);
+                            updateShippingInTotal(whiteGlovesShipping, productValue);
                         } else {
-                            updateShippingInTotal(0);
+                            updateShippingInTotal(0, productValue);
                         }
                     } else {
                         if(shippingValue == 'yes'){
-                            updateShippingInTotal(whiteGlovesShippingAndRemoval);
+                            updateShippingInTotal(whiteGlovesShippingAndRemoval, productValue);
                         }else{
-                            updateShippingInTotal(whiteGlovesShipping);
+                            updateShippingInTotal(whiteGlovesShipping, productValue);
                         }
                     }
                 });
 
-                function updateShippingInTotal(cost){
-                    var total = +getCurrentTotal + +cost;
-                    totalElem.val(total.toFixed(2));
-                    showShipping(cost);
-                    $("#shipping-cost").val(cost);
+                function updateShippingInTotal(cost, productValue){
+                    showShipping(cost, productValue);
                     if(cost == 0) {
-                        hideShipping();
+                        hideShipping(productValue);
                     }
-                    $("#grand-total").html(total.toFixed(2));
+                    updateGrandTotal();
                 }
 
-                function showShipping(price){
-                    $(".shipping-cost-div").show();
-                    $(".shipping-cost-div span").empty().append(price);
+                function updateGrandTotal() {
+                    let totalShippingCost = 0;
+                    $(".item-shipping-cost").each(function(i, item) {
+                        let singleVal = $(item).val();
+                        totalShippingCost += +singleVal;
+                    });
+
+                    var total = +getCurrentTotal + +totalShippingCost;
+                    var taxTotal = (+total * 6) / 100;
+                    var grandTotal = +getCurrentTotal + +totalShippingCost + +taxTotal;
+
+                    $("#shipping-cost").val(totalShippingCost);
+                    $("#cart_tax").val(taxTotal);
+
+                    $("#total-shipping").html(totalShippingCost.toFixed(2));
+                    $("#cart-tax").html(taxTotal.toFixed(2));
+                    $("#grand-total").html(grandTotal.toFixed(2));
+                    $("#paid_amount").val(grandTotal.toFixed(2));
                 }
 
-                function hideShipping(price){
-                    $(".shipping-cost-div").hide();
+                function showShipping(price, productValue){
+                    $("#shippingCost-"+productValue).val(price.toFixed(2));
+                }
+
+                function hideShipping(productValue){
+                    $("#shippingCost-"+productValue).val("0.0");
                 }
 
                 $('#findus').on('input', function() {

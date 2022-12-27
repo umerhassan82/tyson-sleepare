@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers\Frontend\Shop;
 
 use App\Http\Controllers\Controller;
@@ -17,7 +18,7 @@ class CartController extends Controller
     public function index()
     {
         $cart_data = [];
-        foreach($items = LaraCart::getItems() as $item) {
+        foreach (LaraCart::getItems() as $item) {
             $cart_data[$item->id]['id']         = $item->id;
             $cart_data[$item->id]['name']       = $item->name;
             $cart_data[$item->id]['image']      = $item->photo;
@@ -31,12 +32,12 @@ class CartController extends Controller
             $cart_data[$item->id]['firmness']   = $item->firmness;
             $cart_data[$item->id]['size']       = $item->product_size;
             $cart_data[$item->id]['product_id'] = $item->product_id;
+            $cart_data[$item->id]['open_mattress']  = $item->open_mattress;
+            $cart_data[$item->id]['hash']           = $item->getHash();
         }
         $total = LaraCart::total($formatted = false, $withDiscount = true);
-
         $persons = SalesPerson::all()->pluck('name', 'slug');
-
-        return view('frontend.'.config('template').'.shop.cart.index', ['cart' => $cart_data, 'persons' => $persons, 'total' => $total, 'close' => true]);
+        return view('frontend.' . config('template') . '.shop.cart.index', ['cart' => $cart_data, 'persons' => $persons, 'total' => $total, 'close' => true]);
     }
 
     /**
@@ -53,41 +54,42 @@ class CartController extends Controller
         $product_price = $request->product_price;
         $price = $product_price;
 
-        if(isset($request->discoutValue) && !empty($request->discoutValue)){
-            switch($request->discountType){
+        if (isset($request->discoutValue) && !empty($request->discoutValue)) {
+            switch ($request->discountType) {
                 case 1: // 1- percent
                     $price = $product_price - (($request->discoutValue * $product_price) / 100);
-                break;
+                    break;
                 case 2: // 2- Flat
                     $price = $product_price - $request->discoutValue;
-                break;
-            }// end switch
-        }// end if
+                    break;
+            } // end switch
+        } // end if
         $product_price = $price;
         $product = Product::where('id', $product_id)->firstOrFail();
-        $new_id = rand(100, 999).$product_id;
+        $new_id = rand(100, 999) . $product_id;
 
         // $item = LaraCart::find(['id' => $new_id, 'price' => $product_price]);
         // if ( $item ) {
         //     LaraCart::updateItem($item->getHash(), 'qty', $item->qty+$product_qty);
         // } else {
-            LaraCart::add(
-                $new_id,
-                $product->title,
-                $product_qty,
-                $product_price,
-                $options = [
-                    'photo'             =>  $product->photo,
-                    'slug'              =>  $product->slug,
-                    'cat_id'            =>  $product->cat_id,
-                    'discount_value'    =>  $request->discoutValue,
-                    'discount_type'     =>  $request->discountType, // 1- percent, 2- Flat
-                    'full_price'        =>  $request->product_price,
-                    'product_size'      =>  $request->product_size,
-                    'firmness'          =>  (isset($request->fimness_level) ? $request->fimness_level : ''),
-                    'product_id'        =>  $product_id
-                ]
-            );
+        LaraCart::add(
+            $new_id,
+            $product->title,
+            $product_qty,
+            $product_price,
+            $options = [
+                'photo'             =>  $product->photo,
+                'slug'              =>  $product->slug,
+                'cat_id'            =>  $product->cat_id,
+                'discount_value'    =>  $request->discoutValue,
+                'discount_type'     =>  $request->discountType, // 1- percent, 2- Flat
+                'full_price'        =>  $request->product_price,
+                'product_size'      =>  $request->product_size,
+                'firmness'          => (isset($request->fimness_level) ? $request->fimness_level : ''),
+                'product_id'        =>  $product_id,
+                'open_mattress'     => (isset($request->open_mattress) ? $request->open_mattress : 0),
+            ]
+        );
         // }
 
         return redirect('cart');
@@ -101,7 +103,7 @@ class CartController extends Controller
     public function destroy(Request $request, $id)
     {
         $item = LaraCart::find(['id' => $id]);
-        if(!empty($item)) {
+        if (!empty($item)) {
             LaraCart::removeItem($item->getHash());
         }
         return redirect('cart');

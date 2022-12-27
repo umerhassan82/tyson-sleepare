@@ -33,7 +33,6 @@
         ?>
 
         {{ Form::open(['route' => 'cart.store', "id" => "product_form"]) }}
-
         <div class="row">
             <div class="col-md-2">
                 <b>Options:</b>
@@ -83,12 +82,6 @@
         <br />
 
         <div class="row">
-            {{-- <div class="col-md-3">
-                <select name="discountType" class="form-control text-center">
-                    <option value="1">Percent</option>
-                    <option value="2">Flat</option>
-                </select>
-            </div> --}}
             <input type="hidden" name="discountType" value="2" />
             @if(Auth::check())
                 <div class="col-md-2">
@@ -100,11 +93,14 @@
             @else
                 <input type="hidden" name="discoutValue" id="discoutValue" class="form-control" />
             @endif
-
+            <div class="col mt-3">
+                <label for="open-mattress">
+                    <input id="open-mattress" type="checkbox" name="open_mattress" value="1" />
+                    <b>Open Mattress Final Sale</b>
+                </label>
+            </div>
         </div>
-
         <br/>
-
         <div class="row">
             <div class="col-md-5">
                 <h3><b>COST:</b> $<span class="show_price">{{$price}}</span></h3>
@@ -120,7 +116,6 @@
          <input type="hidden" name="product_size" id="product_size" value="{{ $size }}" class="form-control" />
         @csrf
         {{ Form::close() }}
-
         <hr/>
     </div>
 </div>
