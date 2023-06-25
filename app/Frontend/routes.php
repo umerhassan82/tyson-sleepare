@@ -8,6 +8,7 @@ Route::prefix('uploads/products/')->group(function () {
 Auth::routes();
 Route::group(['middleware' => 'shop'], function () {
     Route::get('/', ['as' => 'home', 'uses' => 'HomeController@index']);
+    Route::get('/email', ['as' => 'home', 'uses' => 'CheckoutController@emailTest']);
     Route::get('/test/curl', ['as' => '/test/curl', 'uses' => 'HomeController@testCurl']);
     Route::get('/get/keywords/{value?}', 'HomeController@getKeywords');
     Route::get('/api/orders', 'OrderController@getOrders');

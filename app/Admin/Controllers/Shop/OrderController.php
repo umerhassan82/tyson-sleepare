@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Admin\Controllers\Shop;
 
 use App\Http\Controllers\Controller;
@@ -54,15 +55,15 @@ class OrderController extends Controller
             $grid->column('Products')->display(function () {
                 $items = OrderItem::where('order_id', $this->id)->get();
                 $html = array();
-                foreach($items as $key => $item){
+                foreach ($items as $key => $item) {
                     $product = Product::find($item->product_id);
-                    if(!empty($product))
+                    if (!empty($product))
                         $name = $product->title;
                     else
                         $name = '';
-                    $html[] =  ($key+1).": ".$product->title.' x '.($item->qty>1? $item->qty : 1);
+                    $html[] =  ($key + 1) . ": " . $product->title . ' x ' . ($item->qty > 1 ? $item->qty : 1);
                 }
-                if(count($html) > 0)
+                if (count($html) > 0)
                     return implode("<br />", $html);
                 else
                     return '';
@@ -71,11 +72,11 @@ class OrderController extends Controller
             $grid->column('Size')->display(function () {
                 $items = OrderItem::where('order_id', $this->id)->get();
                 $html = array();
-                foreach($items as $key => $item){
-                    if(!empty($item->size))
-                        $html[] =  ($key+1).": ".$item->size;
+                foreach ($items as $key => $item) {
+                    if (!empty($item->size))
+                        $html[] =  ($key + 1) . ": " . $item->size;
                 }
-                if(count($html) > 0)
+                if (count($html) > 0)
                     return implode("<br />", $html);
                 else
                     return '';
@@ -84,15 +85,14 @@ class OrderController extends Controller
             $grid->column('Firmness')->display(function () {
                 $items = OrderItem::where('order_id', $this->id)->get();
                 $html = array();
-                foreach($items as $key => $item){
-                    if(!empty($item->firmness))
-                        $html[] =  ($key+1).": ".$item->firmness;
+                foreach ($items as $key => $item) {
+                    if (!empty($item->firmness))
+                        $html[] =  ($key + 1) . ": " . $item->firmness;
                 }
-                if(count($html) > 0)
+                if (count($html) > 0)
                     return implode("<br />", $html);
                 else
                     return '';
-
             });
 
             // $grid->column('Status')->display(function () {
@@ -110,101 +110,100 @@ class OrderController extends Controller
             //     return '<span style="background-color:#'.$color.';padding: 8px 15px;text-align: center;color: #fff;">'.ucfirst($this->tracking_receipt_status).'</span>';
             // })->setAttributes(['style' => 'padding:0px;vertical-align: middle;text-align: center;']);
 
-            $grid->column('tracking_receipt_status','Status')->editable('select', [
+            $grid->column('tracking_receipt_status', 'Status')->editable('select', [
                 'submitted' => 'Submitted',
                 'processed' => 'Processed',
                 'sent'      => 'Sent'
             ]);
 
-            
-            $grid->column("")->display(function(){
+
+            $grid->column("")->display(function () {
 
                 $text = $this->tracking_receipt_status;
                 $color = '';
                 if (strpos($text, 'submitted') !== false) {
                     $color = 'fb8801'; // orange
-                }else if(strpos($text, 'processed') !== false){
+                } else if (strpos($text, 'processed') !== false) {
                     $color = '00aeed'; // blue
-                }else if(strpos($text, 'sent') !== false){
+                } else if (strpos($text, 'sent') !== false) {
                     $color = '457a33'; //green
                 }
-                return '<span style="background-color:#'.$color.';padding: 8px 15px;text-align: center;color: #fff;"></span>';
+                return '<span style="background-color:#' . $color . ';padding: 8px 15px;text-align: center;color: #fff;"></span>';
             });
 
 
-            $grid->column("Shipping Options")->display(function(){
+            $grid->column("Shipping Options")->display(function () {
                 $shippingD = '';
-                if(!empty($this->shipping_type)){
-                    switch($this->shipping_type){
+                if (!empty($this->shipping_type)) {
+                    switch ($this->shipping_type) {
                         case 1:
                             $shippingD .= '<h4>Regular shipping immediatly</h4>';
-                            $shippingD .= '<p><b>Assembly</b>: '.($this->option_1_1 == 1? "Yes" : "No").'</p>';
-                            $shippingD .= '<p><b>Mattress Removal</b>: '.($this->option_1_2 == 1? "Yes" : "No").'</p>';
-                        break;
+                            $shippingD .= '<p><b>Assembly</b>: ' . ($this->option_1_1 == 1 ? "Yes" : "No") . '</p>';
+                            $shippingD .= '<p><b>Mattress Removal</b>: ' . ($this->option_1_2 == 1 ? "Yes" : "No") . '</p>';
+                            break;
                         case 2:
                             $shippingD .= '<h4>White Glove shipping immediately</h4>';
-                            $shippingD .= '<p><b>Assembly</b>: '.($order->option_2_1 == 1? "Yes" : "No").'</p>';
-                            $shippingD .= '<p><b>Mattress Removal</b>: '.($order->option_2_2 == 1? "Yes" : "No").'</p>';
-                        break;
+                            $shippingD .= '<p><b>Assembly</b>: ' . ($this->option_2_1 == 1 ? "Yes" : "No") . '</p>';
+                            $shippingD .= '<p><b>Mattress Removal</b>: ' . ($this->option_2_2 == 1 ? "Yes" : "No") . '</p>';
+                            break;
                         case 3:
                             $shippingD .= '<h4>Picked up</h4>';
-                            $shippingD .= '<p><b>Picked up</b>: '.$this->option_3_1.'</p>';
-                        break;
+                            $shippingD .= '<p><b>Picked up</b>: ' . $this->option_3_1 . '</p>';
+                            break;
                         case 4:
                             $shippingD .= '<h4>Will Pick up</h4>';
-                            $shippingD .= '<p><b>Product in stock</b>: '.($this->option_4_1 == 1? "Yes" : "No").'</p>';
-                        break;
+                            $shippingD .= '<p><b>Product in stock</b>: ' . ($this->option_4_1 == 1 ? "Yes" : "No") . '</p>';
+                            break;
                         case 5:
                             $shippingD .= '<h4>Partly Pick up</h4>';
-                            $shippingD .= '<p><b>Please specify what was picked up and suppose to be ordered</b>: '.$this->option_5_1.'</p>';
-                        break;
+                            $shippingD .= '<p><b>Please specify what was picked up and suppose to be ordered</b>: ' . $this->option_5_1 . '</p>';
+                            break;
                         case 6:
                             $shippingD .= '<h4>Delayed - Regular</h4>';
-                            $shippingD .= '<p><b>Please enter the first day when you will be ready to receive the product</b>: '.$this->option_6_1.'</p>';
-                        break;
+                            $shippingD .= '<p><b>Please enter the first day when you will be ready to receive the product</b>: ' . $this->option_6_1 . '</p>';
+                            break;
                         case 7:
                             $shippingD .= '<h4>Delayed - White Glove</h4>';
-                            $shippingD .= '<p><b>Please choose a date to deliver</b>: '.$this->option_7_1.'</p>';
-                            $shippingD .= '<p><b>Is there a specific time you prefer?</b>: '.($this->option_7_2 == 1? "Yes" : "No").'</p>';
-                            $shippingD .= '<p><b>Morning/Afternoon</b>: '.$this->option_7_3.'</p>';
-                            $shippingD .= '<p><b>Assembly</b>: '.($order->option_7_4 == 1? "Yes" : "No").'</p>';
-                            $shippingD .= '<p><b>Mattress Removal</b>: '.($order->option_7_5 == 1? "Yes" : "No").'</p>';
-                        break;
+                            $shippingD .= '<p><b>Please choose a date to deliver</b>: ' . $this->option_7_1 . '</p>';
+                            $shippingD .= '<p><b>Is there a specific time you prefer?</b>: ' . ($this->option_7_2 == 1 ? "Yes" : "No") . '</p>';
+                            $shippingD .= '<p><b>Morning/Afternoon</b>: ' . $this->option_7_3 . '</p>';
+                            $shippingD .= '<p><b>Assembly</b>: ' . ($this->option_7_4 == 1 ? "Yes" : "No") . '</p>';
+                            $shippingD .= '<p><b>Mattress Removal</b>: ' . ($this->option_7_5 == 1 ? "Yes" : "No") . '</p>';
+                            break;
                     }
                 }
 
                 return $shippingD;
             });
 
-            
+
             $grid->comment()->editable();
             $grid->total()->editable();
-            
+
             $grid->disableExport();
             //$grid->disableFilter();
 
             $grid->origin("From")->display(function () {
                 return ucfirst($this->origin);
             });
-            
+
             $grid->created_at()->display(function () {
                 return date('Y-m-d H:i A', strtotime($this->created_at));
             });
 
-            $grid->filter(function($filter){
+            $grid->filter(function ($filter) {
 
                 // Remove the default id filter
                 $filter->disableIdFilter();
-            
+
                 // Add a column filter
                 $filter->like('first_name', 'First Name');
 
                 // $filter->like('Products', 'Products');
 
                 $filter->scope('trashed', 'Trashed')->onlyTrashed();
-            
             });
-            
+
 
             $grid->actions(function ($actions) {
                 $actions->disableView();
@@ -220,7 +219,6 @@ class OrderController extends Controller
             $item->resource('/order/items');
             $item->id();
         });
-    
     }
 
     /**
@@ -250,7 +248,7 @@ class OrderController extends Controller
                 $grid->column('price')->editable();
                 $grid->order_id();
             }))
-            ->row($this->form($id)->edit($id));
+                ->row($this->form($id)->edit($id));
         });
     }
 
@@ -285,7 +283,7 @@ class OrderController extends Controller
     {
         return Order::form(function (Form $form) use ($id) {
 
-            if(!empty($id)){
+            if (!empty($id)) {
 
                 // $items = OrderItem::where('order_id', $id)->get();
                 $order = Order::find($id);
@@ -309,12 +307,12 @@ class OrderController extends Controller
                     <table style="width:100%;">
                         <tr>
                             <td style="border:1px solid #ccc; padding:10px;">1/1</td>
-                            <td style="border:1px solid #ccc; padding:10px;">'.$order->first_name.'</td>
-                            <td style="border:1px solid #ccc; padding:10px;">'.$order->last_name.'</td>
-                            <td style="border:1px solid #ccc; padding:10px;">'.implode("<br />", $prodcts).'</td>
-                            <td style="border:1px solid #ccc; padding:10px;">'.$order->email.'</td>
-                            <td style="border:1px solid #ccc; padding:10px;">'.$order->phone.'</td>
-                            <td style="border:1px solid #ccc; padding:10px;">'.$order->address.', '.$order->apartment_num.' '.$order->state.' '.$order->zipcode.'</td>
+                            <td style="border:1px solid #ccc; padding:10px;">' . $order->first_name . '</td>
+                            <td style="border:1px solid #ccc; padding:10px;">' . $order->last_name . '</td>
+                            <td style="border:1px solid #ccc; padding:10px;">' . implode("<br />", $prodcts) . '</td>
+                            <td style="border:1px solid #ccc; padding:10px;">' . $order->email . '</td>
+                            <td style="border:1px solid #ccc; padding:10px;">' . $order->phone . '</td>
+                            <td style="border:1px solid #ccc; padding:10px;">' . $order->address . ', ' . $order->apartment_num . ' ' . $order->state . ' ' . $order->zipcode . '</td>
                         </tr>
                     </table>
 
@@ -336,46 +334,46 @@ class OrderController extends Controller
 
                 // echo($order->shipping_type);
 
-                if(!empty($order->shipping_type)){
+                if (!empty($order->shipping_type)) {
                     $shippingD = '<h2>Shipping Options</h2>';
-                    switch($order->shipping_type){
+                    switch ($order->shipping_type) {
                         case 1:
                             $shippingD .= '<h4>Regular shipping immediatly</h4>';
-                            $shippingD .= '<p><b>Assembly</b>: '.($order->option_1_1 == 1? "Yes" : "No").'</p>';
-                            $shippingD .= '<p><b>Mattress Removal</b>: '.($order->option_1_2 == 1? "Yes" : "No").'</p>';
-                        break;
+                            $shippingD .= '<p><b>Assembly</b>: ' . ($order->option_1_1 == 1 ? "Yes" : "No") . '</p>';
+                            $shippingD .= '<p><b>Mattress Removal</b>: ' . ($order->option_1_2 == 1 ? "Yes" : "No") . '</p>';
+                            break;
                         case 2:
                             $shippingD .= '<h4>White Glove shipping immediately</h4>';
-                            $shippingD .= '<p><b>Assembly</b>: '.($order->option_2_1 == 1? "Yes" : "No").'</p>';
-                        break;
+                            $shippingD .= '<p><b>Assembly</b>: ' . ($order->option_2_1 == 1 ? "Yes" : "No") . '</p>';
+                            break;
                         case 3:
                             $shippingD .= '<h4>Picked up</h4>';
-                            $shippingD .= '<p><b>Picked up</b>: '.$order->option_3_1.'</p>';
-                        break;
+                            $shippingD .= '<p><b>Picked up</b>: ' . $order->option_3_1 . '</p>';
+                            break;
                         case 4:
                             $shippingD .= '<h4>Will Pick up</h4>';
-                            $shippingD .= '<p><b>Product in stock</b>: '.($order->option_4_1 == 1? "Yes" : "No").'</p>';
-                        break;
+                            $shippingD .= '<p><b>Product in stock</b>: ' . ($order->option_4_1 == 1 ? "Yes" : "No") . '</p>';
+                            break;
                         case 5:
                             $shippingD .= '<h4>Partly Pick up</h4>';
-                            $shippingD .= '<p><b>Please specify what was picked up and suppose to be ordered</b>: '.$order->option_5_1.'</p>';
-                        break;
+                            $shippingD .= '<p><b>Please specify what was picked up and suppose to be ordered</b>: ' . $order->option_5_1 . '</p>';
+                            break;
                         case 6:
                             $shippingD .= '<h4>Delayed - Regular</h4>';
-                            $shippingD .= '<p><b>Please enter the first day when you will be ready to receive the product</b>: '.$order->option_6_1.'</p>';
-                        break;
+                            $shippingD .= '<p><b>Please enter the first day when you will be ready to receive the product</b>: ' . $order->option_6_1 . '</p>';
+                            break;
                         case 7:
                             $shippingD .= '<h4>Delayed - White Glove</h4>';
-                            $shippingD .= '<p><b>Please choose a date to deliver</b>: '.$order->option_7_1.'</p>';
-                            $shippingD .= '<p><b>Is there a specific time you prefer?</b>: '.($order->option_7_2 == 1? "Yes" : "No").'</p>';
-                            $shippingD .= '<p><b>Morning/Afternoon</b>: '.$order->option_7_3.'</p>';
-                        break;
+                            $shippingD .= '<p><b>Please choose a date to deliver</b>: ' . $order->option_7_1 . '</p>';
+                            $shippingD .= '<p><b>Is there a specific time you prefer?</b>: ' . ($order->option_7_2 == 1 ? "Yes" : "No") . '</p>';
+                            $shippingD .= '<p><b>Morning/Afternoon</b>: ' . $order->option_7_3 . '</p>';
+                            break;
                     }
                 }
 
                 $form->html($shippingD);
-                
-                $form->html('<h2>Email</h2>'.$email);
+
+                $form->html('<h2>Email</h2>' . $email);
             }
 
             $form->divider();
@@ -395,17 +393,17 @@ class OrderController extends Controller
 
             $form->switch('option_1_1', 'Assembly');
             $form->switch('option_1_2', "Mattress Removal");
-        
-            $form->switch('option_2_1','Assembly');
 
-            $form->text('option_3_1','Picked up')->default('Print Receipt with delivered certificate');
-            
+            $form->switch('option_2_1', 'Assembly');
+
+            $form->text('option_3_1', 'Picked up')->default('Print Receipt with delivered certificate');
+
 
             $form->switch('option_4_1', "Product in stock");
 
-            $form->text('option_5_1','Please specify what was picked up and suppose to be ordered')->setGroupClass("test");
+            $form->text('option_5_1', 'Please specify what was picked up and suppose to be ordered')->setGroupClass("test");
 
-            $form->date('option_6_1',"Please enter the first day when you will be ready to receive the product");
+            $form->date('option_6_1', "Please enter the first day when you will be ready to receive the product");
 
             $form->date('option_7_1', "Please choose a date to deliver");
             $form->switch('option_7_2', "Is there a specific time you prefer?");
@@ -432,7 +430,7 @@ class OrderController extends Controller
             $form->text('apartment_num');
             $form->text('state');
             $form->text('zipcode');
-            
+
             $form->text('count');
             $form->text('status');
             $form->select('tracking_receipt_status')
