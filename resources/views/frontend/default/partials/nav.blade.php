@@ -11,7 +11,7 @@
             <a href="/cart" class="btn btn-success" style="margin-right:15px">
                 Cart ({{ $cart_qty }})
             </a>
-            {{ Form::open(['route' => 'search', 'method' => 'post', 'class' => 'form-inline my-2 my-lg-0']) }}
+            {{ Form::open(['route' => 'search', 'method' => 'get', 'class' => 'form-inline my-2 my-lg-0']) }}
             <div class="input-group">
                 {{ Form::text('Search', old('story'), ['class' => 'form-control', 'placeholder' => 'Search', 'name' => 'story' ]) }}             
                 <div class="input-group-append">

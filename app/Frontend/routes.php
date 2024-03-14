@@ -24,7 +24,7 @@ Route::group(['middleware' => 'shop'], function () {
     Route::get('cart', ['as' => 'cart.index', 'uses' => 'CartController@index']);
     Route::post('cart', ['as' => 'cart.store', 'uses' => 'CartController@store']);
     Route::get('cart/{id}', ['as' => 'cart.destroy', 'uses' => 'CartController@destroy']);
-    Route::post('search', ['as' => 'search', 'uses' => 'SearchController@index']);
+    Route::get('search', ['as' => 'search', 'uses' => 'SearchController@index']);
     Route::get('search/{story}', ['as' => 'search.index', 'uses' => 'SearchController@index']);
     Route::get('{slug}.html', ['as' => 'pages.index', 'uses' => 'PageController@index']);
     Route::post('orders', ['as' => 'orders.store', 'uses' => 'OrderController@store']);
