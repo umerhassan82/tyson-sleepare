@@ -10,7 +10,7 @@
     <div class="col-md-12">
         <h3>
             <?php if( count($products) > 0 ): ?>
-                Found: <?php echo e(count($products), false); ?>
+                Found: <?php echo e($products->total(), false); ?>
 
             <?php else: ?>
                 Search Result

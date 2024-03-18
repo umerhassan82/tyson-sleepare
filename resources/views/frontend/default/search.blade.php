@@ -11,7 +11,7 @@
     <div class="col-md-12">
         <h3>
             @if ( count($products) > 0 )
-                Found: {{ count($products) }}
+                Found: {{ $products->total() }}
             @else
                 Search Result
             @endif

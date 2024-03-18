@@ -12,7 +12,7 @@
             <a href="/cart" class="btn btn-success" style="margin-right:15px">
                 Cart (<?php echo e($cart_qty, false); ?>)
             </a>
-            <?php echo e(Form::open(['route' => 'search', 'method' => 'post', 'class' => 'form-inline my-2 my-lg-0']), false); ?>
+            <?php echo e(Form::open(['route' => 'search', 'method' => 'get', 'class' => 'form-inline my-2 my-lg-0']), false); ?>
 
             <div class="input-group">
                 <?php echo e(Form::text('Search', old('story'), ['class' => 'form-control', 'placeholder' => 'Search', 'name' => 'story' ]), false); ?>             
