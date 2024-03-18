@@ -24,7 +24,7 @@
             @include('frontend.'.config('template').'.partials.short_products')
         @endforeach
 
-        <div class="clearfix"></div>
+        <div class="clearfix w-100"></div>
 
         <div class="text-center">
             {{ $products->links() }}

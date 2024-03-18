@@ -24,7 +24,7 @@
             <?php echo $__env->make('frontend.'.config('template').'.partials.short_products', \Illuminate\Support\Arr::except(get_defined_vars(), array('__data', '__path')))->render(); ?>
         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
-        <div class="clearfix"></div>
+        <div class="clearfix w-100"></div>
 
         <div class="text-center">
             <?php echo e($products->links(), false); ?>
