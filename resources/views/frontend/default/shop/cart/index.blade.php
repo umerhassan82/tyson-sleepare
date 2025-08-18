@@ -68,6 +68,12 @@
                                   </h4>
                                   <input type="hidden" id="cart_tax" name="cart_tax" value="{{ round($cart_tax, 2) }}" class="form-control">
                               </div>
+                              <div class="col-md-12 pr-0">
+                                  <h4 class="mt-2">
+                                      <b>Exclude tax:</b>
+                                      <span><input type="checkbox" id="exclude_tax" name="exclude_tax"></span>
+                                  </h4>
+                              </div>
                               <div class="col-md-12 mb-4 mt-3">
                                   <h4 class="mt-2">
                                       <b>Grand Total:</b> 
@@ -315,6 +321,10 @@
                     updateGrandTotal();
                 });
 
+                $(document).on("change", "#exclude_tax", function () { 
+                    updateGrandTotal();
+                });
+
                 $(document).on("change", ".removal-shipping", function(){
                     var shippingValue = $(this).val();
                     var productValue = $(this).attr('data-product');
@@ -351,7 +361,13 @@
                     });
 
                     var total = +getCurrentTotal + +totalShippingCost;
-                    var taxTotal = (+total * 6) / 100;
+                    
+                    var taxValue = 6;
+                    if ($('#exclude_tax').is(':checked')) {
+                        taxValue = 0;
+                    }
+
+                    var taxTotal = (+total * taxValue) / 100;
                     var grandTotal = +getCurrentTotal + +totalShippingCost + +taxTotal;
 
                     $("#shipping-cost").val(totalShippingCost);
