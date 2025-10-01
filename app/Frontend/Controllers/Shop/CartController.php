@@ -18,6 +18,7 @@ class CartController extends Controller
     public function index()
     {
         $cart_data = [];
+        $totalDiscount = 0;
         foreach (LaraCart::getItems() as $item) {
             $cart_data[$item->id]['id']         = $item->id;
             $cart_data[$item->id]['name']       = $item->name;
@@ -34,10 +35,20 @@ class CartController extends Controller
             $cart_data[$item->id]['product_id'] = $item->product_id;
             $cart_data[$item->id]['open_mattress']  = $item->open_mattress;
             $cart_data[$item->id]['hash']           = $item->getHash();
+            $totalDiscount += (float)$item->discount_value * (int)$item->qty;
         }
         $total = LaraCart::total($formatted = false, $withDiscount = true);
         $persons = SalesPerson::all()->pluck('name', 'slug');
-        return view('frontend.' . config('template') . '.shop.cart.index', ['cart' => $cart_data, 'persons' => $persons, 'total' => $total, 'close' => true]);
+        return view(
+            'frontend.' . config('template') . '.shop.cart.index',
+            [
+                'cart' => $cart_data,
+                'persons' => $persons,
+                'total' => $total,
+                'close' => true,
+                'totalDiscount' => $totalDiscount,
+            ]
+        );
     }
 
     /**

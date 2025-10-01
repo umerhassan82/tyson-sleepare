@@ -1,3 +1,9 @@
+<style>
+    .product-price b{
+        width: 70px;
+        display: inline-block;
+    }
+</style>
 <div class="card">
     <div class="card-body">
         <div class="row">
@@ -144,13 +150,14 @@
             <div class="col-md-2">
                 <input {{ auth::check() ? '' : 'readonly' }} class="form-control item-shipping-cost" type="number" name="itemShippingCost[]" id="shippingCost-{{ $item['hash'] }}" value="0.0">
             </div>
-            <div class="col-md-2 text-center">
+            <div class="col-md-2 product-price">
                 <?php
                     if(isset($item["dis_value"]) && !empty($item["dis_value"])){
-                        echo('<del>$'.$item['full_price'] * config('rate').'</del><br />');
+                        echo('<b>Original:</b> <span>$'.$item['full_price'] * config('rate').'</span><br />');
+                        echo('<b>Discount:</b> <span>$'. number_format($item['dis_value'] * config('rate'), 2) . '</span><br');
                     }
                 ?>
-                ${{ number_format($item['cost'] * config('rate'), 2) }}
+                <span><b>Final:</b> ${{ number_format($item['cost'] * config('rate'), 2) }}</span>
             </div>
         </div>
     </div>
