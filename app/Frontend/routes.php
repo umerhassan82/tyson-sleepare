@@ -14,6 +14,11 @@ Route::group(['middleware' => 'shop'], function () {
     Route::get('/api/orders', 'OrderController@getOrders');
     Route::get('/cancel/order/{id}', 'CheckoutController@cencelOrder');
     Route::post('/cancel/request/order/{id}', 'CheckoutController@cancelOrderRequest');
+    
+    Route::get('/order/payment/{id?}', 'NotificationController@generatePaymentLink');
+    Route::get('/order/link/thankyou', ['as' => '/order/link/thankyou', 'uses' => 'NotificationController@thankyou']);
+    Route::post('/order/pay/link', 'CheckoutController@payViaLink');
+
     Route::post('checkout', ['as' => 'checkout', 'uses' => 'CheckoutController@proceedPayment']);
     Route::get('/formdata/{data?}', ['as' => '/formdata', 'uses' => 'CheckoutController@savesession']);
     Route::post('place-order', ['as' => 'place-order', 'uses' => 'CheckoutController@proceedPayment']);

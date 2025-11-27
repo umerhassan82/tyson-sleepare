@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Stripe\Stripe;
 use Stripe\Charge;
+use Stripe\PaymentIntent;
 use Redirect;
 use App\Models\Shop\Order;
 // use LukePOLO\LaraCart;
@@ -17,6 +18,210 @@ use Twilio\Rest\Client;
 
 class CheckoutController extends Controller
 {
+    public function payViaLink(Request $request)
+    {
+        try {
+            $stripeConfig = \Config::get('services');
+            Stripe::setApiKey($stripeConfig["stripe"]["secret"]);
+            \Log::info('app.requests', ['request' => $request->all(), 'Method' => 'link']);
+
+            // Get payment intent ID from request
+            $payment_intent_id = $request->payment_intent_id;
+
+            // Retrieve the PaymentIntent to get the payment details
+            $paymentIntent = PaymentIntent::retrieve($payment_intent_id);
+
+            $order = Order::find($request->order_id);
+            if ($order->ask_details == 1) {
+                $order->address = $request->shipping_address;
+                $order->phone = $request->mobile_number;
+                $order->findus = $request->findus;
+                $order->email = $request->user_email;
+                $order->state = $request->shipping_state;
+                $order->zipcode = $request->shipping_zip;
+                $order->assisted = $request->assisted;
+            }
+            $order->paid = 1;
+            $order->payment_type = 2;
+            $order->transaction_id = $payment_intent_id;
+            $order->save();
+            $this->sendEmail($request->order_id);
+            return Redirect::route('/order/link/thankyou');
+        } catch (\Exception $e) {
+            return Redirect::route('cancelled')->withErrors('Error! ' . $e->getMessage());
+        }
+    }
+
+    public function sendEmail($order_id)
+    {
+        $orderID = $order_id;
+        $order = order::find($orderID);
+        $date = date('Y/m/d');
+        $customerName = $order->first_name . " " . $order->last_name;
+        $totalCost = $order->total;
+        $shippingAddress = '
+            <p style="font-family:sans-serif;margin:0px">' . $customerName . '</p>
+            <p style="font-family:sans-serif;margin:0px">' . $order->address . ', ' . $order->apartment_num . ' ' . $order->zipcode . '</p>
+        ';
+
+        $items = OrderItem::where('order_id', $order->id)->get();
+        $orderItems = '';
+        $subjectNames = array();
+
+        foreach ($items as $item) {
+            $product = Product::find($item->product_id);
+            $imagePath = str_replace(" ", "%20", 'https://newyork.sleepare.com/uploads/' . $product->photo);
+            $subjectNames[] = $product->title;
+            $orderItems .= '
+                <tr style="font-family:sans-serif">
+                    <td style="color:rgb(63,63,60);font-size:16px;font-family:sans-serif;border-collapse:collapse;padding:30px" bgcolor="#ffffff" align="left">
+                        <table style="font-family:sans-serif" cellspacing="0" cellpadding="0" border="0">
+                            <tbody style="font-family:sans-serif">
+                                <tr style="font-family:sans-serif">
+                                    <td style="padding-right:20px;font-family:sans-serif;border-collapse:collapse" width="33%" align="left">
+                                        <img src="' . $imagePath . '" style="max-width:175px;font-family:sans-serif" width="175" align="left">
+                                    </td>
+                                    <td style="font-family:sans-serif;border-collapse:collapse" width="33%" valign="top" align="left">
+                                        <p style="font-family:sans-serif">' . $product->title . '<br style="font-family:sans-serif">
+                                            <br style="font-family:sans-serif"> Quantity: ' . $item->qty . '
+                                            ' . (isset($item->firmness) && $item->firmness <> "" ? '<br style="font-family:sans-serif"> Firmness: ' . $item->firmness : '') . '
+                                            ' . (isset($item->product_size) && $item->product_size <> "" ? '<br style="font-family:sans-serif"> Size: ' . $item->product_size : '') . '
+                                        </p>
+                                    </td>
+                                    <td style="font-family:sans-serif;border-collapse:collapse" width="33%" valign="top" align="right">
+                                        <p style="font-family:sans-serif">$' . $item->price . '</p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+                ';
+        } // end foreach
+        $empID = 'Sleepare';
+        $emailFrom = 'info@sleepare.com';
+        $password = 'ftvahfkneuxkguwr';
+        $sendTo = empty($order->email) ? $order->user_email : $order->email;
+        $txt = '
+            <div style="width:600px; margin:0 auto;">
+                <table style="font-family:sans-serif;margin:0px auto" width="600" cellspacing="0" cellpadding="0" border="0" align="center">
+                    <tbody>
+                        <tr style="font-family:sans-serif">
+                            <td style="font-family:sans-serif;border-collapse:collapse;padding:30px" width="60%" bgcolor="#ffffff" align="left">
+                                <a href="https://www.sleepare.com/" style="font-family:sans-serif" target="_blank">
+                                    <img alt="Sleepare" src="https://mk0sleeparej0clr43i7.kinstacdn.com/wp-content/themes/sleepare/images/logo.png" style="max-width:100%;vertical-align:top;color:rgb(63,63,60);font-size:14px;font-family:$
+                                </a>
+                            </td>
+                            <td style="font-family:sans-serif;border-collapse:collapse;padding:0px 30px 0px 0px" width="40%" align="right">
+                                <span style="font-size:10px;color:rgb(117,117,117);font-family:sans-serif">This email is confirming your order on ' . $date . '</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table>
+                    <tbody>
+                        <tr style="font-family:sans-serif">
+                            <td style="border-top:0px solid rgb(255,255,255);color:rgb(63,63,60);font-size:24px;line-height:34px;font-family:sans-serif;border-collapse:collapse;padding:0px 30px" bgcolor="#ffffff" align="left">
+                                <p style="font-size:18px;line-height:1.5;font-family:sans-serif">Hi, ' . $customerName . '!!</p>
+                                <p style="margin-bottom:0px;font-family:sans-serif">We\'ve received your order and we will get started on it right away.</p>
+                                <p style="font-family:sans-serif">What\'s next?</p>
+                                <ul style="font-size:16px;font-family:sans-serif">
+                                    <li style="margin-bottom:8px;line-height:1.5;font-family:sans-serif">
+                                        <b style="font-family:sans-serif">Mattress Orders:</b> Allow 1-2 business days for our team to build and compress your mattress before it’s boxed and placed on the truck for delivery.
+                                    </li>
+                                    <li style="margin-bottom:8px;line-height:1.5;font-family:sans-serif">
+                                        <b style="font-family:sans-serif">Tracking Number:</b> You will receive notification that your order has shipped 2-5 business days from when you placed the order.
+                                    </li>
+                                    <li style="margin-bottom:8px;line-height:1.5;font-family:sans-serif">
+                                        <b style="font-family:sans-serif">Delivery:</b> After receiving your shipping notification, <b style="font-family:sans-serif"><em>allow 7-10 business days for delivery</em>.</b>
+                                    </li>
+                                </ul>
+                                <p style="font-size:16px;color:rgba(0,0,0,0.54);font-family:sans-serif">Other things to note:</p>
+                                <ul style="font-size:16px;color:rgba(0,0,0,0.54);font-family:sans-serif">
+                                    <li style="margin-bottom:8px;line-height:1.5;font-family:sans-serif">
+                                        Products are shipped separately from various warehouse locations.
+                                    </li>
+                                    <li style="margin-bottom:8px;line-height:1.5;font-family:sans-serif">
+                                        <b style="font-family:sans-serif">White-Glove Delivery:</b> You will receive a call from the delivery agent within 1-2 weeks to schedule your delivery date and time.
+                                    </li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr style="font-family:sans-serif">
+                            <td style="color:rgb(63,63,60);font-size:16px;font-family:sans-serif;border-collapse:collapse;padding:30px" bgcolor="#F2F3F4" align="left">
+                                <table style="color:rgb(63,63,60);font-size:16px;font-family:sans-serif" width="100%" cellspacing="0" cellpadding="0" border="0" bgcolor="#F2F3F4">
+                                    <tbody>
+                                        <tr style="font-family:sans-serif">
+                                            <td style="font-family:sans-serif;border-collapse:collapse">
+                                                <p style="font-size:16px;font-weight:bold;font-family:sans-serif;margin:0px">Shipping address</p>
+                                                ' . $shippingAddress . '
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                        ' . $orderItems . '
+                        <tr style="font-family:sans-serif">
+                            <td style="color:rgb(63,63,60);font-size:16px;border-bottom:2px solid rgb(227,227,227);border-top:2px solid rgb(227,227,227);font-family:sans-serif;border-collapse:collapse;padding:30px" bgcolor="#ffffff" align="right">
+                                <p style="margin-bottom:10px;font-family:sans-serif"><span style="color:rgb(162,162,162);font-family:sans-serif">Shipping:</span> $0.00 USD</p>
+                                <p style="font-family:sans-serif;margin:0px"><span style="color:rgb(162,162,162);font-family:sans-serif">Total:</span><span style="font-size:18px;font-weight:bold;font-family:sans-serif"> $' . $totalCost  . ' USD</span></p>
+                            </td>
+                        </tr>
+                        <tr style="font-family:sans-serif">
+                            <td style="color:rgb(63,63,60);font-family:sans-serif;border-collapse:collapse;padding:24px" align="center"><br></td>
+                        </tr>
+                        <tr style="font-family:sans-serif">
+                            <td style="color:rgb(169,169,169);font-size:12px;font-family:sans-serif;border-collapse:collapse">
+                                <table style="color:rgb(169,169,169);font-size:12px;text-align:center;font-family:sans-serif;padding:0px 30px" width="100%" cellspacing="0" cellpadding="0" border="0">
+                                    <tbody style="font-family:sans-serif">
+                                        <tr style="font-family:sans-serif">
+                                            <td style="font-family:sans-serif;border-collapse:collapse" valign="top" align="center">
+                                                <p style="font-family:sans-serif">
+                                                <b style="font-family:sans-serif">Questions or concerns?</b><br style="font-family:sans-serif">We\'re hear to help. Our office hours are <b>Weekdays</b> 10:00 am to 08:30 pm <b>Saturday</b> 10:00 am to 07:30 pm <b>Sunday</b> 10:00 am to 06:30 pm.</p>
+                                                <p style="font-family:sans-serif">Call Us <a href="tel:+13479800044" style="color:rgb(169,169,169);text-decoration:underline;font-weight:normal;font-family:sans-serif" target="_blank">+1 (347) 980-0044</a></p>
+                                                <p style="font-family:sans-serif">Email <a href="mailto:info@sleepare.com" style="color:rgb(169,169,169);text-decoration:underline;font-weight:normal;font-family:sans-serif" target="_blank">info@sleepare.com</a></p>
+                                            </td>
+                                        </tr>
+                                        <tr style="font-family:sans-serif">
+                                            <td style="font-family:sans-serif;border-collapse:collapse">
+                                                <p><a href="' . url('/pdf/shipping_and_returning.pdf') . '" target="_blank">Return Policy</a></p>
+                                                <p style="font-family:sans-serif">&copy;' . date('Y') . ' SleePare All rights reserved.</p>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>';
+        //checkmail
+        try {
+            $mail = new PHPMailer(true);                          // Passing `true` enables exceptions
+            $mail->isSMTP();                                      // Set mailer to use SMTP
+            $mail->Host = 'smtp.gmail.com';                       // Specify main and backup server
+            $mail->SMTPAuth = true;                               // Enable SMTP authentication
+            $mail->Username = $emailFrom;                          // SMTP username
+            $mail->Password = $password;                             // SMTP password
+            $mail->SMTPSecure = 'ssl';                            // Enable encryption, 'ssl' also accepted
+            $mail->Port = 465;                                    // Set the SMTP port number - 587 for authenticated TLS
+            $mail->setFrom($emailFrom, $empID);                        // Set who the message is to be sent from
+            $mail->addAddress($sendTo, $order->first_name);            // Add a recipient
+            //$mail->addBCC($c_email);
+            // $mail->addCC($to);
+            $mail->isHTML(true);                                  // Set email format to HTML
+            $mail->Subject = 'Thank you ' . $customerName . ' for order of ' . implode(", ", $subjectNames) . ", Order #" . $orderID;
+            $mail->Body    = $txt;
+
+            if (!$mail->send()) {
+                return '<h1>Message could not be sent.<br />Mailer Error: ' . $mail->ErrorInfo . '</h1>';
+            }
+        } catch (\Exception $e) {
+            \Log::info($e->getMessage());
+        }
+    }
+
     public function proceedPayment(Request $request)
     {
 
